@@ -195,7 +195,7 @@
                             <a href="#" class="user_action_image"><img class="md-user-image" src="assets/img/avatars/engineer.png" alt=""/></a>
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
-                                    <li><a href="page_user_profile.html">My profile</a></li>
+                                    <li><a href="myProfile.html">My profile</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -222,7 +222,7 @@
         
         <div class="menu_section">
             <ul>
-                <li class="current_section" title="Home">
+                <li title="Home">
                     <a href="index.html">
                         <span class="menu_icon"><i class="material-icons">home</i></span>
                         <span class="menu_title">Home</span>
@@ -243,14 +243,14 @@
                     </a>
                     
                 </li>
-                <li title="MyTasks">
+                <li class="current_section" title="MyTasks">
                     <a href="MyTasks.html">
                         <span class="menu_icon"><i class="material-icons">person</i></span>
                         <span class="menu_title">My Tasks</span>
                     </a>
                 </li>
                 <li title="Help Center">
-                    <a href="page_scrum_board.html">
+                    <a href="helpcenter.html">
                         <span class="menu_icon"><i class="material-icons">help</i></span>
                         <span class="menu_title">Help Center</span>
                     </a>
@@ -271,124 +271,184 @@
     <div id="page_content">
         <div id="page_content_inner">
 
-            <div class="md-card">
-                <div class="md-card-content">
-                    <h3 class="heading_a">Currently Handled</h3>
-                    <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
-                       
-                        <div class="uk-width-large-1-3 uk-width-medium-1-2">
-                            <ul class="md-list md-list-addon">
-                                <li>
-
-                                    <div class="md-list-addon-element">
-                                        <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
-                                    </div>
-                                    <div class="md-list-content">
-                                        <span class="md-list-heading">Asset ID:</span>
-                                        <span class="md-list-heading">Alert Severity:</span>
-                                        <span class="md-list-heading">Asset has ..</span>
-                                        <span class="uk-text-small uk-text-muted"> 3 Hours</span>
-                                        
-                                    </div>
-                                    <div class="uk-width-medium-1-6">
-                                         <i class="md-btn md-btn-warning md-btn-wave-light" href="javascript:void(0)">ABANDON</i>
-                                    </div>
-                                    <div class="uk-width-medium-1-6">
-                                         <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="md-list-addon-element">
-                                        <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
-                                    </div>
-                                    <div class="md-list-content">
-                                        <span class="md-list-heading">Asset ID:</span>
-                                        <span class="md-list-heading">Alert Severity:</span>
-                                        <span class="md-list-heading">Asset has ..</span>
-                                        <span class="uk-text-small uk-text-muted"> 3 Hours</span>
-                                    </div>
-                                     <div class="uk-width-medium-1-6">
-                                    <a class="md-btn md-btn-warning md-btn-wave-light" href="javascript:void(0)">ABANDON</a>
-                                    </div>
-                                    <div class="uk-width-medium-1-6">
-                                    <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="md-list-addon-element">
-                                        <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
-                                    </div>
-                                    <div class="md-list-content">
-                                        <span class="md-list-heading">Asset ID:</span>
-                                        <span class="md-list-heading">Alert Severity:</span>
-                                        <span class="md-list-heading">Asset has ..</span>
-                                        <span class="uk-text-small uk-text-muted"> 3 Hours</span>
-                                    </div>
-                                     <div class="uk-width-medium-1-6">
-                                    <a class="md-btn md-btn-warning md-btn-wave-light" href="javascript:void(0)">ABANDON</a>
-                                    </div>
-                                    <div class="uk-width-medium-1-6">
-                                    <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
-                                    </div>
-                                </li>
-                            </ul>
+          <div class="uk-grid">
+            <div class="uk-width-medium-2-2">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <div class="uk-flex uk-flex-middle">
+                            <div class="uk-flex-item-1">
+                                <h2 class="heading_b">Resolved</h2>
+                            </div>
+                            <div>                               
+                            </div>
                         </div>
+                        <hr>
+                        <ul class="md-list md-list-addon uk-margin-top">
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
+                                </div>
+                                <div class="md-list-content">
+                                    <div class="uk-flex uk-flex-middle">
+                                        <div class="uk-width-8-10">
+                                            <h4 class="uk-margin-remove uk-text-truncate">
+                                               Asset ID: A001
+                                            </h4>
+                                            <p class="uk-margin-remove">Alet Severity: </p>
+                                            <p class="uk-margin-remove">Asset has.. </p>
+                                            <div>
+                                         <span class="uk-text-muted">3 Hours</span>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-medium-1-10">
+                                    <a class="md-btn md-btn-warning md-btn-wave-light" href="javascript:void(0)">ABANDON</a>
+                                    </div>
+                                    <div class="uk-width-medium-1-10">
+                                    <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
+                                    </div>
+                                    </div>
+                                </div>
+                            </li>
+                      
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
+                                </div>
+                                <div class="md-list-content">
+                                    <div class="uk-flex uk-flex-middle">
+                                        <div class="uk-width-8-10">
+                                            <h4 class="uk-margin-remove uk-text-truncate">
+                                               Asset ID: A001
+                                            </h4>
+                                            <p class="uk-margin-remove">Alet Severity: </p>
+                                            <p class="uk-margin-remove">Asset has.. </p>
+                                            <div>
+                                         <span class="uk-text-muted">3 Hours</span>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-medium-1-10">
+                                    <a class="md-btn md-btn-warning md-btn-wave-light" href="javascript:void(0)">ABANDON</a>
+                                    </div>
+                                    <div class="uk-width-medium-1-10">
+                                    <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
+                                    </div>
+                                    </div>
+                                </div>
+                            </li>
+                      
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
+                                </div>
+                                <div class="md-list-content">
+                                    <div class="uk-flex uk-flex-middle">
+                                        <div class="uk-width-8-10">
+                                            <h4 class="uk-margin-remove uk-text-truncate">
+                                               Asset ID: A001
+                                            </h4>
+                                            <p class="uk-margin-remove">Alet Severity: </p>
+                                            <p class="uk-margin-remove">Asset has.. </p>
+                                            <div>
+                                         <span class="uk-text-muted">3 Hours</span>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-medium-1-10">
+                                    <a class="md-btn md-btn-warning md-btn-wave-light" href="javascript:void(0)">ABANDON</a>
+                                    </div>
+                                    <div class="uk-width-medium-1-10">
+                                    <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
+                                    </div>
+                                    </div>
+                                </div>
+                            </li>
+                      
+                        </ul>
                     </div>
                 </div>
 
-            </div>
+              </div>
         </div>
-        <div id="page_content_inner">
-
-            <div class="md-card">
-                <div class="md-card-content">
-                    <h3 class="heading_a">Resolved</h3>
-                    <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
-                       
-                        <div class="uk-width-large-1-3 uk-width-medium-1-2">
-                            <ul class="md-list md-list-addon">
-                                <li>
-                                    <div class="md-list-addon-element">
-                                        <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
-                                    </div>
-                                    <div class="md-list-content">
-                                        <span class="md-list-heading">Asset ID:</span>
-                                        <span class="md-list-heading">Alert Severity:</span>
-                                        <span class="md-list-heading">Asset has ..</span>
-                                        <span class="uk-text-small uk-text-muted"> 3 Hours</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="md-list-addon-element">
-                                        <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
-                                    </div>
-                                    <div class="md-list-content">
-                                       <span class="md-list-heading">Asset ID:</span>
-                                        <span class="md-list-heading">Alert Severity:</span>
-                                        <span class="md-list-heading">Asset has ..</span>
-                                        <span class="uk-text-small uk-text-muted"> 3 Hours</span>
-                                    </div>
-                                   
-                                </li>
-                                <li>
-                                    <div class="md-list-addon-element">
-                                        <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
-                                    </div>
-                                    <div class="md-list-content">
-                                        <span class="md-list-heading">Asset ID:</span>
-                                        <span class="md-list-heading">Alert Severity:</span>
-                                        <span class="md-list-heading">Asset has ..</span>
-                                        <span class="uk-text-small uk-text-muted"> 3 Hours</span>
-                                    </div>
-                                </li>
-                            </ul>
+	
+          <div class="uk-grid">
+            <div class="uk-width-medium-2-2">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <div class="uk-flex uk-flex-middle">
+                            <div class="uk-flex-item-1">
+                                <h2 class="heading_b">Resolved</h2>
+                            </div>
+                            <div>                               
+                            </div>
                         </div>
+                        <hr>
+                        <ul class="md-list md-list-addon uk-margin-top">
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
+                                </div>
+                                <div class="md-list-content">
+                                    <div class="uk-flex uk-flex-middle">
+                                        <div class="uk-width-8-10">
+                                            <h4 class="uk-margin-remove uk-text-truncate">
+                                               Asset ID: A001
+                                            </h4>
+                                            <p class="uk-margin-remove">Asset has.. </p>
+                                            <div>
+                                         <span class="uk-text-muted">3 Hours</span>
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                            </li>
+                      
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
+                                </div>
+                                <div class="md-list-content">
+                                    <div class="uk-flex uk-flex-middle">
+                                        <div class="uk-width-8-10">
+                                            <h4 class="uk-margin-remove uk-text-truncate">
+                                               Asset ID: A001
+                                            </h4>
+                                            <p class="uk-margin-remove">Asset has.. </p>
+                                            <div>
+                                         <span class="uk-text-muted">3 Hours</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                      
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <i class="material-icons md-36 uk-text-warning">&#xE156;</i>
+                                </div>
+                                <div class="md-list-content">
+                                    <div class="uk-flex uk-flex-middle">
+                                        <div class="uk-width-8-10">
+                                            <h4 class="uk-margin-remove uk-text-truncate">
+                                               Asset ID: A001
+                                            </h4>
+                                            <p class="uk-margin-remove">Asset has.. </p>
+                                            <div>
+                                         <span class="uk-text-muted">3 Hours</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                      
+                        </ul>
                     </div>
                 </div>
-                
-            </div>
+
+              </div>
         </div>
-    </div>
+	
+        
+        </div>
 
     <!-- google web fonts -->
     <script>
@@ -515,6 +575,7 @@
                 <label for="accordion_mode_main_menu" class="inline-label">Accordion mode</label>
             </p>
         </div>
+    </div>
     </div>
 
     <script>
