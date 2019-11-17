@@ -173,7 +173,7 @@
 
                         <div class="uk-grid">
                             <div class="uk-width-1-1">
-                                <button type="submit" id="submit" class="md-btn md-btn-primary">Submit</button>
+                                <button type="button" id="submit" class="md-btn md-btn-primary">Submit</button>
                             </div>
                         </div>
                     </form>   
@@ -388,7 +388,10 @@ var asset_model = "";
 var asset_id = "";
 var sensor_id= "";
       
+      
+      
 document.querySelector('#submit').addEventListener('click', () => {
+
 
 asset_type = document.getElementById("asset_type");
 asset_model = document.getElementById("asset_model");
@@ -403,16 +406,18 @@ sensor_id = document.getElementById("sensor_id").value;
 //    assets.add({Issues: { engID: "", severity: "", status: "", timestamp: "" }, loc: "", sensorID: "uyt"});
 
  const addAsset = asset => {
-    alert(asset);
     assets.add({Issues: { engID: "", severity: "", status: "", timestamp: "" }, loc: "", sensorID: asset});
     };
          
       
-firestore.collection("Models").doc("IPOWERFAN").collection("Assets").doc("0vR39iurILQb4CRxXxEF").delete().then(function() {
-    console.log("Document successfully deleted!");
-}).catch(function(error) {
-    console.error("Error removing document: ", error);
-});
+//firestore.collection("Models").doc("IPOWERFAN").collection("Assets").doc("0vR39iurILQb4CRxXxEF").delete().then(function() {
+//    console.log("Document successfully deleted!");
+//}).catch(function(error) {
+//    console.error("Error removing document: ", error);
+//});
+      
+      
+      
 //   firestore.collection("Models").get().then(function(querySnapshot) {
 //    querySnapshot.forEach(function(doc) {         
 //            
