@@ -4,18 +4,16 @@
 <html lang="en">
 <!--<![endif]-->
 
-<!-- Version 21 October-->
-
 <head>
+    <title>Assets</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no" />
-    <script src="assets/js//jquery-1.11.1.min.js"></script>
+    <script src="../static/assets/js/jquery-3.4.1.js"></script>
     <link rel="icon" type="image/png" href="../static/assets/img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="../static/assets/img/favicon-32x32.png" sizes="32x32">
-    <title>Assets</title>
     <link rel="stylesheet" href="../static/bower_components/weather-icons/css/weather-icons.min.css" media="all">
     <link rel="stylesheet" href="../static/bower_components/metrics-graphics/dist/metricsgraphics.css">
     <link rel="stylesheet" href="../static/bower_components/chartist/dist/chartist.min.css">
@@ -24,41 +22,19 @@
     <link rel="stylesheet" href="../static/assets/css/style_switcher.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/main.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/themes/themes_combined.min.css" media="all">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--CHARTS-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-    <!--Paper dashboard
-	<link href="assets/css/paper.bootstrap.min.css" rel="stylesheet" />
-	<link href="assets/css/paper-dashboard.min.css" rel="stylesheet" />-->
-    <!--Bootsnipp progress bar-->
-    <link href="../static/assets/css/bar.bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="../static/assets/js/bar.bootstrap.min.js"></script>
-    <style>
-        .progress {
-            height: 35px;
-        }
-        
-        .progress .skill {
-            font: normal 12px;
-            line-height: 35px;
-            padding: 0;
-            margin: 0 0 0 20px;
-            text-transform: uppercase;
-        }
-        
-        .progress .skill .val {
-            float: right;
-            font-style: normal;
-            margin: 0 20px 0 0;
-        }
-        
-        .progress-bar {
-            text-align: left;
-            transition-duration: 3s;
-        }
-    </style>
+    <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+    <script type="text/javascript" src="../static/assets/js/JSC/JSCharting.js"></script>
+    <script type="text/javascript" src="../static/assets/js/JSC/toolbar.js"></script>
+    <script type="text/javascript" src="../static/assets/js/JSC/types.js"></script>
+    <!-- google-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSNr9q34L8q0_vrBgXBfZvQD_zbVF13Ps" type="text/javascript"></script>
+
 </head>
 
-<body class="disable_transitions sidebar_main_open sidebar_main_swipe">
+<body class="disable_transitions sidebar_main_open sidebar_main_swipe" onload="read()">
     <!-- main header -->
     <header id="header_main">
         <div class="header_main_content">
@@ -306,189 +282,118 @@
     </aside>
     <!-- main sidebar end -->
     <!--page content-->
-    <div id="page_content">
+
+    <div id="page_content" background-color=" inherit">
         <div id="page_content_inner">
-            <!-- CHARTS-->
-			<!--METER-->
-			<div class="md-card">
-				<div style="width: 300px; hight: 250px">
-				</div>
-			</div>
-			<!--END METER-->
-            <!--Bar Charts-->
-			<div class="md-card" style="padding: 15px">
-            <div class="container">
-                <div class="row">
-                    <div class="progress skill-bar" style="margin: 0px">
-                        <div class="progress-bar progress-bar-tempreture" role="progressbar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100">
-                            <span class="skill">TEMPRETURE <i class="val">32°</i></span>
+            <!--ASSET INFO-->
+            <div class="uk-grid">
+                <div class="uk-width-medium-3-4">
+                    <div class="md-card">
+                        <div class="md-card-content">
+                            <span class="font-weight-bold text-muted">ASSET INFO</span>
+                            <table class="uk-table" style="width: 100%; margin-top: 20px;">
+                              <thead>
+                                <tr>
+                                  <th class="text-muted" scope="col">ASSET ID</th>
+                                  <th class="text-muted" scope="col">ASSET TYPE</th>
+                                  <th class="text-muted" scope="col">ASSET MAKE</th>
+                                  <th class="text-muted" scope="col">ASSET MODEL</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th class="font-weight-normal" id="info-id"></th>
+                                  <td class="font-weight-lighter" id="info-type"></td>
+                                  <td class="font-weight-lighter" id="info-make"></td>
+                                  <td class="font-weight-lighter" id="info-model"></td>
+                                </tr>
+                              </tbody>
+                            </table>
                         </div>
                     </div>
-				</div>
-			</div>
-			</div>
-
-			<div class="md-card" style="padding: 15px">
-            <div class="container">
-                <div class="row">
-                    <div class="progress skill-bar" style="margin: 0px">
-                        <div class="progress-bar progress-bar-speed" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                            <span class="skill">ROTATION SPEED<i class="val">20r/s</i></span>
-                        </div>
-                    </div>
-				</div>
-			</div>
-			</div>
-
-			<div class="md-card" style="padding: 15px">
-            <div class="container">
-                <div class="row">
-                    <div class="progress skill-bar" style="margin: 0px">
-                        <div class="progress-bar progress-bar-smoothness" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                            <span class="skill">ROTATION SMOOTHNESS<i class="val">90%</i></span>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="md-card">
+                        <div class="md-card-content">
+                            <span class="font-weight-bold text-muted">NEXT SCHEDULED MAINTENANCE</span>
+                            <h1 id="RUL"></h1>
                         </div>
                     </div>
                 </div>
             </div>
-			</div>
-            <!--Line chart-->
-			<div class="md-card">
-				<div style="padding:50px; margin: 50px">
-					<canvas id="LineChart" style="display: block; height: 158px; width: 316px; background-color: #FFFFFF;" width="474" height="237" class="chartjs-render-monitor"></canvas>
-				</div>
-			</div>
-            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
-                <div class="uk-width-medium-2-3">
+            <!-- CHARTS-->
+            <!--GAUGE CHART-->
+            <div class="uk-grid">
+                <div class="uk-width-small-1-3">
                     <div class="md-card">
                         <div class="md-card-content">
-                            <div class="uk-overflow-container">
-                                <table class="uk-table">
-                                    <thead>
-                                        <tr>
-                                            <th class="uk-text-nowrap">DATE</th>
-                                            <th class="uk-text-nowrap">SEVERITY</th>
-                                            <th class="uk-text-nowrap">DESCRIPTION</th>
-                                            <th class="uk-text-nowrap uk-text-right">STATUS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="uk-table-middle">
-                                            <td class="uk-width-3-10 uk-text-nowrap">31/12/2019 - 00:00</td>
-                                            <td class="uk-width-2-10 uk-text-nowrap" style="color: red">high</td>
-                                            <td class="uk-width-8-10 uk-text-nowrap ">Asset tempreture is too high</td>
-                                            <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small"><span style="width: 100px; background-color: #6EDAFF" class="uk-badge">HANDLE</span></td>
-                                        </tr>
-										<tr class="uk-table-middle">
-                                            <td class="uk-width-2-10 uk-text-nowrap">31/12/2019 - 00:00</td>
-                                            <td class="uk-width-2-10 uk-text-nowrap" style="color: yellow">low</td>
-                                            <td class="uk-width-2-10 uk-text-nowrap ">Asset tempreture is too high</td>
-                                            <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small"><span style="color: black; border: 1px solid black; width: 100px; background-color: white" class="uk-badge">HANDLED</span></td>
-                                        </tr>
-										<tr class="uk-table-middle">
-                                            <td class="uk-width-3-10 uk-text-nowrap">31/12/2019 - 00:00</td>
-                                            <td class="uk-width-2-10 uk-text-nowrap" style="color: orange">medium</td>
-                                            <td class="uk-width-8-10 uk-text-nowrap ">Asset tempreture is too high</td>
-                                            <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small"><span style=" width: 100px; background-color: #C8C8C8" class="uk-badge">RESOLVED</span></td>
-                                        </tr>
-										<tr class="uk-table-middle">
-                                            <td class="uk-width-3-10 uk-text-nowrap">31/12/2019 - 00:00</td>
-                                            <td class="uk-width-2-10 uk-text-nowrap" style="color: orange">medium</td>
-                                            <td class="uk-width-8-10 uk-text-nowrap ">Asset tempreture is too high</td>
-                                            <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small"><span style="width: 100px; background-color: #C8C8C8" class="uk-badge">RESOLVED</span></td>
-                                        </tr>
-										<tr class="uk-table-middle">
-                                            <td class="uk-width-3-10 uk-text-nowrap">31/12/2019 - 00:00</td>
-                                            <td class="uk-width-2-10 uk-text-nowrap" style="color: orange">medium</td>
-                                            <td class="uk-width-8-10 uk-text-nowrap ">Asset tempreture is too high</td>
-                                            <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small"><span style="width: 100px; background-color: #C8C8C8" class="uk-badge">RESOLVED</span></td>
-                                        </tr>
-										<tr class="uk-table-middle">
-                                            <td class="uk-width-3-10 uk-text-nowrap">31/12/2019 - 00:00</td>
-                                            <td class="uk-width-2-10 uk-text-nowrap" style="color: orange">medium</td>
-                                            <td class="uk-width-10-10 uk-text-nowrap ">Asset tempreture is too high</td>
-                                            <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small"><span style="width: 100px; background-color: #C8C8C8" class="uk-badge">RESOLVED</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <span class="font-weight-bold text-muted">ASSET BEHAVIOUR</span>
+                            <div id="GaugeChart">
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--ASSET MAP-->
+                <div class="uk-width-small-2-3">
+                    <div class="md-card" style="height: 100%;">
+                        <div class="md-card-content" style="height: 91%; padding: 3%;">
+                          <span class="font-weight-bold text-muted">ASSET LOCATION</span>
+                          <div id="map" style="height: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!--doughnut chart-->
-			<div class="md-card">
-				<div style="padding:50px; margin: 50px">
-					<canvas id="DoughnutChart" style="display: block; height: 50px; width: 100px; background-color: #FFFFFF;" width="474" height="237" class="chartjs-render-monitor"></canvas>
-				</div>
-			</div>
-            <!--end chart-->
+                <!--Line Charts-->
+                <div class="md-card">
+                    <div class="md-card-content">
+                      <span class="font-weight-bold text-muted">ASSET TEMPRETURE</span>
+                        <canvas id="tempretureLineChart" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+                <div class="md-card">
+                    <div class="md-card-content">
+                      <span class="font-weight-bold text-muted">ASSET MOTION</span>
+                        <canvas id="motionLineChart"  class="chartjs-render-monitor"></canvas>
+                    </div>
+              </div>
+
+            <!-- INCIDENTS TABLE-->
+            <div class="uk-grid">
+                <div class="uk-width-medium-2-3">
+                    <div class="md-card" style="height: 350px;">
+                        <div class="md-card-content">
+                            <span class="font-weight-bold text-muted">EVENT HISTORY</span>
+                             <table class="table" style="margin-top: 20px">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-muted font-weight-normal">DATE</th>
+                                        <th class="text-muted font-weight-normal">SEVERITY</th>
+                                        <th class="text-muted font-weight-normal">DESCRIPTION</th>
+                                        <th class="text-muted font-weight-normal uk-text-right">STATUS</th>
+                                    </tr>
+                                </thead>
+                              <tbody id="incident-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--doughnut chart-->
+                <div class="uk-width-medium-1-3">
+                    <div class="md-card">
+                        <div class="md-card-content" style="height:350px">
+                          <span class="font-weight-bold text-muted">EVENT STATISTICS</span>
+                            <div class="align-middle" style=" margin-top: 60px">
+                            <canvas id="DoughnutChart" class="chartjs-render-monitor"></canvas>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END DOUGHNUT CHART-->
+            </div>
         </div>
     </div>
     <!--End page content-->
-    <script>
-        //line chart
-        var ctxLINE = document.getElementById('LineChart').getContext('2d');
-        var LineChart = new Chart(ctxLINE, {
-            type: 'line',
-            data: {
-                labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                datasets: [{
-                    label: 'Ritation Smoothnes',
-                    data: [1, 2, 3, 5, 2, 3, 4],
-                    backgroundColor: ['rgba(189,255,234,0.25)'],
-                    borderColor: [
-                        'RGBA(189,255,234,1)',
-                        'RGBA(189,255,234,1)',
-                        'RGBA(189,255,234,1)',
-                        'RGBA(189,255,234,1)',
-                        'RGBA(189,255,234,1)',
-                        'RGBA(189,255,234,1)',
-                        'RGBA(189,255,234,1)'
-                    ],
-                    borderWidth: 1.5
-                }]
-            },
-            options: {
-                layout: {
-                    padding: 20
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: false
-                        }
-                    }]
-                }
-            }
-        });
-        //doughnut chart
-        var ctxDOUGHNUT = document.getElementById('DoughnutChart').getContext('2d');
-        var doughnutChart = new Chart(ctxDOUGHNUT, {
-            type: 'doughnut',
-            data: {
-                labels: ['LOW', 'MEDIUM', 'HIGH'],
-                datasets: [{
-                    label: 'EVENT STATISTICS',
-                    data: [30, 20, 10],
-                    backgroundColor: [
-                        'RGBA(250,234,12,0.75)',
-                        'RGBA(253,183,5,0.75)',
-                        'RGBA(233,89,16,0.75)'
-                    ],
-                }],
-            },
-            options: {
-                layout: {
-                    padding: 20
-                },
-                title: {
-                    display: true,
-                    text: 'EVENT STATISTICS'
-                },
-            }
-        });
-    </script>
-    <!-- END CHARTS -->
 
     <!-- secondary sidebar -->
     <aside id="sidebar_secondary" class="tabbed_sidebar">
@@ -787,7 +692,7 @@
     <script src="../static/bower_components/metrics-graphics/dist/metricsgraphics.min.js"></script>
     <!-- chartist (charts) -->
     <script src="../static/bower_components/chartist/dist/chartist.min.js"></script>
-    <!-- maplace (google maps) -->
+    <!-- maplace (google maps)-->
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyC2FodI8g-iCz1KHRFE7_4r8MFLA7Zbyhk"></script>
     <script src="../static/bower_components/maplace-js/dist/maplace.min.js"></script>
     <!-- peity (small charts) -->
@@ -804,7 +709,6 @@
 
     <!--  dashbord functions -->
     <script src="../static/assets/js/pages/dashboard.min.js"></script>
-
 
     <div id="style_switcher">
         <div id="style_switcher_toggle"><i class="material-icons">&#xE8B8;</i></div>
@@ -1016,16 +920,60 @@
                 });
 
         });
-
-        //progress bar
-        $(document).ready(function() {
-            $('.progress .progress-bar').css("width",
-                function() {
-                    return $(this).attr("aria-valuenow") + "%";
-                }
-            )
-        });
     </script>
+<!--=========GOOGLE MAPS=========-->
+<script type="text/javascript">
+   var locations = [
+     ['Bondi Beach', 28.598986, 35.321845, 4],
+     ['Coogee Beach', 28.77, 35.30, 5],
+     ['Cronulla Beach', 28.60, 35.20, 3],
+     ['Manly Beach', 28.55, 35.11, 2],
+     ['Maroubra Beach', 28.48, 35.14,1]
+   ];
+
+    var dataFromLS = '<p>Sprinkler 2</p><p>Soil hum.: 93%</p><p style="font-size: 15px"> Pump Status: <span class="badge badge-pill badge-info">ON</span></sp>'
+
+
+   var map = new google.maps.Map(document.getElementById('map'), {
+     zoom: 10,
+     center: new google.maps.LatLng(28.77, 35.30),
+     mapTypeId: google.maps.MapTypeId.ROADMAP
+   });
+
+   var infowindow = new google.maps.InfoWindow();
+
+    var icon = {
+   url: "https://image.flaticon.com/icons/svg/1275/1275835.svg", // url
+   scaledSize: new google.maps.Size(30, 30), // scaled size
+   origin: new google.maps.Point(0,0), // origin
+   anchor: new google.maps.Point(0, 0) // anchor
+};
+
+   var marker, i;
+   for (i = 0; i < locations.length; i++) {
+     marker = new google.maps.Marker({
+       position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+       map: map,
+       icon: icon
+     });
+
+     google.maps.event.addListener(marker, 'click', (function(marker, i) {
+       return function() {
+       infowindow.setContent(dataFromLS);
+         infowindow.open(map, marker);
+       }
+     })(marker, i));
+   }
+ </script>
+    <script type="text/javascript" src="../static/assets/js/assetCharts.js"></script>
+ <!--===================FIREBASE============-->
+
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script type="text/javascript" src="../static/assets/js/dataStreaming.js"></script>
 </body>
 
 </html>
