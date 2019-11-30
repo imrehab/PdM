@@ -132,7 +132,7 @@
             
             <!--ASSET INFO-->
             <div class="uk-grid">
-                <div class="uk-width-medium-3-4">
+                <div class="uk-width-medium-1-1">
                     <div class="md-card">
                         <div class="md-card-content">
                             <span class="font-weight-bold text-muted">ASSET INFO</span>
@@ -157,19 +157,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-width-medium-1-4">
-                    <div class="md-card">
-                        <div class="md-card-content">
-                            <span class="font-weight-bold text-muted">NEXT SCHEDULED MAINTENANCE</span>
-                            <h1 id="RUL"></h1>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- CHARTS-->
             <!--GAUGE CHART-->
             <div class="uk-grid">
-                <div class="uk-width-small-1-3">
+                <div class="uk-width-small-2-4">
                     <div class="md-card">
                         <div class="md-card-content">
                             <span class="font-weight-bold text-muted">ASSET BEHAVIOUR</span>
@@ -179,11 +171,11 @@
                     </div>
                 </div>
                 <!--ASSET MAP-->
-                <div class="uk-width-small-2-3">
-                    <div class="md-card" style="height: 100%;">
-                        <div class="md-card-content" style="height: 91%; padding: 3%;">
-                          <span class="font-weight-bold text-muted">ASSET LOCATION</span>
-                          <div id="map" style="height: 100%;"></div>
+                  <div class="uk-width-medium-2-4">
+                    <div class="md-card">
+                        <div class="md-card-content">
+                            <span class="font-weight-bold text-muted">NEXT SCHEDULED MAINTENANCE</span>
+                            <h1 id="RUL"></h1>
                         </div>
                     </div>
                 </div>
@@ -550,7 +542,7 @@
     }
     , series: [ {
         type: 'marker', name: 'Score', shape_label: {
-            text: '<span style=\'fontSize: 32; color: #21D683\'>98%</span> <span style=\'fontSize: 28; color: #21D683\'>HEALTHY</span>', style: {
+            text: '<span style=\'fontSize: 32; color: #21D683\'>'+{{ prob }}+'%</span> <span style=\'fontSize: 28; color: #21D683\'>HEALTHY</span>', style: {
                 fontSize: 48
             }
         }
