@@ -2,10 +2,12 @@
 var sensorID="MPU0001";
 var assetModel = "IPOWERFAN";
 var assetID = "IPOWERFAN001MPU";
+var behaviourData = 97;
 
 //===============global variable===========
 var streaming = true;
-var iterations = 20;
+var iterations = 20;//real time visualization number of values displayed
+var firstValDate = "";//date of the first sensor reading, used for data streaming filteration
 
 //==============firebase configuration====================
 var firebaseConfig= {
@@ -26,7 +28,9 @@ var database = firebase.database();
 
 
 var realTimeRef = database.ref('sensor/'+sensorID);
-realTimeRef.on('value', gotData, errData);
+realTimeRef.limitToFirst(1).on('value', setFirstDate, errData);
+realTimeRef.off("value");
+realTimeRef.limitToLast(iterations).on('value', gotData, errData);
 
 function read() {
     const promise = firestore.collection("Models").doc(assetModel).get();
@@ -45,8 +49,50 @@ function read() {
   p1.catch(error =>{
     console.log("Error"+error);
   });
-
+  assetBehaviour(behaviourData);//from model
+  //assignFirstDate();
 }
+
+
+function gotData(data){
+  if(streaming){
+    tempData(data,iterations);
+    motionData(data,iterations);
+    iterations = 1;
+  }
+  else{
+    deleteData(data);
+  }
+}
+
+
+ function setFirstDate(data){
+   console.log("inside first date");
+   var reads = data.val();
+   var keys = Object.keys(reads);
+   var date = reads[keys[0]].time.substring(0, 10);
+    firstValDate = date;
+    console.log(firstValDate);
+}
+
+function deleteData(data){
+  //delete data when data streaming is paused
+}
+
+
+function updateDate(){
+  //refetch the data from firestore for each function
+  //=============================
+  //update asset health Score
+  assetBehaviour(data)
+  //update remainin useful life
+  assetInfo(data)
+  //update icidents(table+chart)
+  incidents(data);
+  //Notifications?
+  //================
+}
+
 
 function extractData(data){
   var list = [];
@@ -76,6 +122,29 @@ function assetInfo(data){
    document.getElementById('info-model').innerHTML = assetModel;
 }
 
+function assetBehaviour(data){
+  //BEHAVIOUR VALUE CLASSIFICATIONS IS SUBJECT TO CHANGE
+  var text = "<span style=\'font-size: 32px; color: ";
+  var text2= "%</span><br><span style=\'font-size: 28px; color: ";
+  if(data<70){
+    text+="#FF5353\'>"+data+text2+"#FF5353\'>DANGER</span>";
+  }
+  else if(data<85){
+    text+="#FFD221\'>"+data+text2+"#FFD221\'>UNSTABLE</span>";
+  }
+  else if(data<95){
+    text+="#77E6B4\'>"+data+text2+"#77E6B4\'>STABLE</span>";
+  }
+    else if(data<=100){
+      text+="#21D683\'>"+data+text2+"#21D683\'>HEALTHY</span>";
+    }
+
+    gaugeChart.series(0).options({ points: [{ x:1, y: data }] });
+    gaugeChart.series(0).options({ shape_label_text: text  });
+
+}
+
+
 function incidents(data){
   //data = all asset info
   var total = [];
@@ -90,13 +159,13 @@ function incidents(data){
       keys.push(key);
     }
       switch(issues[keys[1]].toUpperCase()){//severities
-        case "HIGH": severity = '<td class="uk-width-1-10 uk-text-nowrap"><small style="color: RGBA(233,89,16,0.75)">HIGHT</small></span></td>';
+        case "HIGH": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(233,89,16,0.75)">HIGHT</small></span></td>';
         total[total.length]= "HIGH";
         break;
-        case "MEDIUM": severity = '<td class="uk-width-1-10 uk-text-nowrap"><small style="color: RGBA(253,183,5,0.75)"><small>MEDIUM</small></span></td>';
+        case "MEDIUM": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(253,183,5,0.75)"><small>MEDIUM</small></span></td>';
         total[total.length]= "MEDIUM";
         break;
-        case "LOW": severity = '<td class="uk-width-1-10 uk-text-nowrap"><small style="color: RGBA(250,234,12,1)"><small>LOW</small></span></td>';
+        case "LOW": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(250,234,12,1)"><small>LOW</small></span></td>';
         total[total.length]= "LOW";
       }
       switch(issues[keys[2]].toUpperCase()){//statuses
@@ -113,7 +182,7 @@ function incidents(data){
       document.getElementById('incident-table-body').innerHTML =
       '<tr class="uk-table-middle"><td class="uk-width-2-10 uk-text-nowrap"><small>'+date.toDateString().substring(4, 15)+' - '+date.toString().substring(16, 21)+'</small></td>'
       +severity
-      +'<td class="uk-width-5-10 text-wrap"><small>ADD ISSUE DESCRIPTION</small></td>'
+      +'<td class="uk-width-4-10 text-wrap"><small>ADD ISSUE DESCRIPTION</small></td>'
       +status
       +'</tr>';
 
@@ -142,22 +211,6 @@ function incidentsGraph(incidents){
     doughnutChart.update();
   }
 
-
-
-function gotData(data){
-  if(streaming){
-    tempData(data,iterations);
-    motionData(data,iterations);
-    iterations = 1;
-  }
-  else{
-    deleteData(data);
-  }
-}
-
-function deleteData(data){
-  //delete data when data streaming is paused
-}
 
 function tempData(data,iter){
   var temp = [];
@@ -194,7 +247,7 @@ function motionData(data,iter){
 
 function addTempData(label,data) {
 for(var i=0; i<label.length;i++){
-  tempretureLineChart.data.labels.push(label[i].substring(11, 16));
+  tempretureLineChart.data.labels.push(label[i].substring(11, 19));
   tempretureLineChart.data.datasets.forEach((dataset) => {
           dataset.data.push(data[i]);
         });
@@ -205,7 +258,7 @@ for(var i=0; i<label.length;i++){
 
 function addMotionData(label, x, y, z){
   for(var i=0; i<label.length;i++){
-    motionLineChart.data.labels.push(label[i].substring(11, 16));
+    motionLineChart.data.labels.push(label[i].substring(11, 19));
   }
     for(var j=0;j<x.length;j++){
       motionLineChart.data.datasets[0].data.push(x[j]);

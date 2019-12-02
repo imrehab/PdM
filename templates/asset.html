@@ -31,7 +31,6 @@
     <script type="text/javascript" src="../static/assets/js/JSC/types.js"></script>
     <!-- google-->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSNr9q34L8q0_vrBgXBfZvQD_zbVF13Ps" type="text/javascript"></script>
-
 </head>
 
 <body class="disable_transitions sidebar_main_open sidebar_main_swipe" onload="read()">
@@ -303,9 +302,9 @@
                               <tbody>
                                 <tr>
                                   <th class="font-weight-normal" id="info-id"></th>
-                                  <td class="font-weight-lighter" id="info-type"></td>
-                                  <td class="font-weight-lighter" id="info-make"></td>
-                                  <td class="font-weight-lighter" id="info-model"></td>
+                                  <td class="font-weight-normal" id="info-type"></td>
+                                  <td class="font-weight-normal" id="info-make"></td>
+                                  <td class="font-weight-normal" id="info-model"></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -346,16 +345,40 @@
                 <!--Line Charts-->
                 <div class="md-card">
                     <div class="md-card-content">
+                      <div class="row">
+                        <div class="col">
                       <span class="font-weight-bold text-muted">ASSET TEMPRETURE</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon2"><img src="../static/assets/img/calendar.png"></span>
+                          </div>
+                          <input type="date" id="tempFilter" class="form-control date-input" aria-label="date" aria-describedby="basic-addon1">
+                        </div>
+                      </div>
                         <canvas id="tempretureLineChart" class="chartjs-render-monitor"></canvas>
                     </div>
                 </div>
+              </div>
                 <div class="md-card">
                     <div class="md-card-content">
+                      <div class="row">
+                        <div class="col">
                       <span class="font-weight-bold text-muted">ASSET MOTION</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><img src="../static/assets/img/calendar.png"></span>
+                          </div>
+                          <input type="date" id="motionFilter" class="form-control date-input" aria-label="date" aria-describedby="basic-addon1">
+                        </div>
+                      </div>
                         <canvas id="motionLineChart"  class="chartjs-render-monitor"></canvas>
                     </div>
               </div>
+            </div>
 
             <!-- INCIDENTS TABLE-->
             <div class="uk-grid">
@@ -974,6 +997,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 <script type="text/javascript" src="../static/assets/js/dataStreaming.js"></script>
+<script type="text/javascript" src="../static/assets/js/dataStreaming-DateFilteration.js"></script>
 </body>
 
 </html>

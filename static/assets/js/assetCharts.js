@@ -1,5 +1,7 @@
+//GLOBAL VARIABLES
+
 //charts scripts
-var chart=JSC.chart('GaugeChart', {
+var gaugeChart=JSC.chart('GaugeChart', {
     debug: true, type: 'gauge ', legend_visible: false, chartArea_boxVisible: false, xAxis: {
         /*Used to position marker on top of axis line.*/
         scale: {
@@ -40,20 +42,24 @@ var chart=JSC.chart('GaugeChart', {
         }
     }
     , series: [ {
-        type: 'marker', name: 'Score', shape_label: {
-            text: '<span style=\'fontSize: 32; color: #21D683\'>98%</span> <span style=\'fontSize: 28; color: #21D683\'>HEALTHY</span>', style: {
-                fontSize: 48
-            }
+        type: 'marker',
+        name: 'Score',
+        shape_label: {
+            text: "",
         }
         , defaultPoint: {
-            tooltip: '%yValue', marker: {
+            tooltip: '%yValue',
+            marker: {
                 outline: {
-                    width: 2, color: 'white'
-                }
-                , type: 'circle', visible: true, size: 36
+                    width: 2,
+                    color: 'white'
+                },
+                type: 'circle',
+                visible: true,
+                size: 36
             }
-        }
-        , points: [ [1, 98]]
+        },
+        points: [[1, 0]]
     }
     ]
 }
@@ -62,14 +68,20 @@ var chart=JSC.chart('GaugeChart', {
 //tempreturn line chart
 var ctxTEMPLINE=document.getElementById('tempretureLineChart').getContext('2d');
 ctxTEMPLINE.canvas.height = 80;
+const gradient = ctxTEMPLINE.createLinearGradient(0, 0, 0, 300);
+      gradient.addColorStop(0, 'rgba(141,196,237,0.75)');
+      gradient.addColorStop(0.2, 'rgba(141,196,237,0.5)');
+      gradient.addColorStop(1, 'rgba(141,196,237,0)');
 var tempretureLineChart=new Chart(ctxTEMPLINE, {
     type: 'line', data: {
         labels: [],
         datasets: [ {
             label: 'TEMPRETURE',
             data: [],
-            backgroundColor: 'RGBA(102,148,217,0.25)',
-            borderColor: 'RGBA(102,148,217,0.5)',
+            backgroundColor: gradient,
+            borderColor: 'RGBA(141,196,237,1)',
+            pointBackgroundColor: 'white',//'RGBA(102,148,217,0.75)',
+            borderWidth: '2.5',
         }
         ]
     }
@@ -95,9 +107,9 @@ var tempretureLineChart=new Chart(ctxTEMPLINE, {
             ]
         }
     }
-}
+});
 
-);
+
 //motion line chart
 var ctxMOTIONLINE=document.getElementById('motionLineChart').getContext('2d');
 ctxMOTIONLINE.canvas.height = 80;
@@ -108,22 +120,28 @@ var motionLineChart=new Chart(ctxMOTIONLINE, {
             label: 'X',
             fill: false,
             data: [],
-            backgroundColor: 'RGBA(102,148,217,0.75)',
-            borderColor: 'RGBA(102,148,217,0.75)',
+            backgroundColor: 'RGBA(141,196,237,1)',
+            borderColor: 'RGBA(141,196,237,1)',
+            pointBackgroundColor: 'white',//'RGBA(102,148,217,0.75)',
+            borderWidth: '2.5',
         },
         {
             label: 'Y',
             fill: false,
             data: [],
-            backgroundColor: 'RGBA(255,101,80,0.75)',
-            borderColor: 'RGBA(255,101,80,0.75)',
+            backgroundColor: 'RGBA(151,251,226,1)',
+            borderColor: 'RGBA(151,251,226,1)',
+            pointBackgroundColor: 'white',
+            borderWidth: '2.5',
           },
           {
               label: 'Z',
               fill: false,
               data: [],
-              backgroundColor: 'RGBA(102,222,119,0.75)',
-              borderColor: 'RGBA(102,222,119,0.75)',
+              backgroundColor: 'RGBA(161,164,229,1)',
+              borderColor: 'RGBA(161,164,229,1)',
+              pointBackgroundColor: 'white',
+              borderWidth: '2.5',
             },
         ]
     }
