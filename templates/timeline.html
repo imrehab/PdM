@@ -215,56 +215,99 @@
     </aside><!-- main sidebar end -->
 
     <!--editing begins!!-->
-
-    <div id="page_content">
-            <div id="page_content_inner">
+ 
+ <div id="page_content">
+    <div id="page_content_inner">
                     <h3 class="heading_b uk-margin-bottom">Timeline</h3>
+                     
 
                     <!--needs css-->
          <p>
              <input type="checkbox" name="checkbox_demo_mercury" id="checkbox_demo_1" data-md-icheck />
             <label for="checkbox_demo_1" class="inline-label">Show unresolved issues only</label>
         </p>
-
-              <div class="uk-grid">
-                <div class="uk-width-medium-2-2">
-                    <div class="md-card">
-                        <div class="md-card-content">
-                            <ul class="md-list md-list-addon uk-margin-remove">
-                                <li>
-                                    <div class="timeline_icon timeline_icon_success"><i class="material-icons">bar_chart</i></div>
-                                            <div class="uk-width-8-10">
-                                              
-                                                    <span class="uk-text-muted">1 hour ago</span>
-                                                    <p class="uk-margin-remove">Asset ID: 125666</p>
-                                                    <p class="uk-margin-remove"><strong>Asset behavior is back to normal</strong></p>
-                                            </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-              </div>
-
-              <div class="uk-grid">
-                    <div class="uk-width-medium-2-2">
-                        <div class="md-card">
-                            <div class="md-card-content">
-                                <ul class="md-list md-list-addon uk-margin-remove">
-                                    <li>
-                                         <!----> <div class="timeline_icon timeline_icon_warning"><i class="material-icons">done</i></div>
+        <!--                        timeline data  jinja templete                 -->
+        
+        
+  {% for item in data  %}
+       
+                       
+  <div class="uk-grid">
+      <div class="uk-width-medium-2-2">
+         <div class="md-card">
+            <div class="md-card-content">
+              <ul class="md-list md-list-addon uk-margin-remove">
+                 <li>
+                         {#     unhandled & abnormal  --> handle  #}  
+                          {% if item.Issues.status== 'unhandled' and item.abnormality== true %}
+                                  <div class="timeline_icon timeline_icon_warning"><i class="material-icons">warning</i></div>
+                                
+                                            
+                                            <div class="md-list-content">
+                                             <div class="uk-flex uk-flex-middle">
+                                                    <div class="uk-width-9-10">
+                                                      
+                                                        <span class="uk-text-muted">{{ item.Issues.timestamp}}</span>
+                                                        <p class="uk-margin-remove">Asset ID: {{ item.id}} </p>
+                                                        <p class="uk-margin-remove">Status: {{ item.Issues.status}} </p>
+                                                        <p class="uk-margin-remove"><strong>Description: </strong></p>
+                                                    </div>
+                                      
+                                                <div class="uk-width-large-1-10">
+                                                       <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">HANDLE</a>
+                                                 </div>
+                                             </div>
+                                        </div> 
+                            
+                            
+                            
+                             {#      handled & abnormal --> resolve  #}  
+                             {% elif item.Issues.status== 'handled' and item.abnormality== true %}
+                                  <div class="timeline_icon timeline_icon_warning"><i class="material-icons">warning</i></div>
+                                            
+                                            <div class="md-list-content">
+                                             <div class="uk-flex uk-flex-middle">
+                                                    <div class="uk-width-9-10">
+                                                        <span class="uk-text-muted"> {{ item.Issues.timestamp}}</span>
+                                                        <p class="uk-margin-remove">Asset ID: {{ item.id}} </p>
+                                                        <p class="uk-margin-remove">Status: {{ item.Issues.status}} </p>
+                                                        <p class="uk-margin-remove"><strong>Description: </strong></p>
+                                                      </div>
+                                      
+                                              <div class="uk-width-large-1-10">
+                                                     <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
+                                               </div>
+                                         </div>
+                                    </div>
+                         
+                                   {#         #}  
+                                   {% else %}
+                                    <div class="timeline_icon timeline_icon_warning"><i class="material-icons">done</i></div>
+                                  <!--  <div class="timeline_icon timeline_icon_success"><i class="material-icons">bar_chart</i></div>  -->
+                                
                                                 <div class="uk-width-8-10">
-                                                  
-                                                        <span class="uk-text-muted">2 hours ago</span>
-                                                        <p class="uk-margin-remove">Asset ID: 54387</p>
-                                                        <p class="uk-margin-remove"><strong>Asset has been sucessfully registered</strong></p>
-                                                </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
+                                                        <span class="uk-text-muted">{{ item.Issues.timestamp}}</span>
+                                                        <p class="uk-margin-remove">Asset ID: {{ item.id}} </p>
+                                                        <p class="uk-margin-remove">Status: {{ item.Issues.status}} </p>
+                                                 </div>
+                                     {% endif%}
+                     </li>
+                  </ul>
+                </div>
+           </div>
+      </div>
+  </div>
+
+        
+  {% endfor %}
+        
+        
+<!--               end timeline data                -->
+        
+ 
+<!--                                 
+
+if abnormal true && un-handeled resolve button
 
                   <div class="uk-grid">
                         <div class="uk-width-medium-2-2">
@@ -276,14 +319,7 @@
                                             
                                             <div class="md-list-content">
                                     <div class="uk-flex uk-flex-middle">
-                                                    <div class="uk-width-9-10">
-                                                      
-                                                            <span class="uk-text-muted">3 hours ago</span>
-                                                            <p class="uk-margin-remove">Asset ID: 344532</p>
-                                                            <p class="uk-margin-remove">Alert Severity: High</p>
-                                                            <p class="uk-margin-remove">Status: Unhandled</p>
-                                                            <p class="uk-margin-remove"><strong>Asset has incosistent blade rotation</strong></p>
-                                                    </div>
+                                  
                                       
                                     <div class="uk-width-large-1-10">
                                             <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
@@ -298,30 +334,12 @@
                         </div>
                       </div>
 
-                      <div class="uk-grid">
-                            <div class="uk-width-medium-2-2">
-                                <div class="md-card">
-                                    <div class="md-card-content">
-                                        <ul class="md-list md-list-addon uk-margin-remove">
-                                            <li>
-                                                 <div class="timeline_icon timeline_icon_warning"><i class="material-icons">warning</i></div>
-                                                        <div class="uk-width-8-10">
-                                                          
-                                                                <span class="uk-text-muted">6 hours ago</span>
-                                                                <p class="uk-margin-remove">Asset ID: 125666</p>
-                                                                <p class="uk-margin-remove">Alert Severity: Medium</p>
-                                                                <p class="uk-margin-remove">Status: Handled</p>
-                                                                <p class="uk-margin-remove"><strong>Asset rotation speed is slightly decreasing</strong></p>
-                                                        </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-            </div>
-    </div>
-    
+
+ -->
+ 
+</div> 
+ 
+ </div>
     <!-- google web fonts -->
     <script>
         WebFontConfig = {
