@@ -21,6 +21,17 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import ShuffleSplit, learning_curve, train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 
+
+# cloud database
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+my_file = os.path.join(THIS_FOLDER, 'raspberrypi-6b521-firebase-adminsdk-rb94u-fa953a6467.json')
+cred= credentials.Certificate('raspberrypi-6b521-firebase-adminsdk-rb94u-fa953a6467.json')
+default_app = initialize_app(cred)
+db = firestore.client()
+
+
+
+# realtime database
 config = {
   "apiKey": "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
   "authDomain": "raspberrypi-6b521.firebaseapp.com",
@@ -44,6 +55,54 @@ for data in data_key.each():
 # data_split[1] -> asset id
 # data_split[2] -> Temp
 # data_split[3] -> time
+
+# get engineer info
+def user_prifile(email):
+
+   doc_ref = db.collection(u'engineers').document(email)
+   #doc_ref = db.collection(u'engineers').document(u'malahmad@um.sa')
+   try:
+       doc = doc_ref.get()
+       user = doc.to_dict()
+       return user
+   except google.cloud.exceptions.NotFound:
+       print(u'No such document!')
+       
+def updateAssetLists(id,abnormality): 
+   """
+    this function should be called everytime:
+      the abnormality status changed
+   """
+   try:
+ 
+       asset = db.collection(u'Models').document(u'IPOWERFAN').collection(u'Assets').document(id)
+       asset.update({ u'abnormality': abnormality , u'Issues.timestamp': firestore.SERVER_TIMESTAMP  })
+       return ''
+ 
+   except google.cloud.exceptions.NotFound:
+         return ''
+ 
+
+def AssetLists():
+  
+   try:
+       
+       assets=[]
+       docs=db.collection(u'Models').document(u'IPOWERFAN').collection(u'Assets').stream()
+       for doc in docs:
+           dic= doc.to_dict()
+           dic['id']=doc.id
+           assets.append(dic)
+ 
+       return assets
+   except google.cloud.exceptions.NotFound:
+       return 'error'
+        
+
+
+
+ 
+updateAssetLists('IPOWERFAN001MPU',True)
 
 app = Flask(__name__)
 app.wsgi_app = WhiteNoise(app.wsgi_app)
@@ -87,7 +146,7 @@ def predict():
 # ROUTE
 @app.route('/myProfile.html')
 def profile():
-    return render_template('myProfile.html')
+    return render_template('myProfile.html',data=user_prifile('malahmad@um.sa'))
 
 @app.route('/helpcenter.html')
 def helpcenter():
@@ -103,7 +162,7 @@ def registerasset():
 
 @app.route('/timeline.html')
 def timeline():
-    return render_template('timeline.html')
+    return render_template('timeline.html',data=AssetLists())
 
 @app.route('/asset.html')
 def asset():
