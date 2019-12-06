@@ -76,7 +76,7 @@ def updateAssetLists(id,abnormality):
    try:
  
        asset = db.collection(u'Models').document(u'IPOWERFAN').collection(u'Assets').document(id)
-       asset.update({ u'abnormality': abnormality , u'Issues.timestamp': firestore.SERVER_TIMESTAMP  })
+       asset.update({ u'abnormality': abnormality , u'issues.timestamp': firestore.SERVER_TIMESTAMP  })
        return ''
  
    except google.cloud.exceptions.NotFound:
