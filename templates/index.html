@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
 
@@ -20,10 +20,7 @@
     <link rel="stylesheet" href="../static/assets/css/style_switcher.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/main.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/themes/themes_combined.min.css" media="all">
-    
-    <!-- google -->
-      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSNr9q34L8q0_vrBgXBfZvQD_zbVF13Ps"
-  type="text/javascript"></script>
+      <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
 
 </head>
@@ -218,10 +215,7 @@
 
     <div id="page_content">
         <div id="page_content_inner">
-
-            
-            
-    <h1 id="d"></h1>
+<h1>{{ data }}</h1>
             <!-- tasks -->
             <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
                 <div class="uk-width-medium-2-3">
@@ -314,6 +308,7 @@
                     
                     </div>
                     </div> 
+
                
                
                     <div class="uk-width-medium-1-3">
@@ -408,9 +403,6 @@
         <script src="../static/bower_components/metrics-graphics/dist/metricsgraphics.min.js"></script>
         <!-- chartist (charts) -->
         <script src="../static/bower_components/chartist/dist/chartist.min.js"></script>
-        <!-- maplace (google maps) -->
-        <script src="http://maps.google.com/maps/api/js?key=AIzaSyC2FodI8g-iCz1KHRFE7_4r8MFLA7Zbyhk"></script>
-        <script src="../static/bower_components/maplace-js/dist/maplace.min.js"></script>
         <!-- peity (small charts) -->
         <script src="../static/../static/bower_components/peity/jquery.peity.min.js"></script>
         <!-- easy-pie-chart (circular statistics) -->
@@ -663,28 +655,23 @@
     </script>
     
     
+
  <script type="text/javascript">
     var locations = [
-      ['Bondi Beach', 28.598986, 35.321845, 4],
-      ['Coogee Beach', 28.77, 35.30, 5],
-      ['Cronulla Beach', 28.60, 35.20, 3],
-      ['Manly Beach', 28.55, 35.11, 2],
-      ['Maroubra Beach', 28.48, 35.14,1]
+      ['Bondi Beach', 24.7419037,46.6415725,15]
     ];
      
-     var dataFromLS = '<p>Sprinkler 2</p><p>Soil hum.: 93%</p><p style="font-size: 15px"> Pump Status: <span class="badge badge-pill badge-info">ON</span></sp>'
-
      
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
-      center: new google.maps.LatLng(28.77, 35.30),
+      center: new google.maps.LatLng(24.7419037, 46.6415725),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
     var infowindow = new google.maps.InfoWindow();
 
      var icon = {
-    url: "https://image.flaticon.com/icons/svg/1275/1275835.svg", // url
+    src: "static/assets/icons/icon.png", // url
     scaledSize: new google.maps.Size(30, 30), // scaled size
     origin: new google.maps.Point(0,0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
@@ -706,6 +693,7 @@
       })(marker, i));
     }
   </script>
+
     
     <!-- 
 **************************************************************************************************
@@ -761,5 +749,7 @@ var database = firebase.database();
 //  });
 
 </script>
+ 
+
 </body>
 </html>

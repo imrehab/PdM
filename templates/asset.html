@@ -626,8 +626,7 @@ var firestore = firebase.firestore();
       
  $(document).ready(function(){
      
-         var locations = [];
-     
+       
          
    firestore.collection("Models").doc("IPOWERFAN").collection("Assets").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {         
@@ -647,6 +646,18 @@ var firestore = firebase.firestore();
     
  <script>
 
+    var locations = [
+      ['Bondi Beach', 24.7419037,46.6415725,15],
+    ];
+          
+     
+       var t = [];
+     t.push('hello');
+    t.push(24);
+     t.push(46);
+   t.push(15);
+    locations.push(t);
+//     
      
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
