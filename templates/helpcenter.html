@@ -223,7 +223,7 @@
                             </div>
                             <h3 class="heading_b">FAQ</h3>
                            <p>Questions? Find the answers to any question.</p>
-                            <a class="md-btn md-btn-primary md-btn-wave-light" href="javascript:void(0)">Read More</a>
+                            <a type="button" class="md-btn md-btn-primary md-btn-wave-light" href="javascript:showFAQ() ">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -235,15 +235,109 @@
                             </div>
                             <h3 class="heading_b">Guide</h3>
                            <p>Need help? We have you covered.</p> 
-                            <a class="md-btn md-btn-primary md-btn-wave-light" href="javascript:void(0)">Read More</a>
+                            <a type="button" class="md-btn md-btn-primary md-btn-wave-light" href="javascript:showGuide() ">Read More</a>
                         </div>
                     </div>
                 </div>
             </div>
                </center> 
-    </div>
-    </div>
+            
+            
+            
+            
+    <div id="Guid" style="display:none; margin-top: 30px;"> 
+            
+       <div class="md-card uk-margin-medium-bottom">
+                <div class="md-card-content">
+                    <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                        <div class="uk-width-large-1-1">
+                            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+                                <div class="uk-width-1-5">
+                                    <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tabs_6'}">
+                                        <li class="uk-active"><a href="#">Register a new asset</a></li>
+                                        <li><a href="#">Delete an asset</a></li>
+                                        <li><a href="#">Display abnormality of an asset</a></li>
+                                        <li><a href="#">Access profile details</a></li>
+                                        <li><a href="#">Handle an issue</a></li>
+                                        <li><a href="#">6</a></li>
+                                        <li><a href="#">7</a></li>
+                                        <li><a href="#">8</a></li>
 
+                                    </ul>
+                                </div>
+                                <div class="uk-width-3-4">
+                                    <ul id="tabs_6" class="uk-switcher uk-margin-small-top">
+                                        <li>
+                                       You can add a new asset to track its behaviour<br> 
+                                        <br>• From the home page, you can tap on + Add Asset
+                                        <br>• Choose the Asset Type and Model I
+                                        <br>• Type the Asset ID
+                                        <br>• Type the Sensor ID (The ID should be already exist in the database)
+                                        <br>• Click on Submit 
+
+                                        
+                                        </li>
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, autem, blanditiis consequatur cumque dicta distinctio ea esse eum exercitationem explicabo id incidunt molestiae numquam quae rem repellat reprehenderit tempore voluptatem!</li>
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam architecto, atque aut autem dicta dolorem enim fugit impedit maxime nam, nesciunt provident quibusdam rerum sed similique voluptate voluptatibus. Laudantium.</li>
+                                        <li>4</li>
+                                         <li>5</li>
+                                         <li>6</li>
+                                         <li>7</li>
+                                         <li>8</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+            
+    <div id="Faq"  style="display:none; margin-top: 30px;"> 
+            
+            
+            <div class="md-card uk-margin-medium-bottom">
+                <div class="md-card-content">
+                    <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                        <div class="uk-width-large-1-1">
+                            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+                                <div class="uk-width-1-5">
+                                    <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tabs_6'}">
+                                        <li class="uk-active"><a href="#">What is PM?</a></li>
+                                        <li><a href="#">What is RUL?</a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="uk-width-3-4">
+                                    <ul id="tabs_6" class="uk-switcher uk-margin-small-top">
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda at, dignissimos esse eveniet id itaque laudantium modi nisi perferendis placeat provident quia recusandae reprehenderit sed sit soluta voluptas! Architecto, laboriosam?</li>
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, autem, blanditiis consequatur cumque dicta distinctio ea esse eum exercitationem explicabo id incidunt molestiae numquam quae rem repellat reprehenderit tempore voluptatem!</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>       
+            
+            
+            
+            </div>
+            
+            
+    </div>
+    </div>
+<script>
+   function showGuide() {
+        document.getElementById("Faq").style.display = "none"; 
+   document.getElementById('Guid').style.display = "block";
+} 
+    
+      function showFAQ() {
+     document.getElementById("Guid").style.display = "none"; 
+   document.getElementById('Faq').style.display = "block";
+} 
+    </script>
     <!-- google web fonts -->
     <script>
         WebFontConfig = {
