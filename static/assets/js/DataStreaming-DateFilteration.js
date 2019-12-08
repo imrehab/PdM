@@ -29,18 +29,19 @@ function setLastDate(data){
     }
 }
 
-
-$(".date-input").blur(function toggleDateInput(){
-    if(this.value==""){
-      this.value = getTodayDate();
-      if(this.id=='tempFilter'){
-          currentTempDate = getTodayDate();
-        }
-        else{
-          currentMotionDate = getTodayDate();
-        }
-      }
-});
+//
+// $(".date-input").blur(function toggleDateInput(){
+//     if(this.value==""){
+//       if(this.id=='tempFilter'){
+//         document.getElementById("tempFilter").value = getTodayDate();
+//           currentTempDate = getTodayDate();
+//         }
+//         else{
+//             document.getElementById("motionFilter").value = getTodayDate();
+//           currentMotionDate = getTodayDate();
+//         }
+//       }
+// });
 //toggle chart streaming
  $(".streaming-toggler").change(function(){
    var stream = this.checked;
@@ -77,10 +78,8 @@ function pauseTempStream(){
 }
 
 function resumeTempStream(){
-  console.log("inside resume data stream");
-  console.log(getTodayDate());
   document.getElementById("tempFilter").value = getTodayDate();
-//  $("#tempFilter").attr("value", getTodayDate());
+  document.getElementById("temp-streamer").checked = true;
   singleChartInitStream("tempFilter");
   streamingTemp = true;
 }
@@ -91,7 +90,8 @@ function pauseMotionStream(){
 }
 
 function resumeMotionStream(){
-  $("#motionFilter").attr("value", getTodayDate());
+  document.getElementById("motionFilter").value = getTodayDate();
+  document.getElementById("motion-streamer").checked = true;
   singleChartInitStream("motionFilter");
   streamingMotion = true;
 }
@@ -99,11 +99,7 @@ function resumeMotionStream(){
 
 //FILTER FUNCTIONALITIES
 $(".date-input").change(function(){
-  console.log("change triggered, value: "+ this.value.toString());
-  if( this.value==null){
-    console.log("value is null!");
-  }
-  var date = this.value.toString();
+  var date = this.value;
     if(this.id=='tempFilter'){
       dateSwitcher("temp", date);
     }
@@ -121,6 +117,10 @@ function dateSwitcher(type,date){
     if(date==getTodayDate()){
       resumeTempStream();
     }
+    if(date==""){
+      document.getElementById("tempFilter").value = getTodayDate();
+      resumeTempStream();
+    }
     else{
       pauseTempStream();
       filterChartData(date,"tempFilter");
@@ -131,6 +131,10 @@ function dateSwitcher(type,date){
       return;
     }
     if(date==getTodayDate()){
+      resumeMotionStream();
+    }
+    if(date==""){
+      document.getElementById("motionFilter").value = getTodayDate();
       resumeMotionStream();
     }
     else{
@@ -149,12 +153,12 @@ function filterChartData(startDate,type){
       result = getSubData(data);
       if(type=='tempFilter'){
         currentTempDate = startDate;
-        resumeTempStream();
+        pauseTempStream();
         subTempData(result);
       }
       else if(type=='motionFilter'){
         currentMotionDate = startDate;
-        resumeMotionStream();
+        pauseMotionStream();
         subMotionData(result);
       }
   }, errData);
@@ -165,9 +169,9 @@ function singleChartInitStream(type){
   if(type=='tempFilter'){
     //empty chart to append new data
     resetTempChart(empty,empty);
-    var singleTRef = database.ref('sensor/'+sensorID).limitToLast(numDataPoints).on('value', function(data){
+    var singleTRef = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(numDataPoints).on('value', function(data){
       //fetch data from snapshot and append it to chart
-      tempData(getTodayDate(),numDataPoints);
+     tempData(data,numDataPoints);
     }, errData);
     //keep at bottom
     //resume chart streaming
@@ -177,9 +181,9 @@ function singleChartInitStream(type){
   else if(type=='motionFilter'){
     //empty chart to append new data
     resetMotionChart(empty,empty,empty,empty);
-    var singleMRef = database.ref('sensor/'+sensorID).limitToLast(numDataPoints).on('value', function(data){
+    var singleMRef = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(numDataPoints).on('value', function(data){
       //fetch data from snapshot and append it to chart
-      motionData(getTodayDate(),numDataPoints);
+      motionData(data,numDataPoints);
     }, errData);
     streamingMotion = true;
     currentMotionDate = getTodayDate();

@@ -2,68 +2,68 @@
 
 //charts scripts
 //Gauge chart
-var gaugeChart=JSC.chart('GaugeChart', {
-  debug: true, type: 'gauge ', legend_visible: false, chartArea_boxVisible: false, xAxis: {
-      scale: {
-          range: [0, 1], invert: true
-      }
-  }
-  , palette: {
-      pointValue: '%yValue', ranges: [ {
-          value: [70, 0], color: '#FF5353'
-      }
-      , {
-          value: [85, 70], color: '#FFD221'
-      }
-      , {
-          value: [95, 85], color: '#77E6B4'
-      }
-      , {
-          value: [95, 100], color: '#21D683'
-      }
-      ]
-  }
-  , yAxis: {
-      defaultTick: {
-          padding: 13, enabled: false
-      }
-      , customTicks: [70, 85, 95], line: {
-          width: 15, breaks_gap: 0.03, color: 'smartPalette'
-      }
-      , scale: {
-          range: [0, 100]
-      }
-  }
-  , defaultSeries: {
-      shape: {
-          label: {
-              align: 'center', verticalAlign: 'middle'
-          }
-      }
-  }
-  , series: [ {
-      type: 'marker',
-      name: 'Score',
-      shape_label: {
-          text: "",
-      }
-      , defaultPoint: {
-          tooltip: '%yValue',
-          marker: {
-              outline: {
-                  width: 2,
-                  color: 'white'
-              },
-              type: 'circle',
-              visible: true,
-              size: 36
-          }
-      },
-      points: [[1, 0]]
-  }
-  ]
-}
-);
+// var gaugeChart=JSC.chart('GaugeChart', {
+//   debug: true, type: 'gauge ', legend_visible: false, chartArea_boxVisible: false, xAxis: {
+//       scale: {
+//           range: [0, 1], invert: true
+//       }
+//   }
+//   , palette: {
+//       pointValue: '%yValue', ranges: [ {
+//           value: [70, 0], color: '#FF5353'
+//       }
+//       , {
+//           value: [85, 70], color: '#FFD221'
+//       }
+//       , {
+//           value: [95, 85], color: '#77E6B4'
+//       }
+//       , {
+//           value: [95, 100], color: '#21D683'
+//       }
+//       ]
+//   }
+//   , yAxis: {
+//       defaultTick: {
+//           padding: 13, enabled: false
+//       }
+//       , customTicks: [70, 85, 95], line: {
+//           width: 15, breaks_gap: 0.03, color: 'smartPalette'
+//       }
+//       , scale: {
+//           range: [0, 100]
+//       }
+//   }
+//   , defaultSeries: {
+//       shape: {
+//           label: {
+//               align: 'center', verticalAlign: 'middle'
+//           }
+//       }
+//   }
+//   , series: [ {
+//       type: 'marker',
+//       name: 'Score',
+//       shape_label: {
+//           text: "",
+//       }
+//       , defaultPoint: {
+//           tooltip: '%yValue',
+//           marker: {
+//               outline: {
+//                   width: 2,
+//                   color: 'white'
+//               },
+//               type: 'circle',
+//               visible: true,
+//               size: 36
+//           }
+//       },
+//       points: [[1, 0]]
+//   }
+//   ]
+// }
+// );
 
 //tempreturn line chart
 var ctxTEMPLINE=document.getElementById('tempretureLineChart').getContext('2d');

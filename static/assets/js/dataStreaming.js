@@ -12,21 +12,21 @@ var incTableMax = 4;
 
 
 //==============firebase configuration====================
-var firebaseConfig= {
-    apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
-    authDomain: "raspberrypi-6b521.firebaseapp.com",
-    databaseURL: "https://raspberrypi-6b521.firebaseio.com",
-    projectId: "raspberrypi-6b521",
-    storageBucket: "raspberrypi-6b521.appspot.com",
-    messagingSenderId: "829617435562",
-    appId: "1:829617435562:web:3f6548f88b700d529a71d3",
-    measurementId: "G-XK5P7KWL53"
-};
-
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-var firestore = firebase.firestore();
-var database = firebase.database();
+// var firebaseConfig= {
+//     apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
+//     authDomain: "raspberrypi-6b521.firebaseapp.com",
+//     databaseURL: "https://raspberrypi-6b521.firebaseio.com",
+//     projectId: "raspberrypi-6b521",
+//     storageBucket: "raspberrypi-6b521.appspot.com",
+//     messagingSenderId: "829617435562",
+//     appId: "1:829617435562:web:3f6548f88b700d529a71d3",
+//     measurementId: "G-XK5P7KWL53"
+// };
+//
+// firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
+// var firestore = firebase.firestore();
+// var database = firebase.database();
 
 
 //get first value read, to set as filter min
@@ -63,13 +63,12 @@ function read() {
   p1.catch(error =>{
     console.log("Error"+error);
   });
-  assetBehaviour( {{ prob }} );
+  //assetBehaviour( {{ prob }} );
   //assignFirstDate();
 }
 
 
 function addNewData(data){
-  console.log("new val added");
     if(streamingTemp){
       tempData(data,dataSteps);
     }
@@ -88,7 +87,7 @@ function updateDate(){
   //refetch the data from firestore for each function
   //=============================
   //update asset health Score
-  assetBehaviour(data)
+  //assetBehaviour(data)
   //update remainin useful life
   assetInfo(data)
   //update icidents(table+chart)
@@ -230,12 +229,6 @@ function timestampToString(data){
   return data.toString().substring(4, 15)+' - '+data.toString().substring(16, 21);
 }
 
-function compareDate(a,b){
-var result = new Date(a.date) - new Date(a.date)
-
-  console.log("comp val: "+ result);
-}
-
 function incidentsGraph(incidents){
   var high = 0;
   var medium = 0;
@@ -262,15 +255,19 @@ function incidentsGraph(incidents){
 function tempData(data,iter){
   var temp = [];
   var time = [];
-  var reads = data.val();
-  if(reads!=null){
-    var keys = Object.keys(reads);
-    for (var i=0; i<iter; i++){
-       var k = keys[i];
-       temp[temp.length] = Math.round( reads[k].temp * 10) / 10;
-       time[time.length] = reads[k].time;
+  if(data!=null){
+    var reads = data.val();
+    if(reads!=null){
+      var keys = Object.keys(reads);
+      for (var i=0; i<iter; i++){
+         var k = keys[i];
+         temp[temp.length] = Math.round( reads[k].temp * 10) / 10;
+         time[time.length] = reads[k].time;
+      }
+      console.log("time: "+time);
+      console.log("temp: "+temp);
+          addTempData(time, temp);
     }
-    addTempData(time, temp);
   }
 }
 
@@ -280,20 +277,23 @@ function motionData(data,iter){
   var y = [];
   var z = [];
   var time = [];
-  var reads = data.val();
-  if(reads!=null){
-    var keys = Object.keys(reads);
-    for (var i=0; i<iter; i++){
-       var k = keys[i];
-       motion = reads[k].acc;
-       x[x.length] = motion[0];
-       y[y.length] = motion[1];
-       z[z.length] = motion[2];
-       time[time.length] = reads[k].time;
+  if(data!=null){
+    var reads = data.val();
+    if(reads!=null){
+      var keys = Object.keys(reads);
+      for (var i=0; i<iter&&i<keys.length; i++){
+         var k = keys[i];
+         motion = reads[k].acc;
+         x[x.length] = motion[0];
+         y[y.length] = motion[1];
+         z[z.length] = motion[2];
+         time[time.length] = reads[k].time;
+      }
+        addMotionData(time, x, y, z);
     }
-    addMotionData(time, x, y, z);
   }
 }
+
 
 
 function addTempData(label,data) {
