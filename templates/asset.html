@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../static/assets/css/style_switcher.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/main.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/themes/themes_combined.min.css" media="all">
+    <link rel="stylesheet" href="../static/assets/css/style-asset-page.css" media="all">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--CHARTS-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
@@ -128,8 +129,25 @@
     <!-- main sidebar end -->
     <!--page content-->
 
-    <div id="page_content" background-color=" inherit">
-        <div id="page_content_inner">
+    <div id="page_content">
+          <div id="page_content_inner">
+          <!--SEETINGS-->
+      <div class="md-card-transparent" style="padding-bottom: 16px">
+        <div class="row justify-content-end">
+          <div class="col-sm-auto">
+              <div class="btn-group" role="group">
+              <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="../static/assets/img/settings.png">
+              </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" id="asset-manual" href="#" target="_blank">Asset user manual</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" href="#">Delete asset</a>
+          </div>
+    </div>
+          </div>
+        </div>
+      </div>
 
             <!--ASSET INFO-->
             <div class="uk-grid">
@@ -169,7 +187,6 @@
             </div>
             <!-- CHARTS-->
             <!--GAUGE CHART-->
-                      <!--GAUGE CHART-->
             <div class="uk-grid">
                 <div class="uk-width-small-1-3">
                     <div class="md-card">
@@ -192,6 +209,18 @@
             </div>
                 <!--Line Charts-->
                 <div class="md-card">
+                  <div class="row justify-content-end bg-light align-items-center container-header">
+                    <div class="col-sm-auto ">
+                        <small class="text-muted">STREAMING</small>
+                      </div>
+                    <div class="col-sm-auto">
+                      <div id="cover">
+                        <input type="checkbox" id="temp-streamer" class="checkbox streaming-toggler" checked>
+                        <div id="bar"></div>
+                        <div id="knob"></div>
+                      </div>
+                    </div>
+                  </div>
                     <div class="md-card-content">
                       <div class="row">
                         <div class="col">
@@ -210,6 +239,18 @@
                 </div>
               </div>
                 <div class="md-card">
+                  <div class="row justify-content-end bg-light align-items-center container-header">
+                    <div class="col-sm-auto ">
+                        <small class="text-muted">STREAMING</small>
+                      </div>
+                    <div class="col-sm-auto">
+                      <div id="cover">
+                        <input type="checkbox" id="motion-streamer" class="checkbox streaming-toggler" checked>
+                        <div id="bar"></div>
+                        <div id="knob"></div>
+                      </div>
+                    </div>
+                  </div>
                     <div class="md-card-content">
                       <div class="row">
                         <div class="col">
@@ -234,7 +275,7 @@
                     <div class="md-card" style="height: 350px;">
                         <div class="md-card-content">
                             <span class="font-weight-bold text-muted">EVENT HISTORY</span>
-                             <table class="table" style="margin-top: 20px">
+                             <table class="table" style="margin-top: 20px" id="incident-table">
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="text-muted font-weight-normal">DATE</th>
@@ -529,72 +570,6 @@
 
     </script>
 
-    <script>
-    $( document).ready(function() {
-    var chart=JSC.chart('GaugeChart', {
-    debug: true, type: 'gauge ', legend_visible: false, chartArea_boxVisible: false, xAxis: {
-        /*Used to position marker on top of axis line.*/
-        scale: {
-            range: [0, 1], invert: true
-        }
-    }
-    , palette: {
-        pointValue: '%yValue', ranges: [ {
-            value: [70, 0], color: '#FF5353'
-        }
-        , {
-            value: [85, 70], color: '#FFD221'
-        }
-        , {
-            value: [95, 85], color: '#77E6B4'
-        }
-        , {
-            value: [95, 100], color: '#21D683'
-        }
-        ]
-    }
-    , yAxis: {
-        defaultTick: {
-            padding: 13, enabled: false
-        }
-        , customTicks: [70, 85, 95], line: {
-            width: 15, breaks_gap: 0.03, color: 'smartPalette'
-        }
-        , scale: {
-            range: [0, 100]
-        }
-    }
-    , defaultSeries: {
-        shape: {
-            label: {
-                align: 'center', verticalAlign: 'middle'
-            }
-        }
-    }
-    , series: [ {
-        type: 'marker', name: 'Score', shape_label: {
-            text: '<span style=\'fontSize: 32; color: #21D683\'>'+{{ prob }}+'%</span> <span style=\'fontSize: 28; color: #21D683\'>HEALTHY</span>', style: {
-                fontSize: 48
-            }
-        }
-        , defaultPoint: {
-            tooltip: '%yValue', marker: {
-                outline: {
-                    width: 2, color: 'white'
-                }
-                , type: 'circle', visible: true, size: 36
-            }
-        }
-        , points: [ [1, {{ prob }}]]
-    }
-    ]
-}
-
-);
-        });
-    </script>
-
-
           <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
@@ -796,8 +771,8 @@ var firestore = firebase.firestore();
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
-<script type="text/javascript" src="../static/assets/js/dataStreaming.js"></script>
 <script type="text/javascript" src="../static/assets/js/dataStreaming-DateFilteration.js"></script>
+<script type="text/javascript" src="../static/assets/js/dataStreaming.js"></script>
 </body>
 
 </html>

@@ -63,7 +63,7 @@ function read() {
   p1.catch(error =>{
     console.log("Error"+error);
   });
-  assetBehaviour(behaviourData);//( {{ prob }} );//from model
+  assetBehaviour( {{ prob }} );
   //assignFirstDate();
 }
 
