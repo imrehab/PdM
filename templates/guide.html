@@ -1,5 +1,5 @@
 <!doctype html>
-<!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
+<!--[if lte IE 9]> <html class="lte-ie9" lang="en" dir="rtl"> <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
 
 <head>
@@ -11,14 +11,14 @@
 
     <link rel="icon" type="image/png" href="../static/assets/img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="../static/assets/img/favicon-32x32.png" sizes="32x32">
-    <title>Help Center</title>
+    <title>Guide</title>
     <link rel="stylesheet" href="../static/bower_components/uikit/css/uikit.almost-flat.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/style_switcher.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/main.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/themes/themes_combined.min.css" media="all">
 
 </head>
-<body class="disable_transitions sidebar_main_open sidebar_main_swipe">
+<body class="disable_transitions sidebar_main_open sidebar_main_swipe header_double_height">
     <!-- main header -->
     <header id="header_main">
         <div class="header_main_content">
@@ -211,133 +211,83 @@
 
     <div id="page_content">
         <div id="page_content_inner">
-           <center>
-             <h3 class="heading_b">Help Center</h3>
-            
-         <div class="uk-grid" data-uk-grid-margin>
-                <div class="uk-width-medium-1-2">
-                    <div class="md-card">
-                        <div class="md-card-content">
-                         <div class="uk-clearfix md-card-overlay-header">
-                              <span><img style="width: 70px; margin-bottom: 8px" src="../static/assets/img/conversation.png"></span>
-                            </div>
-                            <h3 class="heading_b">FAQ</h3>
-                           <p>Questions? Find the answers to any question.</p>
-                            <a type="button" class="md-btn md-btn-primary md-btn-wave-light" href="{{ url_for('fqa') }}">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="uk-width-medium-1-2">
-                    <div class="md-card">
-                        <div class="md-card-content">
-                        <div class="uk-clearfix md-card-overlay-header">
-                              <span><img style="width: 70px; margin-bottom: 8px" src="../static/assets/img/manual.png"></span>
-                            </div>
-                            <h3 class="heading_b">Guide</h3>
-                           <p>Need help? We have you covered.</p> 
-                            <a type="button" class="md-btn md-btn-primary md-btn-wave-light" href="{{ url_for('guide') }}">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-               </center> 
-            
-            
-            
-            
-    <div id="Guid" style="display:none; margin-top: 30px;"> 
-            
-       <div class="md-card uk-margin-medium-bottom">
-                <div class="md-card-content">
-                    <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
-                        <div class="uk-width-large-1-1">
-                            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
-                                <div class="uk-width-1-5">
-                                    <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tabs_6'}">
-                                        <li class="uk-active"><a href="#">Register a new asset</a></li>
-                                        <li><a href="#">Delete an asset</a></li>
-                                        <li><a href="#">Display abnormality of an asset</a></li>
-                                        <li><a href="#">Access profile details</a></li>
-                                        <li><a href="#">Handle an issue</a></li>
-                                        <li><a href="#">6</a></li>
-                                        <li><a href="#">7</a></li>
-                                        <li><a href="#">8</a></li>
 
-                                    </ul>
-                                </div>
-                                <div class="uk-width-3-4">
-                                    <ul id="tabs_6" class="uk-switcher uk-margin-small-top">
-                                        <li>
-                                       You can add a new asset to track its behaviour<br> 
-                                        <br>• From the home page, you can tap on + Add Asset
-                                        <br>• Choose the Asset Type and Model I
-                                        <br>• Type the Asset ID
-                                        <br>• Type the Sensor ID (The ID should be already exist in the database)
-                                        <br>• Click on Submit 
+            <div class="uk-width-medium-8-10 uk-container-center">
 
-                                        
-                                        </li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, autem, blanditiis consequatur cumque dicta distinctio ea esse eum exercitationem explicabo id incidunt molestiae numquam quae rem repellat reprehenderit tempore voluptatem!</li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam architecto, atque aut autem dicta dolorem enim fugit impedit maxime nam, nesciunt provident quibusdam rerum sed similique voluptate voluptatibus. Laudantium.</li>
-                                        <li>4</li>
-                                         <li>5</li>
-                                         <li>6</li>
-                                         <li>7</li>
-                                         <li>8</li>
-                                    </ul>
-                                </div>
+                <div class="md-card md-card-single">
+                    <div class="md-card-toolbar">
+                        <div class="md-card-toolbar-actions">
+                            <i class="md-icon material-icons" id="toggleAll">&#xe8f2;</i>
+                        </div>
+                        <h3 class="md-card-toolbar-heading-text large">
+                            Guide
+                        </h3>
+                    </div>
+                    <div class="md-card-content padding-reset">
+                        <h4 class="heading_c full_width_in_card">First Section</h4>
+                        <div class="uk-accordion uk-accordion-alt hierarchical_slide help_accordion" data-slide-children="h3" data-slide-context=".md-card-content">
+                            <h3 class="uk-accordion-title">Register a new asset</h3>
+                            <div class="uk-accordion-content">
+                                <p>You can add a new asset to track its behaviour 
+From the home page, you can tap on + Add Asset
+Choose the Asset Type and Model ID
+Type the Asset ID
+Type the Sensor ID (The ID should already be exist in the database)
+Click on Submit 
+</p>
+                            </div>
+                            <h3 class="uk-accordion-title">Delete an asset</h3>
+                            <div class="uk-accordion-content">
+                                <p>You can delete an asse by :
+From the home page, tap on the list icon at the left corner 
+Enter Assets page 
+Tap the specific asset you want to delete
+Click on the settings icon at the right corner
+Click on the “delete asset “
+</p>
+                            </div>
+                            <h3 class="uk-accordion-title">Display abnormality of an asset</h3>
+                            <div class="uk-accordion-content">
+                                <p>You can view abnormality of an asset  by :
+From the home page, tap on the list icon at the left corner 
+Enter Assets page 
+Tap the specific asset you want
+you can view the abnormality visualization of the asset
+</p>
+                            </div>
+                            <h3 class="uk-accordion-title">Access profile details</h3>
+                            <div class="uk-accordion-content">
+                                <p>You can view your profile by :
+From the home page, tap on profile icon at the right corner 
+Click on “My profile” </p>
+                            </div>
+                            <h3 class="uk-accordion-title">Handle an issue</h3>
+                            <div class="uk-accordion-content">
+                                <p>You can handle an issue your profile by :
+From the home page, tap on profile icon at the right corner 
+Click on “My profile”
+</p>
+                            </div>
+                            <h3 class="uk-accordion-title">Resolve  an issue</h3>
+                            <div class="uk-accordion-content">
+                                <p>To resolve an issue you have to handle it first then :
+From the home page, tap on profile icon at the right corner 
+Click on “My profile”
+Don’t know how to handle an issue? tap on Handle an issue on the guide page
+</p>
+                            </div>
+                        </div>
+                        
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-         </div>
-            
-    <div id="Faq"  style="display:none; margin-top: 30px;"> 
-            
-            
-            <div class="md-card uk-margin-medium-bottom">
-                <div class="md-card-content">
-                    <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
-                        <div class="uk-width-large-1-1">
-                            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
-                                <div class="uk-width-1-5">
-                                    <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tabs_6'}">
-                                        <li class="uk-active"><a href="#">What is PM?</a></li>
-                                        <li><a href="#">What is RUL?</a></li>
 
-                                    </ul>
-                                </div>
-                                <div class="uk-width-3-4">
-                                    <ul id="tabs_6" class="uk-switcher uk-margin-small-top">
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda at, dignissimos esse eveniet id itaque laudantium modi nisi perferendis placeat provident quia recusandae reprehenderit sed sit soluta voluptas! Architecto, laboriosam?</li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, autem, blanditiis consequatur cumque dicta distinctio ea esse eum exercitationem explicabo id incidunt molestiae numquam quae rem repellat reprehenderit tempore voluptatem!</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>       
-            
-            
-            
             </div>
-            
-            
+
+        </div>
     </div>
-    </div>
-<script>
-   function showGuide() {
-        document.getElementById("Faq").style.display = "none"; 
-   document.getElementById('Guid').style.display = "block";
-} 
-    
-      function showFAQ() {
-     document.getElementById("Guid").style.display = "none"; 
-   document.getElementById('Faq').style.display = "block";
-} 
-    </script>
+
     <!-- google web fonts -->
     <script>
         WebFontConfig = {
@@ -359,17 +309,22 @@
         })();
     </script>
 
-  <script type="text/javascript" src="{{ url_for('static', filename='assets/js/common.min.js') }}"></script>
+    <!-- common functions -->
+    <script type="text/javascript" src="{{ url_for('static', filename='assets/js/common.min.js') }}"></script>
     <!-- uikit functions -->
-    <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/uikit_custom.min.js') }}"></script>
-
+    <script type="text/javascript" src="{{ url_for('static', filename='assets/js/uikit_custom.min.js') }}"></script>
     <!-- altair common functions/helpers -->
-    <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/altair_admin_common.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='assets/js/altair_admin_common.min.js') }}"></script>
 
+    <!-- page specific plugins -->
+
+    <!--  help/faq functions -->
+    <script src="../static/assets/js/pages/page_help.min.js"></script>
+    
     <script>
         $(function() {
             if(isHighDensity()) {
-                $.getScript( "assets/js/custom/dense.min.js", function(data) {
+                $.getScript( "../static/assets/js/custom/dense.min.js", function(data) {
                     // enable hires images
                     altair_helpers.retina_images();
                 });
@@ -495,13 +450,13 @@
 
                 if(this_theme == '') {
                     localStorage.removeItem('altair_theme');
-                    $('#kendoCSS').attr('href','bower_components/kendo-ui/styles/kendo.material.min.css');
+                    $('#kendoCSS').attr('href','../static/bower_components/kendo-ui/styles/kendo.material.min.css');
                 } else {
                     localStorage.setItem("altair_theme", this_theme);
                     if(this_theme == 'app_theme_dark') {
-                        $('#kendoCSS').attr('href','bower_components/kendo-ui/styles/kendo.materialblack.min.css')
+                        $('#kendoCSS').attr('href','../static/bower_components/kendo-ui/styles/kendo.materialblack.min.css')
                     } else {
-                        $('#kendoCSS').attr('href','bower_components/kendo-ui/styles/kendo.material.min.css');
+                        $('#kendoCSS').attr('href','../static/bower_components/kendo-ui/styles/kendo.material.min.css');
                     }
                 }
 
@@ -601,49 +556,5 @@
 
         });
     </script>
-    
-    
- <script type="text/javascript">
-    var locations = [
-      ['Bondi Beach', 28.598986, 35.321845, 4],
-      ['Coogee Beach', 28.77, 35.30, 5],
-      ['Cronulla Beach', 28.60, 35.20, 3],
-      ['Manly Beach', 28.55, 35.11, 2],
-      ['Maroubra Beach', 28.48, 35.14,1]
-    ];
-     
-     var dataFromLS = '<p>Sprinkler 2</p><p>Soil hum.: 93%</p><p style="font-size: 15px"> Pump Status: <span class="badge badge-pill badge-info">ON</span></sp>'
-
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
-      center: new google.maps.LatLng(28.77, 35.30),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    var infowindow = new google.maps.InfoWindow();
-
-     var icon = {
-    url: "https://image.flaticon.com/icons/svg/1275/1275835.svg", // url
-    scaledSize: new google.maps.Size(30, 30), // scaled size
-    origin: new google.maps.Point(0,0), // origin
-    anchor: new google.maps.Point(0, 0) // anchor
-};
-     
-    var marker, i;
-    for (i = 0; i < locations.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map,
-        icon: icon
-      });
-
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-        infowindow.setContent(dataFromLS);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
-    }
-  </script>
 </body>
 </html>
