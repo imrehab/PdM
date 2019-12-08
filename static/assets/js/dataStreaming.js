@@ -2,12 +2,14 @@
 var sensorID="MPU0001";
 var assetModel = "IPOWERFAN";
 var assetID = "IPOWERFAN001MPU";
-var behaviourData = 97;
 
 //===============global variable===========
-var streaming = true;
-var iterations = 20;//real time visualization number of values displayed
-var firstValDate = "";//date of the first sensor reading, used for data streaming filteration
+var streamingTemp = true;
+var streamingMotion = true;
+var numDataPoints = 40;
+var dataSteps = 1;
+var incTableMax = 4;
+
 
 //==============firebase configuration====================
 var firebaseConfig= {
@@ -27,20 +29,32 @@ var firestore = firebase.firestore();
 var database = firebase.database();
 
 
-var realTimeRef = database.ref('sensor/'+sensorID);
-realTimeRef.limitToFirst(1).on('value', setFirstDate, errData);
-realTimeRef.off("value");
-realTimeRef.limitToLast(iterations).on('value', gotData, errData);
+//get first value read, to set as filter min
+var firstValRef = database.ref('sensor/'+sensorID).limitToFirst(1);
+//get last value read, to set as filter max (neccessary when no realtime data are streaming)
+var lastValRef = database.ref('sensor/'+sensorID).limitToLast(1);
+//get 40 last readings of today, to initially set up graphs
+var initData = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(numDataPoints);
+//realtime ref listening to newly added childre
+var reaTimeRef = database.ref('sensor/'+sensorID).startAt(Date.now());
+
+firstValRef.once('value', setFirstDate, errData);// @dataStreaming-DateFilteration.js
+lastValRef.once('value', setLastDate, errData);// @dataStreaming-DateFilteration.js
+initData.once('value', initDataSetup, errData);
+reaTimeRef.on('child_added', function(childSnapshot, prevChildKey) {
+  addNewData(childSnapshot);
+}, errData);
+
 
 function read() {
     const promise = firestore.collection("Models").doc(assetModel).get();
     const p1 = promise.then( snapshot => {
       const model = snapshot.data();
-      assetInfo(extractData(model));
+      assetInfo(model);
       const promise2 = firestore.collection("Models").doc(assetModel).collection("Assets").doc(assetID).get();
       const p2 = promise2.then( snapshot2 => {
-          const asset = snapshot2.data();
-          incidents(extractData(asset));
+          const issues = snapshot2.data();
+          incidents(issues);
         });
     p2.catch(error =>{
       console.log("Error"+error);
@@ -49,36 +63,26 @@ function read() {
   p1.catch(error =>{
     console.log("Error"+error);
   });
-  assetBehaviour(behaviourData);//from model
+  assetBehaviour(behaviourData);//( {{ prob }} );//from model
   //assignFirstDate();
 }
 
 
-function gotData(data){
-  if(streaming){
-    tempData(data,iterations);
-    motionData(data,iterations);
-    iterations = 1;
-  }
-  else{
-    deleteData(data);
-  }
+function addNewData(data){
+  console.log("new val added");
+    if(streamingTemp){
+      tempData(data,dataSteps);
+    }
+    if(streamingMotion){
+      motionData(data,dataSteps);
+    }
+    setLastDate(data);
 }
 
-
- function setFirstDate(data){
-   console.log("inside first date");
-   var reads = data.val();
-   var keys = Object.keys(reads);
-   var date = reads[keys[0]].time.substring(0, 10);
-    firstValDate = date;
-    console.log(firstValDate);
+function initDataSetup(data){
+    tempData(data,numDataPoints);
+    motionData(data,numDataPoints);
 }
-
-function deleteData(data){
-  //delete data when data streaming is paused
-}
-
 
 function updateDate(){
   //refetch the data from firestore for each function
@@ -117,9 +121,10 @@ function extractData(data){
 function assetInfo(data){
    //document.getElementById('RUL').innerHTML = data[0];
    document.getElementById('info-id').innerHTML = assetID;
-   document.getElementById('info-type').innerHTML = data[7];
-   document.getElementById('info-make').innerHTML = data[1];
+   document.getElementById('info-type').innerHTML = data['type'];
+   document.getElementById('info-make').innerHTML = data['make'];
    document.getElementById('info-model').innerHTML = assetModel;
+   $("#asset-manual").attr("href", data['manual']);
 }
 
 function assetBehaviour(data){
@@ -146,29 +151,25 @@ function assetBehaviour(data){
 
 
 function incidents(data){
-  //data = all asset info
+  var issues = data['issue'];
+  issues = sortIncidents(issues);
   var total = [];
-  var issues= [];
   var status = "";
   var severity = "";
-  var keys = [];
-  issues = data[0];
-  //check whether issues is a single object or a list
-  //loop through issues if is a list
-    for(var key in issues){
-      keys.push(key);
-    }
-      switch(issues[keys[1]].toUpperCase()){//severities
+  var text = "";
+  for (var i=0;i<incTableMax&&i<issues.length;i++){
+  var issue = issues[i];
+      switch(issue['severity'].toUpperCase()){//severities
         case "HIGH": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(233,89,16,0.75)">HIGHT</small></span></td>';
         total[total.length]= "HIGH";
         break;
-        case "MEDIUM": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(253,183,5,0.75)"><small>MEDIUM</small></span></td>';
+        case "MEDIUM": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(253,183,5,1)"><small>MEDIUM</small></span></td>';
         total[total.length]= "MEDIUM";
         break;
         case "LOW": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(250,234,12,1)"><small>LOW</small></span></td>';
         total[total.length]= "LOW";
       }
-      switch(issues[keys[2]].toUpperCase()){//statuses
+      switch(issue['status'].toUpperCase()){//statuses
         case "HANDLED": status = '<td class="uk-width-2-10 uk-text-right"><a style="width :80px;" class="btn btn-primary btn-sm disabled" tabindex="-1" aria-disabled="true"><small>HANDLED</small></a></td>';
         break;
         case "UNHANDLED": status = '<td class="uk-width-2-10 uk-text-right"><button style="width :80px; " type="button" class="btn btn-primary btn-sm shadow-sm"><small>HANDLE</small></button></td>';
@@ -176,17 +177,63 @@ function incidents(data){
         case "RESOLVED": status = '<td class="uk-width-2-10 uk-text-right"><a style="width :80px;" class="btn btn-secondary btn-sm disabled" tabindex="-1" aria-disabled="true"><small>RESOLVED</small></a></td>';
 
       }
-      var utcSeconds = issues[keys[3]].seconds;
-      var date = new Date(0); // The 0 there is the key, which sets the date to the epoch
-      date.setUTCSeconds(utcSeconds);
-      document.getElementById('incident-table-body').innerHTML =
-      '<tr class="uk-table-middle"><td class="uk-width-2-10 uk-text-nowrap"><small>'+date.toDateString().substring(4, 15)+' - '+date.toString().substring(16, 21)+'</small></td>'
+      text = '<tr class="uk-table-middle"><td class="uk-width-2-10 uk-text-nowrap"><small>'+timestampToString(issue['timestamp'])+'</small></td>'
       +severity
-      +'<td class="uk-width-4-10 text-wrap"><small>ADD ISSUE DESCRIPTION</small></td>'
+      +'<td class="uk-width-4-10 text-wrap"><small>'+issue['description']+'</small></td>'
       +status
       +'</tr>';
-
+      document.getElementById('incident-table-body').innerHTML+=text;
+    }
+      if(data.length>=incTableMax){
+        document.getElementById('incident-table').innerHTML +="<tfoot><tr><td><button type='button' class='btn btn-link'><small>Show all...</small></button></td></tr></tfoot>"
+      }
       incidentsGraph(total);
+}
+
+function sortIncidents(data){
+  var result = [];
+  var unhandled = [];
+  var handled = [];
+  var resolved = [];
+  for(var i =0 ;i<data.length;i++){
+    var temp = data[i];
+    switch(temp['status'].toUpperCase()){
+      case "UNHANDLED": unhandled.push(temp);
+            break;
+      case "HANDLED": handled.push(temp);
+            break;
+      case "RESOLVED": resolved.push(temp);
+    }
+  }
+  //append to result oldest to latest
+  for(var i = 0; i<unhandled.length ;i++){
+    result.push(unhandled[unhandled.length-i-1]);
+  }
+  for(var i = 0; i<handled.length ;i++){
+    result.push(handled[handled.length-i-1]);
+  }
+  for(var i= 0; i<resolved.length ;i++){
+    result.push(resolved[resolved.length-i-1]);
+  }
+  return result;
+}
+
+function timestampToTime(data){
+  var utcSeconds = data.seconds;
+  var date = new Date(0); // The 0 there is the key, which sets the date to the epoch
+  date.setUTCSeconds(utcSeconds);
+  return date;
+}
+
+function timestampToString(data){
+  data = timestampToTime(data);
+  return data.toString().substring(4, 15)+' - '+data.toString().substring(16, 21);
+}
+
+function compareDate(a,b){
+var result = new Date(a.date) - new Date(a.date)
+
+  console.log("comp val: "+ result);
 }
 
 function incidentsGraph(incidents){
@@ -216,13 +263,15 @@ function tempData(data,iter){
   var temp = [];
   var time = [];
   var reads = data.val();
-  var keys = Object.keys(reads);
-  for (var i=0; i<iter; i++){
-     var k = keys[i];
-     temp[temp.length] = Math.round( reads[k].temp * 10) / 10;
-     time[time.length] = reads[k].time;
+  if(reads!=null){
+    var keys = Object.keys(reads);
+    for (var i=0; i<iter; i++){
+       var k = keys[i];
+       temp[temp.length] = Math.round( reads[k].temp * 10) / 10;
+       time[time.length] = reads[k].time;
+    }
+    addTempData(time, temp);
   }
-  addTempData(time, temp);
 }
 
 function motionData(data,iter){
@@ -232,16 +281,18 @@ function motionData(data,iter){
   var z = [];
   var time = [];
   var reads = data.val();
-  var keys = Object.keys(reads);
-  for (var i=0; i<iter; i++){
-     var k = keys[i];
-     motion = reads[k].acc;
-     x[x.length] = motion[0];
-     y[y.length] = motion[1];
-     z[z.length] = motion[2];
-     time[time.length] = reads[k].time;
+  if(reads!=null){
+    var keys = Object.keys(reads);
+    for (var i=0; i<iter; i++){
+       var k = keys[i];
+       motion = reads[k].acc;
+       x[x.length] = motion[0];
+       y[y.length] = motion[1];
+       z[z.length] = motion[2];
+       time[time.length] = reads[k].time;
+    }
+    addMotionData(time, x, y, z);
   }
-  addMotionData(time, x, y, z);
 }
 
 
@@ -270,8 +321,4 @@ function addMotionData(label, x, y, z){
 
 function errData(error){
  console.log("Error: "+ error);
-}
-
-function toggleStreaming(){
-  streaming = !streaming;
 }
