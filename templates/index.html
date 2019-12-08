@@ -150,6 +150,7 @@
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="{{ url_for('profile') }}">My profile</a></li>
+                                    <li><button onclick="logout()">Logout</button></li>
                                 </ul>
                             </div>
                         </li>
@@ -215,7 +216,6 @@
 
     <div id="page_content">
         <div id="page_content_inner">
-<h1>{{ data }}</h1>
             <!-- tasks -->
             <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
                 <div class="uk-width-medium-2-3">
@@ -224,10 +224,7 @@
                <div class="uk-grid">                
                         
                     <div class="uk-width-medium-1-2">     
-               
-                        
-                    <!-- gooooooogggllllllle -->
-                        
+                                       
               <!-- Chart -->
           <div id="map" style="width: 460px; height: 370px;"></div>
                    </div>
@@ -245,21 +242,21 @@
             
              <div class="uk-grid uk-grid-medium uk-margin-medium-top" data-uk-grid-margin>
                             <div class="uk-width-medium-1-2">Medium severitiy alert</div>
-                            <div style="margin-left: 17px;" class="uk-width-small-2-5 uk-margin-small-right"><p style="text-align:right">2 Assets</p></div>
+                            <div style="margin-left: 17px;" class="uk-width-small-2-5 uk-margin-small-right"><p style="text-align:right">0 Assets</p></div>
                         </div>            
                        
          <div style="border-radius: 50px 50px 50px 50px;" class="uk-progress uk-progress-small uk-progress-warning uk-margin-small-right">
-                 <div class="uk-progress-bar" style="width: 40%;"></div>
+                 <div class="uk-progress-bar" style="width: 0%;"></div>
              </div>
                        
                 
                   <div class="uk-grid uk-grid-medium uk-margin-medium-top" data-uk-grid-margin>
                             <div class="uk-width-medium-1-2">High severitiy alert</div>
-                            <div style="margin-left: 17px;" class="uk-width-small-2-5 uk-margin-small-right"><p style="text-align:right">2 Assets</p></div>
+                            <div style="margin-left: 17px;" class="uk-width-small-2-5 uk-margin-small-right"><p style="text-align:right">0 Assets</p></div>
                         </div>       
                        
            <div style="border-radius: 50px 50px 50px 50px;" class="uk-progress uk-progress-small uk-progress-danger uk-margin-small-right">
-                 <div class="uk-progress-bar" style="width: 40%;"></div>
+                 <div class="uk-progress-bar" style="width: 0%;"></div>
              </div>
                        
                    </div>
@@ -747,6 +744,12 @@ var database = firebase.database();
 //
 //    });
 //  });
+
+    function logout(){
+  firebase.auth().signOut();
+    window.location.href = "{{ url_for('login') }}";
+}
+   
 
 </script>
  
