@@ -691,6 +691,103 @@ var firestore = firebase.firestore();
     }
   </script>
 
+
+          <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+ <script type="text/javascript">
+       var firebaseConfig = {
+    apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
+    authDomain: "raspberrypi-6b521.firebaseapp.com",
+    databaseURL: "https://raspberrypi-6b521.firebaseio.com",
+    projectId: "raspberrypi-6b521",
+    storageBucket: "raspberrypi-6b521.appspot.com",
+    messagingSenderId: "829617435562",
+    appId: "1:829617435562:web:3f6548f88b700d529a71d3",
+    measurementId: "G-XK5P7KWL53"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+var firestore = firebase.firestore();
+
+
+
+ $(document).ready(function(){
+
+
+
+   firestore.collection("Models").doc("IPOWERFAN").collection("Assets").get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+
+       var t = []
+     t.push(doc.data().loc.sensorID);
+     t.push(doc.data().loc.latitude);
+     t.push(doc.data().loc.longitude);
+     t.push(15);
+    locations.push(t);
+                });
+        });
+      });
+
+</script>
+
+ <script>
+
+    var locations = [
+      ['Bondi Beach', 24.7419037,46.6415725,15],
+    ];
+
+
+       var t = [];
+     t.push('hello');
+    t.push(24);
+     t.push(46);
+   t.push(15);
+    locations.push(t);
+//
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 13,
+      center: new google.maps.LatLng(24.7419037, 46.6415725),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+     var icon = {
+    src: "static/assets/icons/icon.png", // url
+    scaledSize: new google.maps.Size(30, 30), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+};
+
+    var marker, i;
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+        icon: icon
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+        infowindow.setContent(dataFromLS);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+
     <script type="text/javascript" src="../static/assets/js/assetCharts.js"></script>
  <!--===================FIREBASE============-->
 
