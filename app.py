@@ -43,15 +43,19 @@ config = {
 #
 firebase = pyfireconnect.initialize(config)
 datab = firebase.database()
-data = datab.child("sensor/MPU0001").get()
-for data in data.each():
-    key = data.key()
-    break
 
-data_split = []
-data_key = datab.child("sensor/MPU0001/"+key).get()
-for data in data_key.each():
-    data_split.append(data.val())
+def LatestReading(id):
+    data = datab.child("sensor/"+id).get()
+    for data in data.each():
+        key = data.key()
+        break
+        
+    data_split = []
+    data_key = datab.child("sensor/"+id+"/"+key).get()
+    for data in data_key.each():
+        data_split.append(data.val())
+        
+    return data_split
 
 # data_split[0] -> acc -> data_split[0][0] , data_split[0][1], data_split[0][2]
 # data_split[1] -> asset id
@@ -118,21 +122,36 @@ y = data.Normality
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
 neigh = KNeighborsClassifier(n_neighbors=7)
 neigh.fit(X_train, y_train)
-pred = neigh.predict([[data_split[0][0],data_split[0][1], data_split[0][2], data_split[2]]])
-prob = neigh.predict_proba([[data_split[0][0],data_split[0][1], data_split[0][2], data_split[2]]])
-str = str(prob).strip('[]').split()
 
+# RUL 
 
 y2 = data.RUL
 # split the data into test/train
 X_train1, X_test1, y_train1, y_test1 = train_test_split(X, y2, test_size=0.20)
 neigh2 = KNeighborsRegressor(n_neighbors=7)
 neigh2.fit(X_train1, y_train1)
-pred2 = neigh2.predict([[data_split[0][0],data_split[0][1], data_split[0][2], data_split[2]]])
+
+
+def model(id):
+    data_split = LatestReading(id)
+    pred = neigh.predict([[data_split[0][0],data_split[0][1], data_split[0][2], data_split[2]]])
+    prob = neigh.predict_proba([[data_split[0][0],data_split[0][1], data_split[0][2], data_split[2]]])
+    string = str(prob).strip('[]').split()
+    return pred, string
+
+def RUL(id):
+    data_split = LatestReading(id)
+    pred2 = neigh2.predict([[data_split[0][0],data_split[0][1], data_split[0][2], data_split[2]]])
+#    pred2 = round(pred2)
+    return pred2
+
+RUL = RUL("MPU0001")
+normality, normality_prob = model("MPU0001")
+
     
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('index.html', prob=float(str[1])*100, normality=pred)
+    return render_template('index.html', prob=float(normality_prob[1])*100, normality=normality)
 
 
 
@@ -172,7 +191,7 @@ def asset(assetID):
     #     pass
     #assetID = assetID
     #assetID = request.args.get('assetID',None)
-    return render_template('asset.html', prob=float(str[1])*100, rul=round(pred2[0]), normality=pred, assetID=assetID)
+    return render_template('asset.html', prob=float(normality_prob[1])*100, rul=np.round(RUL[0]), normality=normality, assetID=assetID)
 
 
 @app.route('/assets.html')
@@ -182,6 +201,10 @@ def assets():
 @app.route('/asset-edited.html')
 def assetedited():
     return render_template('asset-edited.html')
+
+@app.route('/login.html')
+def login():
+    return render_template('login.html')
 
 
 if __name__ == "__main__":
