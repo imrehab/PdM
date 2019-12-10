@@ -162,9 +162,17 @@ def registerasset():
 def timeline():
     return render_template('timeline.html',data=AssetLists())
 
-@app.route('/asset.html')
-def asset():
-    return render_template('asset.html', prob=float(str[1])*100, rul=round(pred2[0]), normality=pred)
+@app.route('/assets/<assetID>')
+def asset(assetID):
+    # try:
+    #     asset = models.LunchOrder.select().where(
+    #         assetID=assetID
+    #     ).get()
+    # except models.DoesNotExist:
+    #     pass
+    #assetID = assetID
+    #assetID = request.args.get('assetID',None)
+    return render_template('asset.html', prob=float(str[1])*100, rul=round(pred2[0]), normality=pred, assetID=assetID)
 
 
 @app.route('/assets.html')

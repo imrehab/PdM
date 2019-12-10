@@ -67,7 +67,6 @@
 
 //tempreturn line chart
 var ctxTEMPLINE=document.getElementById('tempretureLineChart').getContext('2d');
-ctxTEMPLINE.canvas.height = 80;
 const gradient = ctxTEMPLINE.createLinearGradient(0, 0, 0, 300);
       gradient.addColorStop(0, 'rgba(141,196,237,0.75)');
       gradient.addColorStop(0.2, 'rgba(141,196,237,0.5)');
@@ -101,7 +100,9 @@ var tempretureLineChart=new Chart(ctxTEMPLINE, {
           ],
             xAxes: [ {
                 ticks: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    autoSkip: true,
+                    maxTicksLimit: 20
                 }
             }
             ]
@@ -112,7 +113,6 @@ var tempretureLineChart=new Chart(ctxTEMPLINE, {
 
 //motion line chart
 var ctxMOTIONLINE=document.getElementById('motionLineChart').getContext('2d');
-ctxMOTIONLINE.canvas.height = 80;
 var motionLineChart=new Chart(ctxMOTIONLINE, {
     type: 'line', data: {
         labels: [],
@@ -161,7 +161,9 @@ var motionLineChart=new Chart(ctxMOTIONLINE, {
           ],
             xAxes: [ {
                 ticks: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    autoSkip: true,
+                    maxTicksLimit: 20
                 }
             }
             ]

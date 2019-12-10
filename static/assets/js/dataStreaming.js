@@ -1,9 +1,11 @@
 //===========for testing puposes, to be removed===========
-var sensorID="MPU0001";
 var assetModel = "IPOWERFAN";
-var assetID = "IPOWERFAN001MPU";
+//var assetID = "IPOWERFAN001MPU";
 
 //===============global variable===========
+var assetID = getAssetID();
+console.log("assetID: "+assetID);
+var sensorID="";
 var streamingTemp = true;
 var streamingMotion = true;
 var numDataPoints = 40;
@@ -28,23 +30,23 @@ var incTableMax = 4;
 // var firestore = firebase.firestore();
 // var database = firebase.database();
 
+function realTimeDB(){
+  //get first value read, to set as filter min
+  var firstValRef = database.ref('sensor/'+sensorID).limitToFirst(1);
+  //get last value read, to set as filter max (neccessary when no realtime data are streaming)
+  var lastValRef = database.ref('sensor/'+sensorID).limitToLast(1);
+  //get 40 last readings of today, to initially set up graphs
+  var initData = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(numDataPoints);
+  //realtime ref listening to newly added childre
+  var reaTimeRef = database.ref('sensor/'+sensorID).startAt(Date.now());
 
-//get first value read, to set as filter min
-var firstValRef = database.ref('sensor/'+sensorID).limitToFirst(1);
-//get last value read, to set as filter max (neccessary when no realtime data are streaming)
-var lastValRef = database.ref('sensor/'+sensorID).limitToLast(1);
-//get 40 last readings of today, to initially set up graphs
-var initData = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(numDataPoints);
-//realtime ref listening to newly added childre
-var reaTimeRef = database.ref('sensor/'+sensorID).startAt(Date.now());
-
-firstValRef.once('value', setFirstDate, errData);// @dataStreaming-DateFilteration.js
-lastValRef.once('value', setLastDate, errData);// @dataStreaming-DateFilteration.js
-initData.once('value', initDataSetup, errData);
-reaTimeRef.on('child_added', function(childSnapshot, prevChildKey) {
-  addNewData(childSnapshot);
-}, errData);
-
+  firstValRef.once('value', setFirstDate, errData);// @dataStreaming-DateFilteration.js
+  lastValRef.once('value', setLastDate, errData);// @dataStreaming-DateFilteration.js
+  initData.once('value', initDataSetup, errData);
+  reaTimeRef.on('child_added', function(childSnapshot, prevChildKey) {
+    addNewData(childSnapshot);
+  }, errData);
+}
 
 function read() {
     const promise = firestore.collection("Models").doc(assetModel).get();
@@ -54,7 +56,9 @@ function read() {
       const promise2 = firestore.collection("Models").doc(assetModel).collection("Assets").doc(assetID).get();
       const p2 = promise2.then( snapshot2 => {
           const issues = snapshot2.data();
+          sensorID = issues['sensorID'];
           incidents(issues);
+          realTimeDB();
         });
     p2.catch(error =>{
       console.log("Error"+error);
@@ -63,17 +67,19 @@ function read() {
   p1.catch(error =>{
     console.log("Error"+error);
   });
-  //assetBehaviour( {{ prob }} );
-  //assignFirstDate();
 }
 
 
 function addNewData(data){
     if(streamingTemp){
       tempData(data,dataSteps);
+      // tempretureLineChart.config.data.labels.shift();
+      // tempretureLineChart.config.data.datasets[0].data.shift();
     }
     if(streamingMotion){
       motionData(data,dataSteps);
+      // motionLineChart.config.data.labels.shift();
+      // motionLineChart.config.data.datasets[0].data.shift();
     }
     setLastDate(data);
 }
@@ -124,6 +130,7 @@ function assetInfo(data){
    document.getElementById('info-make').innerHTML = data['make'];
    document.getElementById('info-model').innerHTML = assetModel;
    $("#asset-manual").attr("href", data['manual']);
+   $("#asset-icon").attr("src", data['icon']);
 }
 
 function assetBehaviour(data){
@@ -264,8 +271,6 @@ function tempData(data,iter){
          temp[temp.length] = Math.round( reads[k].temp * 10) / 10;
          time[time.length] = reads[k].time;
       }
-      console.log("time: "+time);
-      console.log("temp: "+temp);
           addTempData(time, temp);
     }
   }
