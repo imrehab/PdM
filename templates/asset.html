@@ -11,26 +11,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no" />
-    <script src="../static/assets/js/jquery-3.4.1.js"></script>
-    <link rel="icon" type="image/png" href="../static/assets/img/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="../static/assets/img/favicon-32x32.png" sizes="32x32">
-    <link rel="stylesheet" href="../static/bower_components/weather-icons/css/weather-icons.min.css" media="all">
-    <link rel="stylesheet" href="../static/bower_components/metrics-graphics/dist/metricsgraphics.css">
-    <link rel="stylesheet" href="../static/bower_components/chartist/dist/chartist.min.css">
-    <link rel="stylesheet" href="../static/bower_components/uikit/css/uikit.almost-flat.min.css" media="all">
-    <link rel="stylesheet" href="../static/assets/icons/flags/flags.min.css" media="all">
-    <link rel="stylesheet" href="../static/assets/css/style_switcher.min.css" media="all">
-    <link rel="stylesheet" href="../static/assets/css/main.min.css" media="all">
-    <link rel="stylesheet" href="../static/assets/css/themes/themes_combined.min.css" media="all">
-    <link rel="stylesheet" href="../static/assets/css/style-asset-page.css" media="all">
+    <script src="../../static/assets/js/jquery-3.4.1.js"></script>
+    <link rel="icon" type="image/png" href="../../static/assets/img/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="../../static/assets/img/favicon-32x32.png" sizes="32x32">
+    <link rel="stylesheet" href="../../static/bower_components/weather-icons/css/weather-icons.min.css" media="all">
+    <link rel="stylesheet" href="../../static/bower_components/metrics-graphics/dist/metricsgraphics.css">
+    <link rel="stylesheet" href="../../static/bower_components/chartist/dist/chartist.min.css">
+    <link rel="stylesheet" href="../../static/bower_components/uikit/css/uikit.almost-flat.min.css" media="all">
+    <link rel="stylesheet" href="../../static/assets/icons/flags/flags.min.css" media="all">
+    <link rel="stylesheet" href="../../static/assets/css/style_switcher.min.css" media="all">
+    <link rel="stylesheet" href="../../static/assets/css/main.min.css" media="all">
+    <link rel="stylesheet" href="../../static/assets/css/themes/themes_combined.min.css" media="all">
+    <link rel="stylesheet" href="../../static/assets/css/style-asset-page.css" media="all">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--CHARTS-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     <script src="https://code.jscharting.com/latest/jscharting.js"></script>
-    <script type="text/javascript" src="../static/bower_components/parsleyjs/bower_components/bootstrap/js/bootstrap.bundle.js"></script>
-    <script type="text/javascript" src="../static/assets/js/JSC/JSCharting.js"></script>
-    <script type="text/javascript" src="../static/assets/js/JSC/toolbar.js"></script>
-    <script type="text/javascript" src="../static/assets/js/JSC/types.js"></script>
+    <script type="text/javascript" src="../../static/bower_components/parsleyjs/bower_components/bootstrap/js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="../../static/assets/js/JSC/JSCharting.js"></script>
+    <script type="text/javascript" src="../../static/assets/js/JSC/toolbar.js"></script>
+    <script type="text/javascript" src="../../static/assets/js/JSC/types.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- google-->
@@ -58,7 +58,7 @@
                         <li><a href="#" id="full_screen_toggle" class="user_action_icon uk-visible-large"><i class="material-icons md-24 md-light">fullscreen</i></a></li>
 
                         <li data-uk-dropdown="{mode:'click',pos:'bottom-right'}">
-                            <a href="#" class="user_action_image"><img class="md-user-image" src="../static/assets/img/avatars/engineer.png" alt="" /></a>
+                            <a href="#" class="user_action_image"><img class="md-user-image" src="../../static/assets/img/avatars/engineer.png" alt="" /></a>
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="{{ url_for('profile') }}">My profile</a></li>
@@ -138,7 +138,7 @@
           <div class="col-sm-auto">
               <div class="btn-group" role="group">
               <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../static/assets/img/settings.png">
+                <img src="../../static/assets/img/settings.png">
               </button>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" id="asset-manual" href="#" target="_blank">Asset user manual</a>
@@ -239,7 +239,7 @@
                     <div class="col-sm-3">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon2"><img src="../static/assets/img/calendar.png"></span>
+                            <span class="input-group-text" id="basic-addon2"><img src="../../static/assets/img/calendar.png"></span>
                           </div>
                           <input type="date" id="tempFilter" class="form-control date-input" aria-label="date" aria-describedby="basic-addon1">
                         </div>
@@ -269,7 +269,7 @@
                     <div class="col-sm-3">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><img src="../static/assets/img/calendar.png"></span>
+                            <span class="input-group-text" id="basic-addon1"><img src="../../static/assets/img/calendar.png"></span>
                           </div>
                           <input type="date" id="motionFilter" class="form-control date-input" aria-label="date" aria-describedby="basic-addon1">
                         </div>
@@ -339,33 +339,33 @@
     </script>
 
     <!-- common functions -->
-    <script src="../static/assets/js/common.min.js"></script>
+    <script src="../../static/assets/js/common.min.js"></script>
     <!-- uikit functions -->
-    <script src="../static/assets/js/uikit_custom.min.js"></script>
+    <script src="../../static/assets/js/uikit_custom.min.js"></script>
     <!-- altair common functions/helpers -->
-    <script src="../static/assets/js/altair_admin_common.min.js"></script>
+    <script src="../../static/assets/js/altair_admin_common.min.js"></script>
 
     <!-- page specific plugins -->
     <!-- d3 -->
-    <script src="../static/bower_components/d3/d3.min.js"></script>
+    <script src="../../static/bower_components/d3/d3.min.js"></script>
     <!-- metrics graphics (charts) -->
-    <script src="../static/bower_components/metrics-graphics/dist/metricsgraphics.min.js"></script>
+    <script src="../../static/bower_components/metrics-graphics/dist/metricsgraphics.min.js"></script>
     <!-- chartist (charts) -->
-    <script src="../static/bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="../../static/bower_components/chartist/dist/chartist.min.js"></script>
     <!-- peity (small charts) -->
-    <script src="../static/bower_components/peity/jquery.peity.min.js"></script>
+    <script src="../../static/bower_components/peity/jquery.peity.min.js"></script>
     <!-- easy-pie-chart (circular statistics) -->
-    <script src="../static/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+    <script src="../../static/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
     <!-- countUp -->
-    <script src="../static/bower_components/countUp.js/dist/countUp.min.js"></script>
+    <script src="../../static/bower_components/countUp.js/dist/countUp.min.js"></script>
     <!-- handlebars.js -->
-    <script src="../static/bower_components/handlebars/handlebars.min.js"></script>
-    <script src="../static/assets/js/custom/handlebars_helpers.min.js"></script>
+    <script src="../../static/bower_components/handlebars/handlebars.min.js"></script>
+    <script src="../../static/assets/js/custom/handlebars_helpers.min.js"></script>
     <!-- CLNDR -->
-    <script src="../static/bower_components/clndr/clndr.min.js"></script>
+    <script src="../../static/bower_components/clndr/clndr.min.js"></script>
 
     <!--  dashbord functions -->
-    <script src="../static/assets/js/pages/dashboard.min.js"></script>
+    <script src="../../static/assets/js/pages/dashboard.min.js"></script>
 
     <div id="style_switcher">
         <div id="style_switcher_toggle"><i class="material-icons">&#xE8B8;</i></div>
@@ -446,6 +446,15 @@
     </div>
 
     <script>
+
+    function getAssetID(){
+      return "{{ assetID }}";
+    }
+
+    function getSensorID(){
+      return "{{ sensorID }}"
+    }
+    
         $(function() {
             var $switcher = $('#style_switcher'),
                 $switcher_toggle = $('#style_switcher_toggle'),
@@ -676,9 +685,7 @@
 
 
  $(document).ready(function(){
-function getAssetID(){
-  return {{ assetID }}
-}
+
 
    firestore.collection("Models").doc("IPOWERFAN").collection("Assets").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
@@ -743,7 +750,7 @@ function getAssetID(){
     }
   </script>
 
-    <script type="text/javascript" src="../static/assets/js/assetCharts.js"></script>
+    <script type="text/javascript" src="../../static/assets/js/assetCharts.js"></script>
  <!--===================FIREBASE============-->
 
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
@@ -751,9 +758,9 @@ function getAssetID(){
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
-<script type="text/javascript" src="../static/assets/js/issues-actions.js"></script>
-<script type="text/javascript" src="../static/assets/js/dataStreaming-DateFilteration.js"></script>
-<script type="text/javascript" src="../static/assets/js/dataStreaming.js"></script>
+<script type="text/javascript" src="../../static/assets/js/issues-actions.js"></script>
+<script type="text/javascript" src="../../static/assets/js/dataStreaming-DateFilteration.js"></script>
+<script type="text/javascript" src="../../static/assets/js/dataStreaming.js"></script>
 </body>
 
 </html>

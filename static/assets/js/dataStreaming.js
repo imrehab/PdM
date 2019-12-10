@@ -3,14 +3,16 @@ var assetModel = "IPOWERFAN";
 //var assetID = "IPOWERFAN001MPU";
 
 //===============global variable===========
-var assetID = getAssetID();
-console.log("assetID: "+assetID);
-var sensorID="";
-var streamingTemp = true;
-var streamingMotion = true;
-var numDataPoints = 40;
-var dataSteps = 1;
-var incTableMax = 4;
+ $(document).ready(function(){
+  var assetID = window.getAssetID();
+  console.log("assetID: "+assetID);
+  var sensorID="";
+  var streamingTemp = true;
+  var streamingMotion = true;
+  var numDataPoints = 40;
+  var dataSteps = 1;
+  var incTableMax = 4;
+});
 
 
 //==============firebase configuration====================
@@ -125,7 +127,6 @@ function extractData(data){
 
 function assetInfo(data){
    //document.getElementById('RUL').innerHTML = data[0];
-   document.getElementById('info-id').innerHTML = assetID;
    document.getElementById('info-type').innerHTML = data['type'];
    document.getElementById('info-make').innerHTML = data['make'];
    document.getElementById('info-model').innerHTML = assetModel;

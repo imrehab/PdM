@@ -4,7 +4,6 @@ from flask import Flask, request, jsonify, render_template, url_for
 import pickle
 import numpy as np
 import time
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
@@ -49,12 +48,12 @@ def LatestReading(id):
     for data in data.each():
         key = data.key()
         break
-        
+
     data_split = []
     data_key = datab.child("sensor/"+id+"/"+key).get()
     for data in data_key.each():
         data_split.append(data.val())
-        
+
     return data_split
 
 # data_split[0] -> acc -> data_split[0][0] , data_split[0][1], data_split[0][2]
@@ -74,17 +73,17 @@ def user_prifile(email):
     except google.cloud.exceptions.NotFound:
         print(u'No such document!')
 
-def updateAssetLists(id,abnormality): 
+def updateAssetLists(id,abnormality):
     try:
         asset = db.collection(u'Models').document(u'IPOWERFAN').collection(u'Assets').document(id)
         asset.update({ u'abnormality': abnormality , u'Issues.timestamp': firestore.SERVER_TIMESTAMP  })
         return ''
- 
+
     except google.cloud.exceptions.NotFound:
         return ''
-        
+
 def AssetLists():
-  
+
    try:
         assets=[]
         docs=db.collection(u'Models').document(u'IPOWERFAN').collection(u'Assets').stream()
@@ -92,16 +91,16 @@ def AssetLists():
             dic= doc.to_dict()
             dic['id']=doc.id
             assets.append(dic)
- 
+
         return assets
    except google.cloud.exceptions.NotFound:
         return 'error'
-        
-        
+
+
 updateAssetLists('IPOWERFAN001MPU',True)
 
 
-    
+
 app = Flask(__name__)
 app.wsgi_app = WhiteNoise(app.wsgi_app)
 my_static_folders = (
@@ -145,10 +144,10 @@ def RUL(id):
 #    pred2 = round(pred2)
     return pred2
 
-RUL = RUL("MPU0001")
-normality, normality_prob = model("MPU0001")
+#RUL = RUL("MPU0001")
+#normality, normality_prob = model("MPU0001")
 
-    
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('index.html', prob=float(normality_prob[1])*100, normality=normality)
@@ -181,17 +180,11 @@ def registerasset():
 def timeline():
     return render_template('timeline.html',data=AssetLists())
 
-@app.route('/assets/<assetID>')
-def asset(assetID):
-    # try:
-    #     asset = models.LunchOrder.select().where(
-    #         assetID=assetID
-    #     ).get()
-    # except models.DoesNotExist:
-    #     pass
-    #assetID = assetID
-    #assetID = request.args.get('assetID',None)
-    return render_template('asset.html', prob=float(normality_prob[1])*100, rul=np.round(RUL[0]), normality=normality, assetID=assetID)
+@app.route('/assets/<assetID>/<sensorID>')
+def asset(assetID, sensorID):
+    rul = RUL(sensorID)
+    n, n_prob = model(sensorID)
+    return render_template('asset.html', prob=float(n_prob[1])*100, rul=np.round(rul[0]), normality=n, assetID=assetID, sensorID=sensorID)
 
 
 @app.route('/assets.html')

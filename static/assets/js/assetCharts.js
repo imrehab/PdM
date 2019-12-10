@@ -114,6 +114,7 @@ var tempretureLineChart=new Chart(ctxTEMPLINE, {
 //motion line chart
 var ctxMOTIONLINE=document.getElementById('motionLineChart').getContext('2d');
 var motionLineChart=new Chart(ctxMOTIONLINE, {
+  height: 300,
     type: 'line', data: {
         labels: [],
         datasets: [ {
@@ -166,7 +167,7 @@ var motionLineChart=new Chart(ctxMOTIONLINE, {
                     maxTicksLimit: 20
                 }
             }
-            ]
+          ],
         }
     }
 }

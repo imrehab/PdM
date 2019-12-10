@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="../static/assets/img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="../static/assets/img/favicon-32x32.png" sizes="32x32">
     <title>Assets</title>
-    <link rel="stylesheet" href="../static/bower_components/uikit/css/uikit.almost-flat.min.css" media="all">
+    <link rel="stylesheet" href="/static/bower_components/uikit/css/uikit.almost-flat.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/style_switcher.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/main.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/themes/themes_combined.min.css" media="all">
@@ -431,15 +431,18 @@
 var firestore = firebase.firestore();
 
  $(document).ready(function(){
-
    firestore.collection("Models").get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+      querySnapshot.forEach(function(doc) {//for each model
+          var model = doc.id;
           var icon = doc.data().icon;
-         firestore.collection("Models").doc("IPOWERFAN").collection("Assets").get().then(function(querySnapshot2) {
+         firestore.collection("Models").doc(model).collection("Assets").get().then(function(querySnapshot2) {
             querySnapshot2.forEach(function(doc2) {
-              var assetID = doc2.data().ID;
-              var url =   "{{ url_for('asset', assetID= 'replacable') }}".replace("replacable", assetID);
-              console.log("url: "+url);
+              var assetID = doc2.id;
+              var sensorID = doc2.data().sensorID;
+              console.log("sensorID: "+sensorID);
+              var url =   "{{ url_for('asset', assetID= 'replacable', sensorID= 'replacable2') }}";
+              url= url.replace("replacable", assetID)
+              url = url.replace("replacable2", sensorID);
               $('#myUL').append('<li>'+
                 '<div class="md-list-addon-element">'+
                     '<i class="material-icons md-36 uk-text-warning uk-margin-medium-bottom uk-margin-medium-top ">'+
