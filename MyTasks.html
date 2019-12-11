@@ -1,0 +1,628 @@
+<!doctype html>
+<!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no"/>
+
+    <link rel="icon" type="image/png" href="../static/assets/img/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="../static/assets/img/favicon-32x32.png" sizes="32x32">
+    <title>PdM</title>
+    <link rel="stylesheet" href="../static/bower_components/uikit/css/uikit.almost-flat.min.css" media="all">
+    <link rel="stylesheet" href="../static/assets/css/style_switcher.min.css" media="all">
+    <link rel="stylesheet" href="../static/assets/css/main.min.css" media="all">
+    <link rel="stylesheet" href="../static/assets/css/themes/themes_combined.min.css" media="all">
+
+</head>
+<body class="disable_transitions sidebar_main_open sidebar_main_swipe">
+    <!-- main header -->
+    <header id="header_main">
+        <div class="header_main_content">
+            <nav class="uk-navbar">
+                                
+                <!-- main sidebar switch -->
+                <a href="#" id="sidebar_main_toggle" class="sSwitch sSwitch_left">
+                    <span class="sSwitchIcon"></span>
+                </a>
+                
+                <!-- secondary sidebar switch -->
+                <a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">
+                    <span class="sSwitchIcon"></span>
+                </a>
+                  
+                <div class="uk-navbar-flip">
+                    <ul class="uk-navbar-nav user_actions">
+                        <li><a href="#" id="full_screen_toggle" class="user_action_icon uk-visible-large"><i class="material-icons md-24 md-light">fullscreen</i></a></li>
+                        <li data-uk-dropdown="{mode:'click',pos:'bottom-right'}">
+                            <a href="#" class="user_action_image"><img class="md-user-image" src="../static/assets/img/avatars/engineer.png" alt=""/></a>
+                            <div class="uk-dropdown uk-dropdown-small">
+                                <ul class="uk-nav js-uk-prevent">
+                                    <li><a href="myProfile.html">My profile</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header><!-- main header end -->
+    <!-- main sidebar -->
+    <aside id="sidebar_main">
+        
+         <div class="sidebar_main_header">
+            <div class="sidebar_logo">
+                <a href="index.html" class="sSidebar_hide sidebar_logo_large">
+                    <img class="logo_regular" src="../static/assets/img/logo_main.png" alt="" height="15" width="71"/>
+                    <img class="logo_light" src="../static/assets/img/logo_main_white.png" alt="" height="15" width="71"/>
+                </a>
+                <a href="index.html" class="sSidebar_show sidebar_logo_small">
+                    <img class="logo_regular" src="../static/assets/img/logo_main_small.png" alt="" height="32" width="32"/>
+                    <img class="logo_light" src="../static/assets/img/logo_main_small_light.png" alt="" height="32" width="32"/>
+                </a>
+            </div>
+        </div>
+        
+        <div class="menu_section">
+            <ul>
+                <li title="Home">
+                    <a href="{{ url_for('home') }}">
+                        <span class="menu_icon"><i class="material-icons">home</i></span>
+                        <span class="menu_title">Home</span>
+                    </a>
+                    
+                </li>
+                <li title="Assets">
+                    <a href="{{ url_for('assets') }}">
+                        <span class="menu_icon"><i class="material-icons">bar_chart</i></span>
+                        <span class="menu_title">Assets</span>
+                    </a>
+                    
+                </li>
+                <li title="Timeline">
+                    <a href="{{ url_for('timeline') }}">
+                        <span class="menu_icon"><i class="material-icons">notifications</i></span>
+                        <span class="menu_title">Timeline</span>
+                    </a>
+                    
+                </li>
+                <li class="current_section" title="MyTasks">
+                    <a href="{{ url_for('mytasks') }}">
+                        <span class="menu_icon"><i class="material-icons">person</i></span>
+                        <span class="menu_title">My Tasks</span>
+                    </a>
+                </li>
+                <li title="Help Center">
+                    <a href="{{ url_for('helpcenter') }}">
+                        <span class="menu_icon"><i class="material-icons">help</i></span>
+                        <span class="menu_title">Help Center</span>
+                    </a>
+                    
+                </li>
+            </ul>
+        </div>
+    </aside><!-- main sidebar end -->
+
+    <div id="page_content">
+        <div id="page_content_inner">
+
+          <div class="uk-grid">
+            <div class="uk-width-medium-2-2">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <div class="uk-flex uk-flex-middle">
+                            <div class="uk-flex-item-1">
+                                <h2 class="heading_b">Unresolved</h2>
+                            </div>
+                            <div>                               
+                            </div>
+                        </div>
+                        <hr>
+                        <ul class="md-list md-list-addon uk-margin-top" id="unresolved"> </ul>
+                    </div>
+                </div>
+
+              </div>
+        </div>
+	
+          <div class="uk-grid">
+            <div class="uk-width-medium-2-2">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <div class="uk-flex uk-flex-middle">
+                            <div class="uk-flex-item-1">
+                                <h2 class="heading_b">Resolved</h2>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <hr>
+                        <ul class="md-list md-list-addon uk-margin-top" id="resolved"> </ul>
+                    </div>
+                </div>
+
+              </div>
+        </div>
+	
+        
+        </div>
+
+    <!-- google web fonts -->
+    <script>
+        WebFontConfig = {
+            google: {
+                families: [
+                    'Source+Code+Pro:400,700:latin',
+                    'Roboto:400,300,500,700,400italic:latin'
+                ]
+            }
+        };
+        (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='assets/js/common.min.js') }}"></script>
+    <!-- uikit functions -->
+    <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/uikit_custom.min.js') }}"></script>
+
+    <!-- altair common functions/helpers -->
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='assets/js/altair_admin_common.min.js') }}"></script>
+
+    <script src="../static/assets/js/DateUtil.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+
+        <div id="style_switcher">
+        <div id="style_switcher_toggle"><i class="material-icons">&#xE8B8;</i></div>
+        <div class="uk-margin-medium-bottom">
+            <h4 class="heading_c uk-margin-bottom">Colors</h4>
+            <ul class="switcher_app_themes" id="theme_switcher">
+                <li class="app_style_default active_theme" data-app-theme="">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_a" data-app-theme="app_theme_a">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_b" data-app-theme="app_theme_b">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_c" data-app-theme="app_theme_c">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_d" data-app-theme="app_theme_d">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_e" data-app-theme="app_theme_e">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_f" data-app-theme="app_theme_f">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_g" data-app-theme="app_theme_g">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_h" data-app-theme="app_theme_h">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_i" data-app-theme="app_theme_i">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+                <li class="switcher_theme_dark" data-app-theme="app_theme_dark">
+                    <span class="app_color_main"></span>
+                    <span class="app_color_accent"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="uk-visible-large uk-margin-medium-bottom">
+            <h4 class="heading_c">Sidebar</h4>
+            <p>
+                <input type="checkbox" name="style_sidebar_mini" id="style_sidebar_mini" data-md-icheck />
+                <label for="style_sidebar_mini" class="inline-label">Mini Sidebar</label>
+            </p>
+            <p>
+                <input type="checkbox" name="style_sidebar_slim" id="style_sidebar_slim" data-md-icheck />
+                <label for="style_sidebar_slim" class="inline-label">Slim Sidebar</label>
+            </p>
+        </div>
+        <div class="uk-visible-large uk-margin-medium-bottom">
+            <h4 class="heading_c">Layout</h4>
+            <p>
+                <input type="checkbox" name="style_layout_boxed" id="style_layout_boxed" data-md-icheck />
+                <label for="style_layout_boxed" class="inline-label">Boxed layout</label>
+            </p>
+        </div>
+        <div class="uk-visible-large">
+            <h4 class="heading_c">Main menu accordion</h4>
+            <p>
+                <input type="checkbox" name="accordion_mode_main_menu" id="accordion_mode_main_menu" data-md-icheck />
+                <label for="accordion_mode_main_menu" class="inline-label">Accordion mode</label>
+            </p>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        $(function() {
+            var $switcher = $('#style_switcher'),
+                $switcher_toggle = $('#style_switcher_toggle'),
+                $theme_switcher = $('#theme_switcher'),
+                $mini_sidebar_toggle = $('#style_sidebar_mini'),
+                $slim_sidebar_toggle = $('#style_sidebar_slim'),
+                $boxed_layout_toggle = $('#style_layout_boxed'),
+                $accordion_mode_toggle = $('#accordion_mode_main_menu'),
+                $html = $('html'),
+                $body = $('body');
+
+
+            $switcher_toggle.click(function(e) {
+                e.preventDefault();
+                $switcher.toggleClass('switcher_active');
+            });
+
+            $theme_switcher.children('li').click(function(e) {
+                e.preventDefault();
+                var $this = $(this),
+                    this_theme = $this.attr('data-app-theme');
+
+                $theme_switcher.children('li').removeClass('active_theme');
+                $(this).addClass('active_theme');
+                $html
+                    .removeClass('app_theme_a app_theme_b app_theme_c app_theme_d app_theme_e app_theme_f app_theme_g app_theme_h app_theme_i app_theme_dark')
+                    .addClass(this_theme);
+
+                if(this_theme == '') {
+                    localStorage.removeItem('altair_theme');
+                    $('#kendoCSS').attr('href','bower_components/kendo-ui/styles/kendo.material.min.css');
+                } else {
+                    localStorage.setItem("altair_theme", this_theme);
+                    if(this_theme == 'app_theme_dark') {
+                        $('#kendoCSS').attr('href','bower_components/kendo-ui/styles/kendo.materialblack.min.css')
+                    } else {
+                        $('#kendoCSS').attr('href','bower_components/kendo-ui/styles/kendo.material.min.css');
+                    }
+                }
+
+            });
+
+            // hide style switcher
+            $document.on('click keyup', function(e) {
+                if( $switcher.hasClass('switcher_active') ) {
+                    if (
+                        ( !$(e.target).closest($switcher).length )
+                        || ( e.keyCode == 27 )
+                    ) {
+                        $switcher.removeClass('switcher_active');
+                    }
+                }
+            });
+
+            // get theme from local storage
+            if(localStorage.getItem("altair_theme") !== null) {
+                $theme_switcher.children('li[data-app-theme='+localStorage.getItem("altair_theme")+']').click();
+            }
+
+
+        // toggle mini sidebar
+
+            // change input's state to checked if mini sidebar is active
+            if((localStorage.getItem("altair_sidebar_mini") !== null && localStorage.getItem("altair_sidebar_mini") == '1') || $body.hasClass('sidebar_mini')) {
+                $mini_sidebar_toggle.iCheck('check');
+            }
+
+            $mini_sidebar_toggle
+                .on('ifChecked', function(event){
+                    $switcher.removeClass('switcher_active');
+                    localStorage.setItem("altair_sidebar_mini", '1');
+                    localStorage.removeItem('altair_sidebar_slim');
+                    location.reload(true);
+                })
+                .on('ifUnchecked', function(event){
+                    $switcher.removeClass('switcher_active');
+                    localStorage.removeItem('altair_sidebar_mini');
+                    location.reload(true);
+                });
+
+        // toggle slim sidebar
+
+            // change input's state to checked if mini sidebar is active
+            if((localStorage.getItem("altair_sidebar_slim") !== null && localStorage.getItem("altair_sidebar_slim") == '1') || $body.hasClass('sidebar_slim')) {
+                $slim_sidebar_toggle.iCheck('check');
+            }
+
+            $slim_sidebar_toggle
+                .on('ifChecked', function(event){
+                    $switcher.removeClass('switcher_active');
+                    localStorage.setItem("altair_sidebar_slim", '1');
+                    localStorage.removeItem('altair_sidebar_mini');
+                    location.reload(true);
+                })
+                .on('ifUnchecked', function(event){
+                    $switcher.removeClass('switcher_active');
+                    localStorage.removeItem('altair_sidebar_slim');
+                    location.reload(true);
+                });
+
+        // toggle boxed layout
+
+            if((localStorage.getItem("altair_layout") !== null && localStorage.getItem("altair_layout") == 'boxed') || $body.hasClass('boxed_layout')) {
+                $boxed_layout_toggle.iCheck('check');
+                $body.addClass('boxed_layout');
+                $(window).resize();
+            }
+
+            $boxed_layout_toggle
+                .on('ifChecked', function(event){
+                    $switcher.removeClass('switcher_active');
+                    localStorage.setItem("altair_layout", 'boxed');
+                    location.reload(true);
+                })
+                .on('ifUnchecked', function(event){
+                    $switcher.removeClass('switcher_active');
+                    localStorage.removeItem('altair_layout');
+                    location.reload(true);
+                });
+
+        // main menu accordion mode
+            if($sidebar_main.hasClass('accordion_mode')) {
+                $accordion_mode_toggle.iCheck('check');
+            }
+
+            $accordion_mode_toggle
+                .on('ifChecked', function(){
+                    $sidebar_main.addClass('accordion_mode');
+                })
+                .on('ifUnchecked', function(){
+                    $sidebar_main.removeClass('accordion_mode');
+                });
+
+
+        });
+    </script>
+
+    <script>
+        var issues = [];
+
+        $(document).ready(function () {
+            loadDB();
+            loadCurrentUserAndIssues();
+        });
+
+        function loadDB() {
+            var firebaseConfig = {
+                apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
+                authDomain: "raspberrypi-6b521.firebaseapp.com",
+                databaseURL: "https://raspberrypi-6b521.firebaseio.com",
+                projectId: "raspberrypi-6b521",
+                storageBucket: "raspberrypi-6b521.appspot.com",
+                messagingSenderId: "829617435562",
+                appId: "1:829617435562:web:3f6548f88b700d529a71d3",
+                measurementId: "G-XK5P7KWL53"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+            firestore = firebase.firestore();
+        }
+
+        function loadCurrentUserAndIssues() {
+            var currentEmail = "salnaser@um.sa"; 
+
+            firestore.collection('engineers')
+                .where('email', '==', currentEmail)
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        currentUserDoc = doc;
+                        loadIssues();
+                    });
+                });
+        }
+
+
+        function loadIssues() {
+
+            var assetIndex = 0;
+
+            firestore.collection("engineers")
+                .doc(currentUserDoc.id)
+                .get()
+                .then(function (doc) {
+
+                    var issues = doc.data().issues;
+
+                    issues.forEach(function (issue, issueIndex) {
+
+                            var assetID = issue.assetID;
+                            var timeDiff = ((issue.timestamp) ? getTimeDiff(issue.timestamp.toDate()) : '');
+                            var severity = (issue.severity ? issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1).toLowerCase() : '');
+
+                            var status = (issue.status ? issue.status.charAt(0).toUpperCase() + issue.status.slice(1).toLowerCase() : '');
+
+                            if (issue.status.toUpperCase() == "RESOLVED") {
+                                $('#resolved').append('<li>\n' +
+                                    '                                <div class="md-list-addon-element">\n' +
+                                    '                                    <i class="material-icons md-36 uk-text-warning"></i>\n' +
+                                    '                                </div>\n' +
+                                    '                                <div class="md-list-content">\n' +
+                                    '                                    <div class="uk-flex uk-flex-middle">\n' +
+                                    '                                        <div class="uk-width-8-10">\n' +
+                                    '                                            <h4 class="uk-margin-remove uk-text-truncate">\n' +
+                                    '                                               Asset ID: ' + assetID +
+                                    '                                            </h4>\n' +
+                                    '                                            <p class="uk-margin-remove">Asset has.. </p>\n' +
+                                    '                                            <div>\n' +
+                                    '                                         <span class="uk-text-muted">' + timeDiff + '</span>\n' +
+                                    '                                            </div>\n' +
+                                    '                                        </div>\n' +
+                                    '                                      \n' +
+                                    '                                    </div>\n' +
+                                    '                                </div>\n' +
+                                    '                            </li>');
+                            } else {
+                                $('#unresolved').append('<li>\n' +
+                                    '                                <div class="md-list-addon-element">\n' +
+                                    '                                    <i class="material-icons md-36 uk-text-warning"></i>\n' +
+                                    '                                </div>\n' +
+                                    '                                <div class="md-list-content">\n' +
+                                    '                                    <div class="uk-flex uk-flex-middle">\n' +
+                                    '                                        <div class="uk-width-8-10">\n' +
+                                    '                                            <h4 class="uk-margin-remove uk-text-truncate">\n' +
+                                    '                                               Asset ID: ' + assetID + '\n' +
+                                    '                                            </h4>\n' +
+                                    '                                            <p class="uk-margin-remove">Alet Severity: ' + severity + '</p>\n' +
+                                    '                                            <p class="uk-margin-remove">Asset has.. </p>\n' +
+                                    '                                            <div>\n' +
+                                    '                                         <span class="uk-text-muted">' + timeDiff + '</span>\n' +
+                                    '                                            </div>\n' +
+                                    '                                        </div>\n' +
+                                    '                                        <div class="uk-width-medium-1-10">\n' +
+                                    '                                    <a class="md-btn md-btn-warning md-btn-wave-light" onClick="abandon(' + issueIndex + ')">ABANDON</a>\n' +
+                                    '                                    </div>\n' +
+                                    '                                    <div class="uk-width-medium-1-10">\n' +
+                                    '                                    <a class="md-btn md-btn-success md-btn-wave-light" onClick="resolve(' + issueIndex + ')">RESOLVE</a>\n' +
+                                    '                                    </div>\n' +
+                                    '                                    </div>\n' +
+                                    '                                </div>\n' +
+                                    '                            </li>');
+                            }
+
+
+                        }
+                    );
+                    assetIndex++;
+
+                });
+        } ///
+
+
+
+        function resolve(issueIndex) {
+            if (!currentUserDoc) return;
+            var currentUser = currentUserDoc.data();
+            if (!currentUser) return;
+            var issue = currentUser.issues[issueIndex];
+            if (!issue) return;
+
+            if (!confirm("Do you mark this issue as resolved?")) return;
+
+            issue.status = "RESOLVED";
+            issue.engID = currentUserDoc.id;
+
+            //update Engineer
+            firestore.collection("engineers").doc(currentUserDoc.id).set(currentUser);
+
+            //update asset
+            firestore.collection("Models").doc("IPOWERFAN").collection("Assets")
+                .doc(issue.assetID)
+                .get()
+                .then(function (doc) {
+                    var asset = doc.data();
+                    var replaced = false;
+                    var index = 0;
+
+                    for (var each of asset.issue) {
+                        if (each.issueID == issue.issueID) {
+                            asset.issue.splice(index, 1);
+                            asset.issue.splice(index, 0, issue);
+                            replaced = true;
+                            break;
+                        }
+                        index++;
+                    }
+                    if (replaced) {
+                        firestore.collection("Models").doc("IPOWERFAN").collection("Assets").doc(doc.id).set(asset);
+                    }
+
+                });
+        }
+
+
+        function abandon(issueIndex) {
+            if (!currentUserDoc) return;
+            var currentUser = currentUserDoc.data();
+            if (!currentUser) return;
+            var issue = currentUser.issues[issueIndex];
+            if (!issue) return;
+
+            if (!prompt("Please enter the reason of abandonment:")) return;
+
+            issue.status = "UNHANDLED";
+            issue.engID = "";
+
+            var removed = false;
+            var index = 0;
+
+            //remove issue from engineer
+            for (var each of currentUser.issues) {
+                if (each.issueID == issue.issueID) {
+                    currentUser.issues.splice(index, 1);
+                    removed = true;
+                    break;
+                }
+                index++;
+            }
+
+            //update Engineer
+            firestore.collection("engineers").doc(currentUserDoc.id).set(currentUser);
+
+            //update asset
+            firestore.collection("Models").doc("IPOWERFAN").collection("Assets")
+                .doc(issue.assetID)
+                .get()
+                .then(function (doc) {
+                    var asset = doc.data();
+                    var replaced = false;
+                    var index = 0;
+
+                    for (var each of asset.issue) {
+                        if (each.issueID == issue.issueID) {
+                            asset.issue.splice(index, 1);
+                            asset.issue.splice(index, 0, issue);
+                            replaced = true;
+                            break;
+                        }
+                        index++;
+                    }
+                    if (replaced) {
+                        firestore.collection("Models").doc("IPOWERFAN").collection("Assets").doc(doc.id).set(asset);
+                    }
+
+                });
+
+        }
+
+    </script>
+</body>
+</html>
