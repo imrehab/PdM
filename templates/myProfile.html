@@ -240,7 +240,8 @@
                                 </div>
                             </div>
                             <div class="user_content">
-                            <h1>{{ data.name }}</h1>
+                            <h1 id="name">
+                                </h1>
                                 <ul id="user_edit_tabs" class="uk-tab" data-uk-tab="{connect:'#user_edit_tabs_content'}">
                                     <li class="uk-active"><a href="#"> </a></li>
 
@@ -255,7 +256,8 @@
                                                                     <i class="md-list-addon-icon material-icons">&#xE158;</i>
                                                                 </span>
                                                                 <label>Email</label>
-                                                                <h2 class="heading_b"><span class="uk-text-truncate" id="user_edit_uname">{{data.email}}</span><span class="sub-heading" id="user_edit_position"></span></h2>
+                                                                <h2 class="heading_b" id="email"><span class="uk-text-truncate" id="email user_edit_uname">
+                                                                    </span><span class="sub-heading" id="user_edit_position"></span></h2>
                                                             </div>
                                         </div>
    
@@ -545,7 +547,27 @@
 
         });
     </script>
+
+    <script>
+
     
+    var firestore = firebase.firestore();
+function read(email_id){
+firebase.firestore().collection("engineers").get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {//for each model
+          var name = doc.data().name;
+          var email = doc.data().email;
+          if(email==email_id){
+             document.getElementById("email").innerHTML = email; 
+             document.getElementById("name").innerHTML = name; 
+              
+          }
+          
+      });
+});
+}
+        
+</script> 
 
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
   <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
@@ -579,19 +601,22 @@
 </script>
       
 <script>
-    
+ 
   firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
     var user = firebase.auth().currentUser;
     if(user != null){
-      var email_id = user.email;
+       email_id = user.email;
+       read(email_id);
     }
   } else {
     window.location.href = "{{ url_for('login') }}";
   }
 });
- 
-</script>
+    
+    </script>
+    
+
 </body>
 </html>
