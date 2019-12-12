@@ -130,7 +130,7 @@ def RUL(id):
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('index.html', prob=float(normality_prob[1])*100, normality=normality)
+    return render_template('index.html')
 
 # ROUTE
 @app.route('/myProfile.html')
