@@ -109,29 +109,18 @@ apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
         }
     </script>
     
-    
 <script>
     
  firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
-      
-
     var user = firebase.auth().currentUser;
-
     if(user != null){
-
       var email_id = user.email;
-        alert("yay");
       window.location.href = "{{ url_for('home') }}";
-
     }
-
   } else {
     // No user is signed in.
-
-alert("no");
-
   }
 });
 
@@ -151,14 +140,8 @@ function login(){
   });
 
 }
-
-function logout(){
-  firebase.auth().signOut();
-}
-   
     
     </script>
-    
      
 </body>
 </html>
