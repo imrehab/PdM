@@ -127,9 +127,6 @@ def RUL(id):
     pred2 = neigh2.predict([[data_split[0][0],data_split[0][1], data_split[0][2], data_split[2]]])
     return pred2
 
-RUL = RUL("MPU0001")
-normality, normality_prob = model("MPU0001")
-
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
