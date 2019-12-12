@@ -144,8 +144,8 @@ def RUL(id):
 #    pred2 = round(pred2)
     return pred2
 
-#RUL = RUL("MPU0001")
-#normality, normality_prob = model("MPU0001")
+RUL = RUL("MPU0001")
+normality, normality_prob = model("MPU0001")
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -182,14 +182,17 @@ def timeline():
 
 @app.route('/assets/<assetID>/<sensorID>')
 def asset(assetID, sensorID):
-    rul = RUL(sensorID)
-    n, n_prob = model(sensorID)
-    return render_template('asset.html', prob=float(n_prob[1])*100, rul=np.round(rul[0]), normality=n, assetID=assetID, sensorID=sensorID)
-
+    #rul = RUL(sensorID)
+    #n, n_prob = model(sensorID)
+    return render_template('asset.html', prob=float(normality_prob[1])*100, rul=np.round(RUL[0]), normality=normality, assetID=assetID, sensorID=sensorID)
 
 @app.route('/assets.html')
 def assets():
     return render_template('assets.html')
+
+@app.route('/<assetID>/issues')
+def issues(assetID):
+    return render_template('asset-issues.html', assetID=assetID)
 
 @app.route('/asset-edited.html')
 def assetedited():

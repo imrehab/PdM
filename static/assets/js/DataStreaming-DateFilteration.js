@@ -167,6 +167,10 @@ function filterChartData(startDate,type){
 function singleChartInitStream(type){
   var empty = [];
   if(type=='tempFilter'){
+    if(currentTempDate==getTodayDate()){
+      streamingTemp = true;
+      return;
+    }
     //empty chart to append new data
     resetTempChart(empty,empty);
     var singleTRef = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(numDataPoints).on('value', function(data){
@@ -180,6 +184,10 @@ function singleChartInitStream(type){
   }
   else if(type=='motionFilter'){
     //empty chart to append new data
+    if(currentMotionDate==getTodayDate()){
+      streamingMotion = true;
+      return;
+    }
     resetMotionChart(empty,empty,empty,empty);
     var singleMRef = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(numDataPoints).on('value', function(data){
       //fetch data from snapshot and append it to chart

@@ -101,8 +101,8 @@ var tempretureLineChart=new Chart(ctxTEMPLINE, {
             xAxes: [ {
                 ticks: {
                     beginAtZero: false,
-                    autoSkip: true,
-                    maxTicksLimit: 20
+                   autoSkip: true,
+                   maxTicksLimit: 20
                 }
             }
             ]
@@ -180,7 +180,7 @@ var doughnutChart=new Chart(ctxDOUGHNUT, {
         labels: ['LOW', 'MEDIUM', 'HIGH'], datasets: [ {
             label: 'EVENT STATISTICS',
              data: [],
-              backgroundColor: [ 'RGBA(250,234,12,0.75)', 'RGBA(253,183,5,0.75)', 'RGBA(233,89,16,0.75)'],
+              backgroundColor: [ 'rgba(250,214,12,0.75)', 'RGBA(253,183,5,0.75)', 'RGBA(233,89,16,0.75)'],
         }
         ],
     }

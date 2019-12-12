@@ -1,18 +1,16 @@
 //===========for testing puposes, to be removed===========
 var assetModel = "IPOWERFAN";
-//var assetID = "IPOWERFAN001MPU";
 
 //===============global variable===========
- $(document).ready(function(){
-  var assetID = window.getAssetID();
-  console.log("assetID: "+assetID);
-  var sensorID="";
-  var streamingTemp = true;
-  var streamingMotion = true;
-  var numDataPoints = 40;
-  var dataSteps = 1;
-  var incTableMax = 4;
-});
+  let assetID = window.getAssetID();
+  let sensorID="";
+  let streamingTemp = true;
+  let streamingMotion = true;
+  let numDataPoints = 40;
+  let dataSteps = 1;
+  let incTableMax = 4;
+  var counter=0;
+
 
 
 //==============firebase configuration====================
@@ -40,13 +38,14 @@ function realTimeDB(){
   //get 40 last readings of today, to initially set up graphs
   var initData = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(numDataPoints);
   //realtime ref listening to newly added childre
-  var reaTimeRef = database.ref('sensor/'+sensorID).startAt(Date.now());
+  var reaTimeRef = database.ref('sensor/'+sensorID).orderByChild('time').startAt(getTodayDate()).limitToLast(1);
 
   firstValRef.once('value', setFirstDate, errData);// @dataStreaming-DateFilteration.js
   lastValRef.once('value', setLastDate, errData);// @dataStreaming-DateFilteration.js
   initData.once('value', initDataSetup, errData);
-  reaTimeRef.on('child_added', function(childSnapshot, prevChildKey) {
-    addNewData(childSnapshot);
+  reaTimeRef.on('value', function(data) {
+    console.log("new data!");
+    addNewData(data);
   }, errData);
 }
 
@@ -173,7 +172,7 @@ function incidents(data){
         case "MEDIUM": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(253,183,5,1)"><small>MEDIUM</small></span></td>';
         total[total.length]= "MEDIUM";
         break;
-        case "LOW": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(250,234,12,1)"><small>LOW</small></span></td>';
+        case "LOW": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: rgba(250,214,12,1)"><small>LOW</small></span></td>';
         total[total.length]= "LOW";
       }
       switch(issue['status'].toUpperCase()){//statuses
@@ -192,7 +191,10 @@ function incidents(data){
       document.getElementById('incident-table-body').innerHTML+=text;
     }
       if(data.length>=incTableMax){
-        document.getElementById('incident-table').innerHTML +="<tfoot><tr><td><button type='button' class='btn btn-link'><small>Show all...</small></button></td></tr></tfoot>"
+        var url =   "{{ url_for('issues', assetID= 'replacable') }}";
+        url= url.replace("replacable", assetID)
+        console.log("url: "+url);
+        document.getElementById('incident-table').innerHTML +="<tfoot><tr><td><a type='button' class='btn btn-link' href='"+url+"'><small>Show all...</small></a></td></tr></tfoot>";
       }
       incidentsGraph(total);
 }
@@ -267,7 +269,7 @@ function tempData(data,iter){
     var reads = data.val();
     if(reads!=null){
       var keys = Object.keys(reads);
-      for (var i=0; i<iter; i++){
+      for (var i=0; i<iter&&i<keys.length; i++){
          var k = keys[i];
          temp[temp.length] = Math.round( reads[k].temp * 10) / 10;
          time[time.length] = reads[k].time;
@@ -309,6 +311,10 @@ for(var i=0; i<label.length;i++){
           dataset.data.push(data[i]);
         });
       }
+      if(counter=>numDataPoints){
+        tempretureLineChart.data.labels.splice(0, 1); // remove first label
+        tempretureLineChart.data.datasets[0].data.splice(0, 1);// remove first data point
+      }
     tempretureLineChart.update();
 }
 
@@ -316,11 +322,19 @@ for(var i=0; i<label.length;i++){
 function addMotionData(label, x, y, z){
   for(var i=0; i<label.length;i++){
     motionLineChart.data.labels.push(label[i].substring(11, 19));
+    //updated once at motion since temp is added first
+    counter++;
   }
     for(var j=0;j<x.length;j++){
       motionLineChart.data.datasets[0].data.push(x[j]);
       motionLineChart.data.datasets[1].data.push(y[j]);
       motionLineChart.data.datasets[2].data.push(z[j]);
+    }
+    if(counter=>numDataPoints){
+      motionLineChart.data.labels.splice(0, 1); // remove first label
+      motionLineChart.data.datasets[0].data.splice(0, 1);// remove first data point
+      motionLineChart.data.datasets[1].data.splice(0, 1);
+      motionLineChart.data.datasets[2].data.splice(0, 1);
     }
       motionLineChart.update();
   }

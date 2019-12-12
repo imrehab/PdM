@@ -28,12 +28,12 @@
     <header id="header_main">
         <div class="header_main_content">
             <nav class="uk-navbar">
-                                
+
                 <!-- main sidebar switch -->
                 <a href="#" id="sidebar_main_toggle" class="sSwitch sSwitch_left">
                     <span class="sSwitchIcon"></span>
                 </a>
-                
+
                 <!-- secondary sidebar switch -->
                 <a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">
                     <span class="sSwitchIcon"></span>
@@ -70,7 +70,7 @@
                 </a>
             </div>
         </div>
-        
+
         <div class="menu_section">
             <ul>
                 <li class="current_section" title="Home">
@@ -78,21 +78,21 @@
                         <span class="menu_icon"><i class="material-icons">home</i></span>
                         <span class="menu_title">Home</span>
                     </a>
-                    
+
                 </li>
                 <li title="Assets">
                     <a href="{{ url_for('assets') }}">
                         <span class="menu_icon"><i class="material-icons">bar_chart</i></span>
                         <span class="menu_title">Assets</span>
                     </a>
-                    
+
                 </li>
                 <li title="Timeline">
                     <a href="{{ url_for('timeline') }}">
                         <span class="menu_icon"><i class="material-icons">notifications</i></span>
                         <span class="menu_title">Timeline</span>
                     </a>
-                    
+
                 </li>
                 <li title="MyTasks">
                     <a href="{{ url_for('mytasks') }}">
@@ -105,9 +105,9 @@
                         <span class="menu_icon"><i class="material-icons">help</i></span>
                         <span class="menu_title">Help Center</span>
                     </a>
-                    
+
                 </li>
-                
+
 
             </ul>
         </div>
@@ -132,8 +132,8 @@
                                         <option value="fan">Fan</option>
                                     </select>
                                 </div>
-                            </div>   
-                                                        
+                            </div>
+
                             <div class="uk-width-medium-1-2">
                                 <label for="val_select" class="uk-form-label">Asset ID<span class="req">*</span></label>
                                 <div class="uk-input-group parsley-row">
@@ -144,7 +144,7 @@
                                      <input type="text" id="asset_id" name="asset_id" required class="md-input" />
                                 </div>
                             </div>
-                              
+
                         </div>
                         <div class="uk-grid" data-uk-grid-margin>
                               <div class="uk-width-medium-1-2">
@@ -176,12 +176,12 @@
                                 <button type="button" id="submit" class="md-btn md-btn-primary">Submit</button>
                             </div>
                         </div>
-                    </form>   
+                    </form>
                 </div>
-          
-        
-        
-        
+
+
+
+
         </div>
     </div>
 
@@ -238,7 +238,7 @@
 
         <!--  dashbord functions -->
         <script src="assets/js/pages/dashboard.min.js"></script>
-    
+
     <script>
         $(function() {
             if(isHighDensity()) {
@@ -337,8 +337,8 @@
         </div>
     </div>
     </div>
-    
-    
+
+
  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
   <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
@@ -348,10 +348,10 @@
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
-    
-  <script>   
-     
-     
+
+  <script>
+
+
        var firebaseConfig = {
     apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
     authDomain: "raspberrypi-6b521.firebaseapp.com",
@@ -364,14 +364,14 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-     
+
 var firestore = firebase.firestore();
 var database = firebase.database();
- 
-var sensor_ids = []; 
-      
+
+var sensor_ids = [];
+
 $(document).ready(function() {
-      
+
 var query = firebase.database().ref("sensor");
 query.once("value").then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
@@ -384,19 +384,17 @@ query.once("value").then(function(snapshot) {
 });
 
 const assets = firestore.collection("Models").doc("IPOWERFAN").collection("Assets");
- 
-document.querySelector('#submit').addEventListener('click', () => {
 
+document.querySelector('#submit').addEventListener('click', () => {
 var asset_type = document.getElementById("asset_type");
 var asset_model = document.getElementById("asset_model");
 var asset_id = document.getElementById("asset_id").value;
 var sensor_id = document.getElementById("sensor_id").value;
-
 //var asset_type_selected = asset_type.options[asset_type.selectedIndex].text;
 //var asset_model_selected = asset_model.options[asset_model.selectedIndex].text;
 
 if(sensor_ids.includes(sensor_id)){// add options to manipulate confirm dialog
-     addAsset(asset_id);
+     addAsset(asset_id,sensor_id);
      alert("Asset is added successfully!");
 //     window.location.assign("{{ url_for('home') }}");
 
@@ -405,45 +403,48 @@ if(sensor_ids.includes(sensor_id)){// add options to manipulate confirm dialog
 }
 });
 
- const addAsset = asset => {
-    assets.add({Issues: { engID: "", severity: "", status: "", timestamp: "" }, loc: "", sensorID: asset});
-    };
-         
-      
+ // const addAsset = asset => {
+ function addAsset(asset_id,sensor_id){
+  //  assets.add({Issues: { engID: "", severity: "", status: "", timestamp: "" }, loc: "", sensorID: sensor_id});
+    var location = new firebase.firestore.GeoPoint(0,0);
+    assets.doc(asset_id).set({issue: [], loc: location, sensorID: sensor_id});
+    }
+
+
 //firestore.collection("Models").doc("IPOWERFAN").collection("Assets").doc("0vR39iurILQb4CRxXxEF").delete().then(function() {
 //    console.log("Document successfully deleted!");
 //}).catch(function(error) {
 //    console.error("Error removing document: ", error);
 //});
-       
+
 //   firestore.collection("Models").get().then(function(querySnapshot) {
-//    querySnapshot.forEach(function(doc) {         
-//            
+//    querySnapshot.forEach(function(doc) {
+//
 //var data = doc.data().type;
 // document.getElementById("d").innerHTML= "hg";
 
-    
-//firestore.collection("Models").get().then((doc) => {  
-    
+
+//firestore.collection("Models").get().then((doc) => {
+
 //const response = data.forEach((doc) => {
 //     temp.push(doc.data())
-//    document.getElementById("d").innerHTML= "hdfghjmhgfdsdfghjkhgfdsg";  
+//    document.getElementById("d").innerHTML= "hdfghjmhgfdsdfghjkhgfdsg";
 
 //  })
 //var data = doc.data().type;
-     
-      
+
+
 // firebase.database().ref('/sensor').once('value', function(snapshot) {
 //    snapshot.forEach(function(childSnapshot) {
 //      var childKey = childSnapshot.key;
 //     var childData = childSnapshot.val();
 //         document.getElementById("d").innerHTML= "heu";
 //    });
-// });    
-  
-     
-</script>   
-    
+// });
+
+
+</script>
+
     <script>
         $(function() {
             var $switcher = $('#style_switcher'),
@@ -581,7 +582,7 @@ if(sensor_ids.includes(sensor_id)){// add options to manipulate confirm dialog
 
         });
     </script>
- 
+
 <script>
     // load parsley config (altair_admin_common.js)
 altair_forms.parsley_validation_config();
@@ -589,6 +590,6 @@ altair_forms.parsley_validation_config();
 <script src="../static/bower_components/parsleyjs/dist/parsley.min.js"></script>
 
 <script src="../static/assets/js/pages/forms_validation.min.js"></script>
-  
+
 </body>
 </html>
