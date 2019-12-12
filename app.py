@@ -99,8 +99,6 @@ def AssetLists():
 
 updateAssetLists('IPOWERFAN001MPU',True)
 
-
-
 app = Flask(__name__)
 app.wsgi_app = WhiteNoise(app.wsgi_app)
 my_static_folders = (
@@ -123,7 +121,6 @@ neigh = KNeighborsClassifier(n_neighbors=7)
 neigh.fit(X_train, y_train)
 
 # RUL 
-
 y2 = data.RUL
 # split the data into test/train
 X_train1, X_test1, y_train1, y_test1 = train_test_split(X, y2, test_size=0.20)
@@ -141,23 +138,15 @@ def model(id):
 def RUL(id):
     data_split = LatestReading(id)
     pred2 = neigh2.predict([[data_split[0][0],data_split[0][1], data_split[0][2], data_split[2]]])
-#    pred2 = round(pred2)
     return pred2
 
-#RUL = RUL("MPU0001")
-#normality, normality_prob = model("MPU0001")
+RUL = RUL("MPU0001")
+normality, normality_prob = model("MPU0001")
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('index.html', prob=float(normality_prob[1])*100, normality=normality)
-
-
-
-@app.route('/predict', methods=['GET', 'POST'])
-def predict():
-
-    return render_template('index.html', predictions=result)
 
 # ROUTE
 @app.route('/myProfile.html')
@@ -186,14 +175,9 @@ def asset(assetID, sensorID):
     n, n_prob = model(sensorID)
     return render_template('asset.html', prob=float(n_prob[1])*100, rul=np.round(rul[0]), normality=n, assetID=assetID, sensorID=sensorID)
 
-
 @app.route('/assets.html')
 def assets():
     return render_template('assets.html')
-
-@app.route('/asset-edited.html')
-def assetedited():
-    return render_template('asset-edited.html')
 
 @app.route('/login.html')
 def login():
