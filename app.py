@@ -31,7 +31,6 @@ default_app = initialize_app(cred)
 db = firestore.client()
 
 
-
 # realtime database
 config = {
   "apiKey": "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
@@ -61,18 +60,6 @@ def LatestReading(id):
 # data_split[2] -> Temp
 # data_split[3] -> time
 
-# get engineer info
-def user_prifile(email):
-
-    doc_ref = db.collection(u'engineers').document(email)
-   #doc_ref = db.collection(u'engineers').document(u'malahmad@um.sa')
-    try:
-        doc = doc_ref.get()
-        user = doc.to_dict()
-        return user
-    except google.cloud.exceptions.NotFound:
-        print(u'No such document!')
-
 def updateAssetLists(id,abnormality):
     try:
         asset = db.collection(u'Models').document(u'IPOWERFAN').collection(u'Assets').document(id)
@@ -84,7 +71,7 @@ def updateAssetLists(id,abnormality):
 
 def AssetLists():
 
-   try:
+    try:
         assets=[]
         docs=db.collection(u'Models').document(u'IPOWERFAN').collection(u'Assets').stream()
         for doc in docs:
@@ -93,7 +80,7 @@ def AssetLists():
             assets.append(dic)
 
         return assets
-   except google.cloud.exceptions.NotFound:
+    except google.cloud.exceptions.NotFound:
         return 'error'
 
 
@@ -120,7 +107,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
 neigh = KNeighborsClassifier(n_neighbors=7)
 neigh.fit(X_train, y_train)
 
-# RUL
+# RUL 
 y2 = data.RUL
 # split the data into test/train
 X_train1, X_test1, y_train1, y_test1 = train_test_split(X, y2, test_size=0.20)
@@ -151,7 +138,7 @@ def home():
 # ROUTE
 @app.route('/myProfile.html')
 def profile():
-    return render_template('myProfile.html',data=user_prifile('malahmad@um.sa'))
+    return render_template('myProfile.html')
 
 @app.route('/helpcenter.html')
 def helpcenter():
@@ -171,21 +158,13 @@ def timeline():
 
 @app.route('/assets/<assetID>/<sensorID>')
 def asset(assetID, sensorID):
-    #rul = RUL(sensorID)
-    #n, n_prob = model(sensorID)
-    return render_template('asset.html', prob=float(normality_prob[1])*100, rul=np.round(RUL[0]), normality=normality, assetID=assetID, sensorID=sensorID)
+    rul = RUL(sensorID)
+    n, n_prob = model(sensorID)
+    return render_template('asset.html', prob=float(n_prob[1])*100, rul=np.round(rul[0]), normality=n, assetID=assetID, sensorID=sensorID)
 
 @app.route('/assets.html')
 def assets():
     return render_template('assets.html')
-
-@app.route('/<assetID>/issues')
-def issues(assetID):
-    return render_template('asset-issues.html', assetID=assetID)
-
-@app.route('/asset-edited.html')
-def assetedited():
-    return render_template('asset-edited.html')
 
 @app.route('/login.html')
 def login():
