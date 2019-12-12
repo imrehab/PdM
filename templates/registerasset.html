@@ -48,6 +48,7 @@
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="myProfile.html">My profile</a></li>
+                                    <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -585,6 +586,54 @@ if(sensor_ids.includes(sensor_id)){// add options to manipulate confirm dialog
 <script>
     // load parsley config (altair_admin_common.js)
 altair_forms.parsley_validation_config();
+    
+</script>
+    
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+<script>
+    
+  function logout(){
+  firebase.auth().signOut();
+  window.location.href = "{{ url_for('login') }}";
+}
+ 
+  var firebaseConfig = {
+    apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
+    authDomain: "raspberrypi-6b521.firebaseapp.com",
+    databaseURL: "https://raspberrypi-6b521.firebaseio.com",
+    projectId: "raspberrypi-6b521",
+    storageBucket: "raspberrypi-6b521.appspot.com",
+    messagingSenderId: "829617435562",
+    appId: "1:829617435562:web:3f6548f88b700d529a71d3",
+    measurementId: "G-XK5P7KWL53"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+</script>
+      
+<script>
+    
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var user = firebase.auth().currentUser;
+    if(user != null){
+      var email_id = user.email;
+    }
+  } else {
+    window.location.href = "{{ url_for('login') }}";
+  }
+});
+ 
 </script>
 <script src="../static/bower_components/parsleyjs/dist/parsley.min.js"></script>
 

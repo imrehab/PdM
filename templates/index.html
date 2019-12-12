@@ -153,6 +153,7 @@
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="{{ url_for('profile') }}">My profile</a></li>
+                                    <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -512,6 +513,7 @@
             </p>
         </div>
     </div>
+    
 
     <script>
         $(function() {
@@ -686,7 +688,8 @@
     }
   </script>
 
-    
+
+
     <!-- 
 ******************************************Firebase************************************************
 **************************************************************************************************
@@ -701,6 +704,12 @@
   <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 
 <script>
+    
+  function logout(){
+  firebase.auth().signOut();
+  window.location.href = "{{ url_for('login') }}";
+}
+ 
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
@@ -776,6 +785,22 @@ today = mm + '/' + dd + '/' + yyyy;
     doc.save('Report');
 }
 
+</script>
+      
+<script>
+    
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var user = firebase.auth().currentUser;
+    if(user != null){
+      var email_id = user.email;
+    }
+  } else {
+    window.location.href = "{{ url_for('login') }}";
+  }
+});
+ 
 </script>
  
 </body>
