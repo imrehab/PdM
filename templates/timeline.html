@@ -215,131 +215,19 @@
     </aside><!-- main sidebar end -->
 
     <!--editing begins!!-->
- 
- <div id="page_content">
-    <div id="page_content_inner">
+
+    <div id="page_content">
+            <div id="page_content_inner">
                     <h3 class="heading_b uk-margin-bottom">Timeline</h3>
-                     
 
                     <!--needs css-->
          <p>
-             <input type="checkbox" name="checkbox_demo_mercury" id="checkbox_demo_1" data-md-icheck />
+             <input type="checkbox" name="checkbox_demo_mercury" id="checkbox_demo_1"  onchange='showUnhandledOnly(this)' data-md-icheck />
             <label for="checkbox_demo_1" class="inline-label">Show unresolved issues only</label>
         </p>
-        <!--                        timeline data  jinja templete                 -->
-        
-        
-  {% for item in data  %}
-       
-                       
-  <div class="uk-grid">
-      <div class="uk-width-medium-2-2">
-         <div class="md-card">
-            <div class="md-card-content">
-              <ul class="md-list md-list-addon uk-margin-remove">
-                 <li>
-                         {#     unhandled & abnormal  --> handle  #}  
-                          {% if item.Issues.status== 'unhandled' and item.abnormality== true %}
-                                  <div class="timeline_icon timeline_icon_warning"><i class="material-icons">warning</i></div>
-                                
-                                            
-                                            <div class="md-list-content">
-                                             <div class="uk-flex uk-flex-middle">
-                                                    <div class="uk-width-9-10">
-                                                      
-                                                        <span class="uk-text-muted">{{ item.Issues.timestamp}}</span>
-                                                        <p class="uk-margin-remove">Asset ID: {{ item.id}} </p>
-                                                        <p class="uk-margin-remove">Status: {{ item.Issues.status}} </p>
-                                                        <p class="uk-margin-remove"><strong>Description: </strong></p>
-                                                    </div>
-                                      
-                                                <div class="uk-width-large-1-10">
-                                                       <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">HANDLE</a>
-                                                 </div>
-                                             </div>
-                                        </div> 
-                            
-                            
-                            
-                             {#      handled & abnormal --> resolve  #}  
-                             {% elif item.Issues.status== 'handled' and item.abnormality== true %}
-                                  <div class="timeline_icon timeline_icon_warning"><i class="material-icons">warning</i></div>
-                                            
-                                            <div class="md-list-content">
-                                             <div class="uk-flex uk-flex-middle">
-                                                    <div class="uk-width-9-10">
-                                                        <span class="uk-text-muted"> {{ item.Issues.timestamp}}</span>
-                                                        <p class="uk-margin-remove">Asset ID: {{ item.id}} </p>
-                                                        <p class="uk-margin-remove">Status: {{ item.Issues.status}} </p>
-                                                        <p class="uk-margin-remove"><strong>Description: </strong></p>
-                                                      </div>
-                                      
-                                              <div class="uk-width-large-1-10">
-                                                     <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
-                                               </div>
-                                         </div>
-                                    </div>
-                         
-                                   {#         #}  
-                                   {% else %}
-                                    <div class="timeline_icon timeline_icon_warning"><i class="material-icons">done</i></div>
-                                  <!--  <div class="timeline_icon timeline_icon_success"><i class="material-icons">bar_chart</i></div>  -->
-                                
-                                                <div class="uk-width-8-10">
-                                                        <span class="uk-text-muted">{{ item.Issues.timestamp}}</span>
-                                                        <p class="uk-margin-remove">Asset ID: {{ item.id}} </p>
-                                                        <p class="uk-margin-remove">Status: {{ item.Issues.status}} </p>
-                                                 </div>
-                                     {% endif%}
-                     </li>
-                  </ul>
-                </div>
-           </div>
-      </div>
-  </div>
-
-        
-  {% endfor %}
-        
-        
-<!--               end timeline data                -->
-        
- 
-<!--                                 
-
-if abnormal true && un-handeled resolve button
-
-                  <div class="uk-grid">
-                        <div class="uk-width-medium-2-2">
-                            <div class="md-card">
-                                <div class="md-card-content">
-                                    <ul class="md-list md-list-addon uk-margin-remove">
-                                        <li>
-                                             <div class="timeline_icon timeline_icon_warning"><i class="material-icons">warning</i></div>
-                                            
-                                            <div class="md-list-content">
-                                    <div class="uk-flex uk-flex-middle">
-                                  
-                                      
-                                    <div class="uk-width-large-1-10">
-                                            <a class="md-btn md-btn-success md-btn-wave-light" href="javascript:void(0)">RESOLVE</a>
-                                    </div>
-                                                </div>
-                                            </div>
-                                   </li>
-                                    </ul>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-
-
- -->
- 
-</div> 
- 
- </div>
+    </div>
+    </div>
+    
     <!-- google web fonts -->
     <script>
         WebFontConfig = {
@@ -367,6 +255,22 @@ if abnormal true && un-handeled resolve button
 
     <!-- altair common functions/helpers -->
     <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/altair_admin_common.min.js') }}"></script>
+
+    <script src="../static/assets/js/DateUtil.js"></script>
+
+    <script src="../static/assets/js/notif.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 
     <div id="style_switcher">
         <div id="style_switcher_toggle"><i class="material-icons">&#xE8B8;</i></div>
@@ -582,6 +486,254 @@ if abnormal true && un-handeled resolve button
 
 
         });
+    </script>
+
+    <script>
+
+        var issues = [];
+        var unhandleOnly = false;
+
+        $(document).ready(function () {
+            loadDB();
+            loadCurrentUser();
+            loadIssues();
+        });
+
+        function loadDB() {
+            var firebaseConfig = {
+                apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
+                authDomain: "raspberrypi-6b521.firebaseapp.com",
+                databaseURL: "https://raspberrypi-6b521.firebaseio.com",
+                projectId: "raspberrypi-6b521",
+                storageBucket: "raspberrypi-6b521.appspot.com",
+                messagingSenderId: "829617435562",
+                appId: "1:829617435562:web:3f6548f88b700d529a71d3",
+                measurementId: "G-XK5P7KWL53"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+            firestore = firebase.firestore();
+        }
+
+        function loadCurrentUser() {
+            var currentEmail = "salnaser@um.sa";
+
+            firestore.collection('engineers')
+                .where('email', '==', currentEmail)
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        currentUserDoc = doc;
+                    });
+                });
+        }
+
+        function loadIssues() {
+            firestore.collection("Models").doc("IPOWERFAN").collection("Assets").get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+
+                    var asset = doc.data();
+                    for (var issue of asset.issue) {
+                        issues.push(issue);
+                    }
+                });
+                sortIssues();
+                showIssues();
+                listenForChanges();
+            });
+        }
+
+        //sorts the issues by time "as notifications"
+        function sortIssues() {
+            issues.sort((issue1, issue2) => {
+                var ts1 = (issue1.timestamp) ? issue1.timestamp.toDate().getTime() : 0;
+                var ts2 = (issue2.timestamp) ? issue2.timestamp.toDate().getTime() : 0;
+
+                if (!ts1 || ts1 < ts2)
+                    return 1;
+                else if (!ts2 || ts1 > ts2)
+                    return -1;
+                else return 0;
+            });
+        }
+
+        //show unhandled only checkbox
+        function showIssues() {
+            issues.forEach(function (issue, issueIndex) {
+                if (issue.status.toUpperCase() == "UNHANDLED") {
+                    showUnhandledIssue(issue, issueIndex);
+                } else if (!unhandleOnly) {
+                    showHandledIssue(issue, issueIndex)
+                }
+            })
+        }
+
+        function showUnhandledIssue(issue, issueIndex) {
+
+            var assetID = issue.assetID;
+            var timeDiff = ((issue.timestamp) ? getTimeDiff(issue.timestamp.toDate()) : '');
+            var severity = (issue.severity ? issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1).toLowerCase() : '');
+            var status = (issue.status ? issue.status.charAt(0).toUpperCase() + issue.status.slice(1).toLowerCase() : '');
+
+            $('#page_content_inner').append('<div class="uk-grid">\n' +
+                '                        <div class="uk-width-medium-2-2">\n' +
+                '                            <div class="md-card">\n' +
+                '                                <div class="md-card-content">\n' +
+                '                                    <ul class="md-list md-list-addon uk-margin-remove">\n' +
+                '                                        <li>\n' +
+                '                                             <div class="timeline_icon timeline_icon_warning"><i class="material-icons">warning</i></div>\n' +
+                '                                            \n' +
+                '                                            <div class="md-list-content">\n' +
+                '                                    <div class="uk-flex uk-flex-middle">\n' +
+                '                                                    <div class="uk-width-9-10">\n' +
+                '                                                      \n' +
+                '                                                            <span class="uk-text-muted">' + timeDiff + '</span>\n' +
+                '                                                            <p class="uk-margin-remove">Asset ID: ' + assetID + '</p>\n' +
+                '                                                            <p class="uk-margin-remove">Alert Severity: ' + severity + '</p>\n' +
+                '                                                            <p class="uk-margin-remove">Status: ' + status + '</p>\n' +
+                '                                                            <p class="uk-margin-remove"><strong>Asset has incosistent blade rotation</strong></p>\n' +
+                '                                                    </div>\n' +
+                '                                      \n' +
+                '                                    <div class="uk-width-large-1-10">\n' +
+                '                                            <a class="md-btn md-btn-success md-btn-wave-light" onClick="handle(' + issueIndex + ')">HANDLE</a>\n' +
+                '                                    </div>\n' +
+                '                                                </div>\n' +
+                '                                            </div>\n' +
+                '                                   </li>\n' +
+                '                                    </ul>\n' +
+                '                                      \n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                      </div>');
+
+        }
+
+        function showHandledIssue(issue, issueIndex) {
+
+            var assetID = issue.assetID;
+            var timeDiff = ((issue.timestamp) ? getTimeDiff(issue.timestamp.toDate()) : '');
+
+            $('#page_content_inner').append('<div class="uk-grid">\n' +
+                '                        <div class="uk-width-medium-2-2">\n' +
+                '                            <div class="md-card">\n' +
+                '                                <div class="md-card-content">\n' +
+                '                                    <ul class="md-list md-list-addon uk-margin-remove">\n' +
+                '                                        <li>\n' +
+                '                                            <div class="timeline_icon timeline_icon_success"><i class="material-icons">bar_chart</i></div>\n' +
+                '                                            <div class="uk-width-8-10">\n' +
+                '\n' +
+                '                                                <span class="uk-text-muted">' + timeDiff + '</span>\n' +
+                '                                                <p class="uk-margin-remove">Asset ID: ' + assetID + '</p>\n' +
+                '                                                <p class="uk-margin-remove"><strong>Asset behavior is back to normal</strong></p>\n' +
+                '                                            </div>\n' +
+                '                                        </li>\n' +
+                '                                    </ul>\n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>');
+        }
+
+        //listen for changes
+        function listenForChanges() {
+            firestore.collection("Models").doc("IPOWERFAN").collection("Assets")
+                .onSnapshot(function (querySnapshot) {
+
+                    querySnapshot.forEach(function (doc) {
+
+                        var asset = doc.data();
+                        var assetID = doc.id;
+                        var newIssueDetails = "";
+
+                        // remove old issues of the asset.
+                        var length = issues.length;
+                        var removedIDs = [];
+                        for (var i = length - 1; i >= 0; i--) {
+                            var issue = issues[i];
+                            if (issue.assetID == assetID) {
+                                issues.splice(i, 1);
+                                removedIDs.push(issue.issueID);
+                            }
+                        }
+
+                        // Add new issues
+                        for (var each of asset.issue) {
+                            issues.push(each);
+                            if (removedIDs.indexOf(each.issueID) < 0) {
+                                newIssueDetails = "A new issue of Asset : " + assetID + " is arising";
+                            }
+                        }
+
+                        sortIssues();
+                        removeAllIssues();
+                        showIssues();
+
+                        //notify user about new issues //need check
+                        if (newIssueDetails) {
+                            notifyUser(newIssueDetails);
+                        }
+
+                    });
+
+                });
+        }
+
+        function removeAllIssues() {
+            $('#page_content_inner').children('.uk-grid').remove();
+        }
+
+        //handle function
+        function handle(issueIndex) {
+
+            if (!currentUserDoc) return;
+            var currentUser = currentUserDoc.data();
+            if (!currentUser) return;
+
+            var issue = issues[issueIndex];
+            if (!issue) return;
+
+            if (!confirm("Do you want to handle this issue?")) return;
+
+            issue.status = "HANDLED";
+            issue.engID = currentUserDoc.id;
+
+            //update Engineer
+            currentUser.issues.push(issue);
+            firestore.collection("engineers").doc(currentUserDoc.id).set(currentUser);
+
+            //update asset
+            firestore.collection("Models").doc("IPOWERFAN").collection("Assets")
+                .doc(issue.assetID)
+                .get()
+                .then(function (doc) {
+                    var asset = doc.data();
+                    var replaced = false;
+                    var index = 0;
+                    for (var each of asset.issue) {
+                        if (each.issueID == issue.issueID) {
+                            asset.issue.splice(index, 1);
+                            asset.issue.splice(index, 0, issue);
+                            replaced = true;
+                            break;
+                        }
+                        index++;
+                    }
+
+                    if (replaced) {
+                        firestore.collection("Models").doc("IPOWERFAN").collection("Assets").doc(doc.id).set(asset);
+                        alert("The issues is assigned to you!");
+                        window.location.href = '../templates/MyTasks.html';
+                    }
+                });
+        }
+
+        function showUnhandledOnly(checkbox) {
+            unhandleOnly = checkbox.checked;
+            removeAllIssues();
+            showIssues();
+        }
     </script>
 </body>
 </html>
