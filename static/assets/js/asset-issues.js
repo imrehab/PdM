@@ -1,8 +1,8 @@
 //==============FOR TESTING PURPOSES, TO BE REMOVED==============
-var assetID = "IPOWERFAN002MPU";
 var assetModel = "IPOWERFAN";
 var currentUser = "salnaser@um.sa";
 //==============GLOBAL VARIABLES===============
+let assetID = window.getAssetID();
 var first_unhandled = true;
 var first_handled = true;
 var first_resolved = true;

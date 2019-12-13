@@ -159,6 +159,10 @@ def asset(assetID, sensorID):
     n, n_prob = model(sensorID)
     return render_template('asset.html', prob=float(n_prob[1])*100, rul=np.round(rul[0]), normality=n, assetID=assetID, sensorID=sensorID)
 
+@app.route('/<assetID>/issues')
+def issues(assetID):
+    return render_template('asset-issues.html', assetID = assetID)
+
 @app.route('/assets.html')
 def assets():
     return render_template('assets.html')

@@ -296,6 +296,7 @@
                                 </thead>
                               <tbody id="incident-table-body">
                                 </tbody>
+                                <tfoot id="incident-table-footer" ><tr><td><a class='text-decoration-none' href="{{ url_for( 'issues', assetID= assetID ) }}"><small>Show all...</small></a></td></tr></tfoot>"
                             </table>
                         </div>
                     </div>
@@ -454,7 +455,7 @@
     function getSensorID(){
       return "{{ sensorID }}"
     }
-    
+
         $(function() {
             var $switcher = $('#style_switcher'),
                 $switcher_toggle = $('#style_switcher_toggle'),
@@ -651,7 +652,7 @@
   }
   );
           });
-                    
+
 function assetBehaviour(data){
   //BEHAVIOUR VALUE CLASSIFICATIONS IS SUBJECT TO CHANGE
   var text = "<span style=\'font-size: 32px; color: ";

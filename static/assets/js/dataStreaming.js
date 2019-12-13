@@ -8,7 +8,7 @@ var assetModel = "IPOWERFAN";
   let streamingMotion = true;
   let numDataPoints = 40;
   let dataSteps = 1;
-  let incTableMax = 4;
+  let incTableMax = 6;
   var counter=0;
 
 
@@ -168,12 +168,13 @@ function incidents(data){
       +'</tr>';
       document.getElementById('incident-table-body').innerHTML+=text;
     }
-      if(data.length>=incTableMax){
-        var url =   "{{ url_for('issues', assetID= 'replacable') }}";
-        url= url.replace("replacable", assetID)
-        console.log("url: "+url);
-        document.getElementById('incident-table').innerHTML +="<tfoot><tr><td><a type='button' class='btn btn-link' href='"+url+"'><small>Show all...</small></a></td></tr></tfoot>";
+    console.log("data length: "+issues.length);
+    console.log("tb max: "+incTableMax);
+      if(issues.length<incTableMax){
+        console.log("remove");
+        document.getElementById("incident-table-footer").remove();
       }
+
       incidentsGraph(total);
 }
 

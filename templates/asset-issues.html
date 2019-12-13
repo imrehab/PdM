@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="../static/assets/css/main.min.css" media="all">
     <link rel="stylesheet" href="../static/assets/css/themes/themes_combined.min.css" media="all">
     <script src="../../static/assets/js/DateUtil.js"></script>
-    <script src="../../static/assets/js/asset-issues.js"></script>
     <!--JQUERY-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--bootstrap-->
@@ -253,6 +252,11 @@
     </div>
 
     <script>
+
+    function getAssetID(){
+      return "{{ assetID }}";
+    }
+
         $(function() {
             var $switcher = $('#style_switcher'),
                 $switcher_toggle = $('#style_switcher_toggle'),
@@ -410,6 +414,8 @@
     var firestore = firebase.firestore();
     var database = firebase.database();
     </script>
+    <!--KEEP AT BOTTOM-->
+    <script src="../../static/assets/js/asset-issues.js"></script>
 </body>
 
 </html>
