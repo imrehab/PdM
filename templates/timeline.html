@@ -572,7 +572,7 @@
         function showUnhandledIssue(issue, issueIndex) {
 
             var assetID = issue.assetID;
-            var timeDiff = ((issue.timestamp) ? getTimeDiff(issue.timestamp.toDate()) : '');
+            var timeDiff = ((issue.timestamp) ? getTimeDiff(issue['timestamp'].seconds) : '');
             var severity = (issue.severity ? issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1).toLowerCase() : '');
             var status = (issue.status ? issue.status.charAt(0).toUpperCase() + issue.status.slice(1).toLowerCase() : '');
 
@@ -613,7 +613,7 @@
         function showHandledIssue(issue, issueIndex) {
 
             var assetID = issue.assetID;
-            var timeDiff = ((issue.timestamp) ? getTimeDiff(issue.timestamp.toDate()) : '');
+            var timeDiff = ((issue.timestamp) ? getTimeDiff(issue['timestamp'].seconds) : '');
 
             $('#page_content_inner').append('<div class="uk-grid">\n' +
                 '                        <div class="uk-width-medium-2-2">\n' +
