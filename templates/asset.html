@@ -5,7 +5,7 @@
 <!--<![endif]-->
 
 <head>
-    <title>ASSETS</title>
+    <title>Assets</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +37,7 @@
       <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 </head>
 
-<body class="disable_transitions sidebar_main_open sidebar_main_swipe" onload="read()" style="background-color: #f8f8f8">
+<body class="disable_transitions sidebar_main_open sidebar_main_swipe" onload="read()">
     <!-- main header -->
     <header id="header_main">
         <div class="header_main_content">
@@ -62,7 +62,6 @@
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="{{ url_for('profile') }}">My profile</a></li>
-                                    <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -131,7 +130,7 @@
     <!-- main sidebar end -->
     <!--page content-->
 
-    <div id="page_content">
+    <div id="page_content" style="background-color: #f8f8f8">
           <div id="page_content_inner">
           <!--SEETINGS-->
       <div class="md-card-transparent" style="padding-bottom: 16px">
@@ -446,28 +445,6 @@
         </div>
     </div>
 
-
-    <script>
-//Logout       
-    function logout(){
-  firebase.auth().signOut();
-  window.location.href = "{{ url_for('login') }}";
-}   
-    
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    var user = firebase.auth().currentUser;
-    if(user != null){
-      var email_id = user.email;
-    }
-  } else {
-    window.location.href = "{{ url_for('login') }}";
-  }
-});
- 
-</script> 
-    
     <script>
 
     function getAssetID(){
@@ -477,7 +454,7 @@
     function getSensorID(){
       return "{{ sensorID }}"
     }
-
+    
         $(function() {
             var $switcher = $('#style_switcher'),
                 $switcher_toggle = $('#style_switcher_toggle'),
@@ -676,9 +653,18 @@
           });
       </script>
 
-  
- <script type="text/javascript">
+          <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+ <script type="text/javascript">
     var firebaseConfig = {
     apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
     authDomain: "raspberrypi-6b521.firebaseapp.com",
@@ -720,13 +706,21 @@
  <script>
 
     var locations = [
-      ['Bondi Beach', 24.7232006,46.636566,19],
+      ['Bondi Beach', 24.7419037,46.6415725,15],
     ];
 
-   
+
+       var t = [];
+     t.push('hello');
+    t.push(24);
+     t.push(46);
+   t.push(15);
+    locations.push(t);
+//
+
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 15,
-      center: new google.maps.LatLng(24.7232006,46.636566),
+      zoom: 13,
+      center: new google.maps.LatLng(24.7419037, 46.6415725),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
@@ -767,8 +761,6 @@
 <script type="text/javascript" src="../../static/assets/js/issues-actions.js"></script>
 <script type="text/javascript" src="../../static/assets/js/dataStreaming-DateFilteration.js"></script>
 <script type="text/javascript" src="../../static/assets/js/dataStreaming.js"></script>
-
-
 </body>
 
 </html>
