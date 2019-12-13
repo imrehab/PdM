@@ -133,28 +133,6 @@ function assetInfo(data){
    $("#asset-icon").attr("src", data['icon']);
 }
 
-function assetBehaviour(data){
-  //BEHAVIOUR VALUE CLASSIFICATIONS IS SUBJECT TO CHANGE
-  var text = "<span style=\'font-size: 32px; color: ";
-  var text2= "%</span><br><span style=\'font-size: 28px; color: ";
-  if(data<70){
-    text+="#FF5353\'>"+data+text2+"#FF5353\'>DANGER</span>";
-  }
-  else if(data<85){
-    text+="#FFD221\'>"+data+text2+"#FFD221\'>UNSTABLE</span>";
-  }
-  else if(data<95){
-    text+="#77E6B4\'>"+data+text2+"#77E6B4\'>STABLE</span>";
-  }
-    else if(data<=100){
-      text+="#21D683\'>"+data+text2+"#21D683\'>HEALTHY</span>";
-    }
-
-    gaugeChart.series(0).options({ points: [{ x:1, y: data }] });
-    gaugeChart.series(0).options({ shape_label_text: text  });
-
-}
-
 
 function incidents(data){
   var issues = data['issue'];

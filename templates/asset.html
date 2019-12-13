@@ -5,7 +5,7 @@
 <!--<![endif]-->
 
 <head>
-    <title>ASSETS</title>
+    <title>Assets</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +37,7 @@
       <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 </head>
 
-<body class="disable_transitions sidebar_main_open sidebar_main_swipe" onload="read()" style="background-color: #f8f8f8">
+<body class="disable_transitions sidebar_main_open sidebar_main_swipe" onload="read()">
     <!-- main header -->
     <header id="header_main">
         <div class="header_main_content">
@@ -130,7 +130,7 @@
     <!-- main sidebar end -->
     <!--page content-->
 
-    <div id="page_content">
+    <div id="page_content" style="background-color: #f8f8f8">
           <div id="page_content_inner">
           <!--SEETINGS-->
       <div class="md-card-transparent" style="padding-bottom: 16px">
@@ -454,7 +454,7 @@
     function getSensorID(){
       return "{{ sensorID }}"
     }
-
+    
         $(function() {
             var $switcher = $('#style_switcher'),
                 $switcher_toggle = $('#style_switcher_toggle'),
@@ -633,7 +633,7 @@
       }
       , series: [ {
           type: 'marker', name: 'Score', shape_label: {
-              text: '<span style=\'fontSize: 32; color: #21D683\'>'+{{ prob }}+'%</span> <span style=\'fontSize: 28; color: #21D683\'>HEALTHY</span>', style: {
+              text: assetBehaviour({{ prob }}), style: {
                   fontSize: 48
               }
           }
@@ -651,6 +651,28 @@
   }
   );
           });
+                    
+function assetBehaviour(data){
+  //BEHAVIOUR VALUE CLASSIFICATIONS IS SUBJECT TO CHANGE
+  var text = "<span style=\'font-size: 32px; color: ";
+  var text2= "%</span><br><span style=\'font-size: 28px; color: ";
+  if(data<70){
+    text+="#FF5353\'>"+data+text2+"#FF5353\'>DANGER</span>";
+  }
+  else if(data<85){
+    text+="#FFD221\'>"+data+text2+"#FFD221\'>UNSTABLE</span>";
+  }
+  else if(data<95){
+    text+="#77E6B4\'>"+data+text2+"#77E6B4\'>STABLE</span>";
+  }
+    else if(data<=100){
+      text+="#21D683\'>"+data+text2+"#21D683\'>HEALTHY</span>";
+    }
+
+    return text;
+
+}
+
       </script>
 
           <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
