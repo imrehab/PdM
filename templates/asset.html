@@ -633,7 +633,7 @@
       }
       , series: [ {
           type: 'marker', name: 'Score', shape_label: {
-              text: '<span style=\'fontSize: 32; color: #21D683\'>'+{{ prob }}+'%</span> <span style=\'fontSize: 28; color: #21D683\'>HEALTHY</span>', style: {
+              text: assetBehaviour({{ prob }}), style: {
                   fontSize: 48
               }
           }
@@ -651,6 +651,28 @@
   }
   );
           });
+                    
+function assetBehaviour(data){
+  //BEHAVIOUR VALUE CLASSIFICATIONS IS SUBJECT TO CHANGE
+  var text = "<span style=\'font-size: 32px; color: ";
+  var text2= "%</span><br><span style=\'font-size: 28px; color: ";
+  if(data<70){
+    text+="#FF5353\'>"+data+text2+"#FF5353\'>DANGER</span>";
+  }
+  else if(data<85){
+    text+="#FFD221\'>"+data+text2+"#FFD221\'>UNSTABLE</span>";
+  }
+  else if(data<95){
+    text+="#77E6B4\'>"+data+text2+"#77E6B4\'>STABLE</span>";
+  }
+    else if(data<=100){
+      text+="#21D683\'>"+data+text2+"#21D683\'>HEALTHY</span>";
+    }
+
+    return text;
+
+}
+
       </script>
 
           <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
