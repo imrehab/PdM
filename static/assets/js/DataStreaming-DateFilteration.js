@@ -48,7 +48,7 @@ function setLastDate(data){
    if(this.id=="temp-streamer"){
      toggleStreaming("temp");
    }
-   else{
+   else if(this.id=="motion-streamer"){
       toggleStreaming("motion");
    }
 });
@@ -62,7 +62,7 @@ function toggleStreaming(type){
       resumeTempStream();
     }
   }
-  else{//type==motion
+  else if(type=="motion"){//type==motion
     if(streamingMotion==true){
       pauseMotionStream();
     }
@@ -127,7 +127,7 @@ function dateSwitcher(type,date){
     }
   }
   else{
-    if(date==currentTempDate){
+    if(date==currentMotionDate){
       return;
     }
     if(date==getTodayDate()){
@@ -153,12 +153,12 @@ function filterChartData(startDate,type){
       result = getSubData(data);
       if(type=='tempFilter'){
         currentTempDate = startDate;
-        pauseTempStream();
+        //pauseTempStream();
         subTempData(result);
       }
       else if(type=='motionFilter'){
         currentMotionDate = startDate;
-        pauseMotionStream();
+        //pauseMotionStream();
         subMotionData(result);
       }
   }, errData);
