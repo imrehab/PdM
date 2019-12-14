@@ -436,7 +436,7 @@
             firestore = firebase.firestore();
         }
         
-        function loadCurrentUser() {
+        function loadCurrentUserAndIssues() {
             firebase.auth().onAuthStateChanged(function(user) {
                 var currentEmail = '';
             if (user){
