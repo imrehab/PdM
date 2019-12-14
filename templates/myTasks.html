@@ -435,10 +435,18 @@
 
             firestore = firebase.firestore();
         }
-
-        function loadCurrentUserAndIssues() {
-            var currentEmail = "salnaser@um.sa";
-
+        
+        function loadCurrentUser() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                var currentEmail = '';
+            if (user){
+                var user = firebase.auth().currentUser;
+                if(user != null){
+                    currentEmail = user.email;
+                }
+                } else {
+                window.location.href = "{{ url_for('login') }}";
+                }
             firestore.collection('engineers')
                 .where('email', '==', currentEmail)
                 .get()
@@ -448,8 +456,8 @@
                         loadIssues();
                     });
                 });
+            });
         }
-
 
         function loadIssues() {
 
