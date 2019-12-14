@@ -732,7 +732,7 @@
                     if (replaced) {
                         firestore.collection("Models").doc("IPOWERFAN").collection("Assets").doc(doc.id).set(asset);
                         alert("The issues is assigned to you!");
-                        window.location.href = '../templates/myTasks.html';
+                        window.location.href = "{{ url_for('mytasks') }}";
                     }
                 });
         }
