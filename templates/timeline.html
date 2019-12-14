@@ -148,6 +148,7 @@
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="myProfile.html">My profile</a></li>
+                                    <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -741,6 +742,11 @@
             unhandleOnly = checkbox.checked;
             removeAllIssues();
             showIssues();
+        }
+        
+        function logout(){
+            firebase.auth().signOut();
+            window.location.href = "{{ url_for('login') }}";
         }
     </script>
 </body>
