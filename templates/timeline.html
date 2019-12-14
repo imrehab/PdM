@@ -517,14 +517,22 @@
         }
 
         function loadCurrentUser() {
-            var currentEmail = "salnaser@um.sa";
-
+            firebase.auth().onAuthStateChanged(function(user) {
+            if (user){
+                var user = firebase.auth().currentUser;
+                if(user != null){
+                    var currentEmail = user.email;
+                }
+            } else {
+                window.location.href = "{{ url_for('login') }}";
+            }
+            });
             firestore.collection('engineers')
-                .where('email', '==', currentEmail)
-                .get()
-                .then(function (querySnapshot) {
-                    querySnapshot.forEach(function (doc) {
-                        currentUserDoc = doc;
+            .where('email', '==', currentEmail)
+            .get()
+            .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                currentUserDoc = doc;
                     });
                 });
         }
