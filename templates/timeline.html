@@ -519,23 +519,25 @@
 
         function loadCurrentUser() {
             firebase.auth().onAuthStateChanged(function(user) {
+                var currentEmail = '';
             if (user){
+                // User is signed in.
                 var user = firebase.auth().currentUser;
                 if(user != null){
-                    var currentEmail = user.email;
+                    currentEmail = user.email;
                 }
-            } else {
+                } else {
                 window.location.href = "{{ url_for('login') }}";
-            }
-            });
+                }
             firestore.collection('engineers')
-            .where('email', '==', currentEmail)
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                currentUserDoc = doc;
+                .where('email', '==', currentEmail)
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        currentUserDoc = doc;
                     });
                 });
+            });
         }
 
         function loadIssues() {
