@@ -190,7 +190,7 @@
                     <div class="md-card shadow p-3 mb-5 bg-white rounded" style="height: 193px;">
                         <div class="md-card-content">
                             <span class="font-weight-bold text-muted">NEXT SCHEDULED MAINTENANCE</span>
-                           <center> <h1 style="padding-top: 30px" id="RUL">{{ rul }}</h1></center>
+                           <center> <h1 style="padding-top: 30px" id="RUL"></h1></center>
                         </div>
                     </div>
                 </div>
@@ -445,6 +445,20 @@
             </p>
         </div>
     </div>
+    
+    <script>
+    
+    if({{ prob }}<50){
+    document.getElementById("RUL").innerHTML = "< 50 DAYS";
+    } else if({{prob}}<60) {
+     document.getElementById("RUL").innerHTML =  "< 100 DAY"; 
+    } else if({{prob}}<70) {
+     document.getElementById("RUL").innerHTML =  "< 150 DAY"; 
+    } else if({{prob}}<100) {
+     document.getElementById("RUL").innerHTML =  "> 300 DAY"; 
+    }
+    
+    </script>
 
     <script>
 
@@ -729,7 +743,7 @@ function assetBehaviour(data){
  <script>
 
     var locations = [
-      ['Bondi Beach', 24.7419037,46.6415725,15],
+      ['Bondi Beach', 24.7232006,46.636566,19.6],
     ];
 
 
@@ -742,8 +756,8 @@ function assetBehaviour(data){
 //
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 13,
-      center: new google.maps.LatLng(24.7419037, 46.6415725),
+      zoom: 15,
+      center: new google.maps.LatLng(24.7232006,46.636566),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
