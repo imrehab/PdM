@@ -37,7 +37,7 @@
                 <a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">
                     <span class="sSwitchIcon"></span>
                 </a>
-  
+                   
                 <div class="uk-navbar-flip">
                     <ul class="uk-navbar-nav user_actions">
                         <li><a href="#" id="full_screen_toggle" class="user_action_icon uk-visible-large"><i class="material-icons md-24 md-light">fullscreen</i></a></li>
@@ -61,7 +61,7 @@
                                                 </li>
                                                 <li>
                                                     <div class="md-list-addon-element">
-                                                        <img class="md-user-image md-list-addon-avatar" src="../static/assets/img/avatars/avatar_07_tn.png" alt=""/>
+                                                        <img class="md-user-image md-list-addon-avatar" src="assets/img/avatars/avatar_07_tn.png" alt=""/>
                                                     </div>
                                                     <div class="md-list-content">
                                                         <span class="md-list-heading"><a href="page_mailbox.html">Esse similique et.</a></span>
@@ -79,7 +79,7 @@
                                                 </li>
                                                 <li>
                                                     <div class="md-list-addon-element">
-                                                        <img class="md-user-image md-list-addon-avatar" src="../static/assets/img/avatars/avatar_02_tn.png" alt=""/>
+                                                        <img class="md-user-image md-list-addon-avatar" src="assets/img/avatars/avatar_02_tn.png" alt=""/>
                                                     </div>
                                                     <div class="md-list-content">
                                                         <span class="md-list-heading"><a href="page_mailbox.html">Unde dolorem.</a></span>
@@ -88,7 +88,7 @@
                                                 </li>
                                                 <li>
                                                     <div class="md-list-addon-element">
-                                                        <img class="md-user-image md-list-addon-avatar" src="../static/assets/img/avatars/avatar_09_tn.png" alt=""/>
+                                                        <img class="md-user-image md-list-addon-avatar" src="assets/img/avatars/avatar_09_tn.png" alt=""/>
                                                     </div>
                                                     <div class="md-list-content">
                                                         <span class="md-list-heading"><a href="page_mailbox.html">Eius enim.</a></span>
@@ -147,7 +147,7 @@
                             <a href="#" class="user_action_image"><img class="md-user-image" src="../static/assets/img/avatars/engineer.png" alt=""/></a>
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
-                                    <li><a href="myProfile.html">My profile</a></li>
+                                    <li><a href="{{ url_for('profile') }}">My profile</a></li>
                                     <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
@@ -159,12 +159,11 @@
     </header><!-- main header end -->
     <!-- main sidebar -->
     <aside id="sidebar_main">
-        
-       <div class="sidebar_main_header">
+          <div class="sidebar_main_header">
             <div class="sidebar_logo">
                 <a href="index.html" class="sSidebar_hide sidebar_logo_large">
-                    <img class="logo_regular" src="../static/assets/img/logo_main.png" alt="" height="15" width="71"/>
-                    <img class="logo_light" src="../static/assets/img/logo_main_white.png" alt="" height="15" width="71"/>
+                    <img class="logo_regular" src="../static/assets/img/logo_main.png" alt="" height="45" width="101"/>
+                    <img class="logo_light" src="../static/assets/img/logo_main_white.png" alt="" height="25" width="81"/>
                 </a>
                 <a href="index.html" class="sSidebar_show sidebar_logo_small">
                     <img class="logo_regular" src="../static/assets/img/logo_main_small.png" alt="" height="32" width="32"/>
@@ -172,7 +171,6 @@
                 </a>
             </div>
         </div>
-        
         <div class="menu_section">
             <ul>
                 <li title="Home">
@@ -210,7 +208,6 @@
                     
                 </li>
         
-
             </ul>
         </div>
     </aside><!-- main sidebar end -->
@@ -250,18 +247,18 @@
         })();
     </script>
 
-  <script type="text/javascript" src="{{ url_for('static', filename='assets/js/common.min.js') }}"></script>
-    <!-- uikit functions -->
-    <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/uikit_custom.min.js') }}"></script>
-
-    <!-- altair common functions/helpers -->
-    <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/altair_admin_common.min.js') }}"></script>
-
     <script src="../static/assets/js/DateUtil.js"></script>
 
     <script src="../static/assets/js/notif.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+     <script type="text/javascript" src="{{ url_for('static', filename='assets/js/common.min.js') }}"></script>
+    <!-- uikit functions -->
+    <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/uikit_custom.min.js') }}"></script>
+
+    <!-- altair common functions/helpers -->
+    <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/altair_admin_common.min.js') }}"></script>
 
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 

@@ -62,6 +62,7 @@
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="{{ url_for('profile') }}">My profile</a></li>
+                                    <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -77,12 +78,12 @@
         <div class="sidebar_main_header">
             <div class="sidebar_logo">
                 <a href="index.html" class="sSidebar_hide sidebar_logo_large">
-                    <img class="logo_regular" src="assets/img/1.png" alt="" height="15" width="71" />
-                    <img class="logo_light" src="assets/img/2.png" alt="" height="15" width="71" />
+                    <img class="logo_regular" src="../static/assets/img/logo_main.png" alt="" height="45" width="101"/>
+                    <img class="logo_light" src="../static/assets/img/logo_main_white.png" alt="" height="25" width="81"/>
                 </a>
                 <a href="index.html" class="sSidebar_show sidebar_logo_small">
-                    <img class="logo_regular" src="assets/img/2.png" alt="" height="32" width="32" />
-                    <img class="logo_light" src="assets/img/2.png" alt="" height="32" width="32" />
+                    <img class="logo_regular" src="../static/assets/img/logo_main_small.png" alt="" height="32" width="32"/>
+                    <img class="logo_light" src="../static/assets/img/logo_main_small_light.png" alt="" height="32" width="32"/>
                 </a>
             </div>
         </div>
@@ -454,10 +455,22 @@
      document.getElementById("RUL").innerHTML =  "< 100 DAY"; 
     } else if({{prob}}<70) {
      document.getElementById("RUL").innerHTML =  "< 150 DAY"; 
-    } else if({{prob}}<100) {
+    } else if({{prob}}<=100) {
      document.getElementById("RUL").innerHTML =  "> 300 DAY"; 
     }
     
+    </script>
+
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script>
+ function logout(){
+  firebase.auth().signOut();
+  window.location.href = "{{ url_for('login') }}";
+}
     </script>
 
     <script>
@@ -702,6 +715,7 @@ function assetBehaviour(data){
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 
  <script type="text/javascript">
+     
     var firebaseConfig = {
     apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
     authDomain: "raspberrypi-6b521.firebaseapp.com",
@@ -789,12 +803,6 @@ function assetBehaviour(data){
 
     <script type="text/javascript" src="../../static/assets/js/assetCharts.js"></script>
  <!--===================FIREBASE============-->
-
-<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 <script type="text/javascript" src="../../static/assets/js/issues-actions.js"></script>
 <script type="text/javascript" src="../../static/assets/js/dataStreaming-DateFilteration.js"></script>
 <script type="text/javascript" src="../../static/assets/js/dataStreaming.js"></script>
