@@ -65,7 +65,8 @@
                             <a href="#" class="user_action_image"><img class="md-user-image" src="../static/assets/img/avatars/engineer.png" alt="" /></a>
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
-                                    <li><a href="myProfile.html">My profile</a></li>
+                                  <li><a href="{{ url_for('profile') }}">My profile</a></li>
+                                  <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -441,6 +442,11 @@
       }
     });
 
+    function logout(){
+    firebase.auth().signOut();
+    window.location.href = "{{ url_for('login') }}";
+  }
+  
     </script>
     <!--KEEP AT BOTTOM-->
     <script src="../../static/assets/js/issues-actions.js"></script>
