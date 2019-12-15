@@ -1,17 +1,25 @@
 //==============FOR TESTING PURPOSES, TO BE REMOVED==============
 var assetModel = "IPOWERFAN";
-var currentUser = "salnaser@um.sa";
 //==============GLOBAL VARIABLES===============
 let assetID = window.getAssetID();
 var first_unhandled = true;
 var first_handled = true;
 var first_resolved = true;
+var currentUser = "";
+var currentUserDoc;
+var currentUserData;
+var issues = [];
 
+function setCurrentUser(userID, userDoc, userData){
+  currentUser = userID;
+  currentUserDoc = userDoc;
+  currentUserData = userData;
+}
 
 function read(){
     const promise = firestore.collection("Models").doc(assetModel).collection("Assets").doc(assetID).get();
     const p1 = promise.then( snapshot => {
-        var issues = snapshot.data().issue;
+        issues = snapshot.data().issue;
         appendIssues(issues);
       });
   p1.catch(error =>{
@@ -22,26 +30,25 @@ function read(){
 function appendIssues(issues){
   for(var i=0; i<issues.length; i++){
     var issue = issues[i];
-    console.log("issue: "+issue);
     switch(issue['status'].toUpperCase()){
-      case "UNHANDLED": appendUnhandled(issue);
+      case "UNHANDLED": appendUnhandled(issue,i);
         break;
-      case "HANDLED": appendHandled(issue);
+      case "HANDLED": appendHandled(issue,i);
         break;
-      case "RESOLVED": appendResolved(issue);
+      case "RESOLVED": appendResolved(issue,i);
         break;
     }
   }
 }
 
-function appendUnhandled(issue){
+function appendUnhandled(issue,i){
   var text = "";
   if(first_unhandled){
     text += firstUnhandled();
     first_unhandled = false;
   }
   text += initiateIssues(issue);
-  text += '<button type="button" class="btn btn-primary">HANDLE</button>'
+  text += '<button type="button" class="btn btn-primary" onClick="handle('+i.toString()+')">HANDLE</button>'
 +'</div>'
 +'</div>'
 +'</div>'
@@ -49,7 +56,7 @@ function appendUnhandled(issue){
   document.getElementById('unhandled-issues').innerHTML+= text;
 }
 
-function appendHandled(issue){
+function appendHandled(issue,i){
   var text = "";
   if(first_handled){
     text += firstHandled();
@@ -57,8 +64,8 @@ function appendHandled(issue){
   }
   text +=  initiateIssues(issue);
   if(issue['engID']==currentUser){
-    text += '<button type="button" class="btn btn-success btn-md  mr-3">RESOLVE</button>'
-  +'<button type="button" class="btn btn-danger btn-md">ABANDON</button>'
+    text += '<button type="button" class="btn btn-light-green  mr-3" onClick="resolve('+i.toString()+')">RESOLVE</button>'
+  +'<button class="btn btn-amber float-right" onClick="abandon('+i.toString()+')">ABANDON</button>'
   }
   else{
     text+= '<button type="button" class="btn btn-md btn-primary" disabled>HANDLED</button>'
@@ -81,7 +88,7 @@ function appendResolved(issue){
 }
 
 function initiateIssues(issue){
-  var text = '<div class="md-card shadow p-3 mb-5 bg-white rounded">'
+  var text = '<div class="md-card shadow p-3 mb-1 bg-white rounded">'
              +'<div class="md-card-content align-items-center">'
              +' <div class="row align-items-center">'
              +'<div class="col-auto d-inline">';
@@ -116,28 +123,27 @@ function getTimeAgo(time){
   var text = "";
   text += '<span class="text-muted">';
   text +=getTimeDiff(time);
-  console.log("time diff: "+getTimeDiff(time));
   text += '</span>';
   return text;
 }
 
 function firstHandled(){
   var text = "";
-  text += '<div class="container-sm  border-bottom  mb-3">'
+  text += '<div class="container-sm  border-bottom  mb-2">'
         +'<span class="font-weight-bold text-muted col">UNRESOLVED ISSUES</span>'
         +'</div>';
   return text;
 }
 function firstUnhandled(){
   var text = "";
-  text += '<div class="container-sm  border-bottom  mb-3">'
+  text += '<div class="container-sm  border-bottom  mb-2">'
         +'<span class="font-weight-bold text-muted col">UNHANDLED ISSUES</span>'
         +'</div>';
   return text;
 }
 function firstResolved(){
   var text = "";
-  text += '<div class="container-sm  border-bottom  mb-3">'
+  text += '<div class="container-sm  border-bottom  mb-2">'
         +'<span class="font-weight-bold text-muted col">RESOLVED ISSUES</span>'
         +'</div>';
   return text;

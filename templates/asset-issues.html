@@ -22,9 +22,18 @@
     <!--JQUERY-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--bootstrap-->
-    <script type="text/javascript" src="../static/bower_components/parsleyjs/bower_components/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- <script type="text/javascript" src="../static/bower_components/parsleyjs/bower_components/bootstrap/js/bootstrap.bundle.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/bower_components/MDB-Free_4.10.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="../../static/bower_components/MDB-Free_4.10.1/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="../../static/bower_components/MDB-Free_4.10.1/css/style.css" rel="stylesheet">
+    <!-- google-->
+      <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <style>
         .border-bottom {
             border-width: 2px !important;
@@ -33,7 +42,7 @@
     </style>
 </head>
 
-<body class="disable_transitions sidebar_main_open sidebar_main_swipe" style="background-color: #f8f8f8" onload="read()">
+<body class="disable_transitions sidebar_main_open sidebar_main_swipe" style="background-color: #f8f8f8">
     <!-- main header -->
     <header id="header_main">
         <div class="header_main_content">
@@ -413,9 +422,35 @@
     firebase.analytics();
     var firestore = firebase.firestore();
     var database = firebase.database();
+
+    //User authentication
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var user = firebase.auth().currentUser;
+        if(user != null){
+          firestore.collection('engineers').where('email', '==', user.email).get().then(function (querySnapshot) {
+              querySnapshot.forEach(function (doc) {
+                    setCurrentUser(user.email,doc,doc.data());
+                    read();
+                  });
+              });
+        }
+      } else {
+        window.location.href = "{{ url_for('login') }}";
+      }
+    });
+
     </script>
     <!--KEEP AT BOTTOM-->
+    <script src="../../static/assets/js/issues-actions.js"></script>
     <script src="../../static/assets/js/asset-issues.js"></script>
+    <script type="text/javascript" src="../../static/bower_components/MDB-Free_4.10.1/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../../static/bower_components/MDB-Free_4.10.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../static/bower_components/parsleyjs/bower_components/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="../../static/bower_components/MDB-Free_4.10.1/js/mdb.min.js"></script>
 </body>
 
 </html>

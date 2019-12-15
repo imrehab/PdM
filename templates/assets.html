@@ -24,7 +24,7 @@
 
     <style>
    #myInput {
-  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  /* background-image: url('/css/searchicon.png'); /* Add a search icon to input */ */
   background-position: 10px 12px; /* Position the search icon */
   background-repeat: no-repeat; /* Do not repeat the icon image */
   width: 70%; /* Full-width */
@@ -62,7 +62,6 @@
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="myProfile.html">My profile</a></li>
-                                    <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -186,7 +185,7 @@
     <script  type="text/javascript" src="{{ url_for('static', filename='assets/js/altair_admin_common.min.js') }}"></script>
 
         <!--  dashbord functions -->
-        <script src="assets/js/pages/dashboard.min.js"></script>
+        <!-- <script src="../static/assets/js/pages/dashboard.min.js"></script> -->
       <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 
@@ -440,7 +439,6 @@ var firestore = firebase.firestore();
             querySnapshot2.forEach(function(doc2) {
               var assetID = doc2.id;
               var sensorID = doc2.data().sensorID;
-              console.log("sensorID: "+sensorID);
               var url =   "{{ url_for('asset', assetID= 'replacable', sensorID= 'replacable2') }}";
               url= url.replace("replacable", assetID)
               url = url.replace("replacable2", sensorID);
@@ -491,53 +489,8 @@ function myFunction() {
     }
   }
 }
+
+
     </script>
-
-  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
-  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
-
-<script>
-    
-  function logout(){
-  firebase.auth().signOut();
-  window.location.href = "{{ url_for('login') }}";
-}
- 
-  var firebaseConfig = {
-    apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
-    authDomain: "raspberrypi-6b521.firebaseapp.com",
-    databaseURL: "https://raspberrypi-6b521.firebaseio.com",
-    projectId: "raspberrypi-6b521",
-    storageBucket: "raspberrypi-6b521.appspot.com",
-    messagingSenderId: "829617435562",
-    appId: "1:829617435562:web:3f6548f88b700d529a71d3",
-    measurementId: "G-XK5P7KWL53"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-
-</script>
-      
-<script>
-    
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    var user = firebase.auth().currentUser;
-    if(user != null){
-      var email_id = user.email;
-    }
-  } else {
-    window.location.href = "{{ url_for('login') }}";
-  }
-});
- 
-</script>
 </body>
 </html>

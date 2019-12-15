@@ -8,27 +8,19 @@ var assetModel = "IPOWERFAN";
   let streamingMotion = true;
   let numDataPoints = 40;
   let dataSteps = 1;
-  let incTableMax = 6;
+  let incTableMax = 3;
   var counter=0;
+  var currentUser = "";
+  var currentUserDoc;
+  var currentUserData;
+  var issues = [];
 
 
-
-//==============firebase configuration====================
-// var firebaseConfig= {
-//     apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
-//     authDomain: "raspberrypi-6b521.firebaseapp.com",
-//     databaseURL: "https://raspberrypi-6b521.firebaseio.com",
-//     projectId: "raspberrypi-6b521",
-//     storageBucket: "raspberrypi-6b521.appspot.com",
-//     messagingSenderId: "829617435562",
-//     appId: "1:829617435562:web:3f6548f88b700d529a71d3",
-//     measurementId: "G-XK5P7KWL53"
-// };
-//
-// firebase.initializeApp(firebaseConfig);
-// firebase.analytics();
-// var firestore = firebase.firestore();
-// var database = firebase.database();
+  function setCurrentUser(userID, userDoc, userData){
+    currentUser = userID;
+    currentUserDoc = userDoc;
+    currentUserData = userData;
+  }
 
 function realTimeDB(){
   //get first value read, to set as filter min
@@ -44,7 +36,6 @@ function realTimeDB(){
   lastValRef.once('value', setLastDate, errData);// @dataStreaming-DateFilteration.js
   initData.once('value', initDataSetup, errData);
   reaTimeRef.on('value', function(data) {
-    console.log("new data!");
     addNewData(data);
   }, errData);
 }
@@ -56,9 +47,11 @@ function read() {
       assetInfo(model);
       const promise2 = firestore.collection("Models").doc(assetModel).collection("Assets").doc(assetID).get();
       const p2 = promise2.then( snapshot2 => {
-          const issues = snapshot2.data();
-          sensorID = issues['sensorID'];
+          const d = snapshot2.data();
+          var issues = d['issue'];
+          sensorID = d['sensorID'];
           incidents(issues);
+          incidentsGraph(issues);
           realTimeDB();
         });
     p2.catch(error =>{
@@ -90,20 +83,6 @@ function initDataSetup(data){
     motionData(data,numDataPoints);
 }
 
-function updateDate(){
-  //refetch the data from firestore for each function
-  //=============================
-  //update asset health Score
-  //assetBehaviour(data)
-  //update remainin useful life
-  assetInfo(data)
-  //update icidents(table+chart)
-  incidents(data);
-  //Notifications?
-  //================
-}
-
-
 function extractData(data){
   var list = [];
   var keys = Object.keys(data);
@@ -125,7 +104,6 @@ function extractData(data){
 
 
 function assetInfo(data){
-   //document.getElementById('RUL').innerHTML = data[0];
    document.getElementById('info-type').innerHTML = data['type'];
    document.getElementById('info-make').innerHTML = data['make'];
    document.getElementById('info-model').innerHTML = assetModel;
@@ -135,8 +113,7 @@ function assetInfo(data){
 
 
 function incidents(data){
-  var issues = data['issue'];
-  issues = sortIncidents(issues);
+  issues = sortIncidents(data);
   var total = [];
   var status = "";
   var severity = "";
@@ -144,38 +121,39 @@ function incidents(data){
   for (var i=0;i<incTableMax&&i<issues.length;i++){
   var issue = issues[i];
       switch(issue['severity'].toUpperCase()){//severities
-        case "HIGH": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(233,89,16,0.75)">HIGHT</small></span></td>';
+        case "HIGH": severity = '<td class="uk-width-1-10 uk-text-nowrap"><small style="color: RGBA(233,89,16,0.75)">HIGHT</small></span></td>';
         total[total.length]= "HIGH";
         break;
-        case "MEDIUM": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: RGBA(253,183,5,1)"><small>MEDIUM</small></span></td>';
+        case "MEDIUM": severity = '<td class="uk-width-1-10 uk-text-nowrap"><small style="color: RGBA(253,183,5,1)"><small>MEDIUM</small></span></td>';
         total[total.length]= "MEDIUM";
         break;
-        case "LOW": severity = '<td class="uk-width-2-10 uk-text-nowrap"><small style="color: rgba(250,214,12,1)"><small>LOW</small></span></td>';
+        case "LOW": severity = '<td class="uk-width-1-10 uk-text-nowrap"><small style="color: rgba(250,214,12,1)"><small>LOW</small></span></td>';
         total[total.length]= "LOW";
       }
       switch(issue['status'].toUpperCase()){//statuses
-        case "HANDLED": status = '<td class="uk-width-2-10 uk-text-right"><a style="width :80px;" class="btn btn-primary btn-sm disabled" tabindex="-1" aria-disabled="true"><small>HANDLED</small></a></td>';
+        case "HANDLED": if(issue["engID"] == currentUser){
+                         status = '<td class="uk-width-4-10 uk-text-right"><button class="btn btn-amber btn-sm  float-right" onClick="abandon('+i.toString()+')">ABANDON</button>'
+                         +'<button style="width :90px" class="btn btn-light-green btn-sm  float-right" onClick="resolve('+i.toString()+')">RESOLVE</button></td>';
+                          }
+                        else{
+                          status = '<td class="uk-width-4-10 uk-text-right"><button style="width :90px" class="btn btn-primary btn-sm  float-right" disabled>HANDLED</button></td>';
+                        }
         break;
-        case "UNHANDLED": status = '<td class="uk-width-2-10 uk-text-right"><button style="width :80px; " type="button" class="btn btn-primary btn-sm shadow-sm"><small>HANDLE</small></button></td>';
+        case "UNHANDLED": status = '<td class="uk-width-4-10 uk-text-right"><button style="width :90px;" class="btn btn-primary btn-sm  float-right" onclick="handle('+i.toString()+')">HANDLE</button></td>';
         break;
-        case "RESOLVED": status = '<td class="uk-width-2-10 uk-text-right"><a style="width :80px;" class="btn btn-secondary btn-sm disabled" tabindex="-1" aria-disabled="true"><small>RESOLVED</small></a></td>';
+        case "RESOLVED": status = '<td class="uk-width-4-10 uk-text-right"><button style="width :90px;" class="btn btn-blue-grey btn-sm  float-right" disabled>RESOLVED</button></td>';
 
       }
-      text = '<tr class="uk-table-middle"><td class="uk-width-2-10 uk-text-nowrap"><small>'+timestampToString(issue['timestamp'])+'</small></td>'
+      text = '<tr class="uk-table-middle" style="width :80px"><td class="uk-width-2-10 uk-text-nowrap"><small>'+timestampToString(issue['timestamp'])+'</small></td>'
       +severity
-      +'<td class="uk-width-4-10 text-wrap"><small>'+issue['description']+'</small></td>'
+      +'<td class="uk-width-3-10 text-wrap"><small>'+issue['description']+'</small></td>'
       +status
       +'</tr>';
       document.getElementById('incident-table-body').innerHTML+=text;
     }
-    console.log("data length: "+issues.length);
-    console.log("tb max: "+incTableMax);
       if(issues.length<incTableMax){
-        console.log("remove");
         document.getElementById("incident-table-footer").remove();
       }
-
-      incidentsGraph(total);
 }
 
 function sortIncidents(data){
@@ -218,12 +196,13 @@ function timestampToString(data){
   return data.toString().substring(4, 15)+' - '+data.toString().substring(16, 21);
 }
 
-function incidentsGraph(incidents){
+function incidentsGraph(issues){
   var high = 0;
   var medium = 0;
   var low = 0;
-  for(var i=0;i<incidents.length;i++){
-    switch(incidents[i]){
+  for(var i=0;i<issues.length;i++){
+    var issue = issues[i];
+    switch(issue['severity'].toUpperCase()){
       case "HIGH": high++;
       break;
       case "MEDIUM": medium++;

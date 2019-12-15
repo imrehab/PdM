@@ -11,9 +11,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no" />
-    <script src="../../static/assets/js/jquery-3.4.1.js"></script>
-    <link rel="icon" type="image/png" href="../../static/assets/img/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="../../static/assets/img/favicon-32x32.png" sizes="32x32">
+    <!-- <script src="../../static/assets/js/jquery-3.4.1.js"></script> -->
+    <!-- <link rel="icon" type="image/png" href="../../static/assets/img/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="../../static/assets/img/favicon-32x32.png" sizes="32x32"> -->
     <link rel="stylesheet" href="../../static/bower_components/weather-icons/css/weather-icons.min.css" media="all">
     <link rel="stylesheet" href="../../static/bower_components/metrics-graphics/dist/metricsgraphics.css">
     <link rel="stylesheet" href="../../static/bower_components/chartist/dist/chartist.min.css">
@@ -23,21 +23,27 @@
     <link rel="stylesheet" href="../../static/assets/css/main.min.css" media="all">
     <link rel="stylesheet" href="../../static/assets/css/themes/themes_combined.min.css" media="all">
     <link rel="stylesheet" href="../../static/assets/css/style-asset-page.css" media="all">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <!--CHARTS-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     <script src="https://code.jscharting.com/latest/jscharting.js"></script>
-    <script type="text/javascript" src="../../static/bower_components/parsleyjs/bower_components/bootstrap/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="../../static/assets/js/JSC/JSCharting.js"></script>
     <script type="text/javascript" src="../../static/assets/js/JSC/toolbar.js"></script>
     <script type="text/javascript" src="../../static/assets/js/JSC/types.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/bower_components/MDB-Free_4.10.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="../../static/bower_components/MDB-Free_4.10.1/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="../../static/bower_components/MDB-Free_4.10.1/css/style.css" rel="stylesheet">
     <!-- google-->
       <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 </head>
 
-<body class="disable_transitions sidebar_main_open sidebar_main_swipe" onload="read()">
+<body class="disable_transitions sidebar_main_open sidebar_main_swipe">
     <!-- main header -->
     <header id="header_main">
         <div class="header_main_content">
@@ -77,12 +83,12 @@
         <div class="sidebar_main_header">
             <div class="sidebar_logo">
                 <a href="index.html" class="sSidebar_hide sidebar_logo_large">
-                    <img class="logo_regular" src="assets/img/1.png" alt="" height="15" width="71" />
-                    <img class="logo_light" src="assets/img/2.png" alt="" height="15" width="71" />
+                    <!-- <img class="logo_regular" src="assets/img/1.png" alt="" height="15" width="71" />
+                    <img class="logo_light" src="assets/img/2.png" alt="" height="15" width="71" /> -->
                 </a>
                 <a href="index.html" class="sSidebar_show sidebar_logo_small">
-                    <img class="logo_regular" src="assets/img/2.png" alt="" height="32" width="32" />
-                    <img class="logo_light" src="assets/img/2.png" alt="" height="32" width="32" />
+                    <!-- <img class="logo_regular" src="assets/img/2.png" alt="" height="32" width="32" />
+                    <img class="logo_light" src="assets/img/2.png" alt="" height="32" width="32" /> -->
                 </a>
             </div>
         </div>
@@ -133,12 +139,12 @@
     <div id="page_content" style="background-color: #f8f8f8">
           <div id="page_content_inner">
           <!--SEETINGS-->
-      <div class="md-card-transparent" style="padding-bottom: 16px">
+      <div class="md-card-transparent mb-1">
         <div class="row justify-content-end">
           <div class="col-sm-auto">
               <div class="btn-group" role="group">
-              <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../../static/assets/img/settings.png">
+              <button id="btnGroupDrop1" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                SETTINGS<i class="fas fa-cog pl-1"></i>
               </button>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" id="asset-manual" href="#" target="_blank">Asset user manual</a>
@@ -153,7 +159,7 @@
             <!--ASSET INFO-->
           <div class="uk-grid">
               <div class="uk-width-medium-3-4">
-                  <div class="md-card shadow p-3 mb-5 bg-white rounded" style="height: 193px;">
+                  <div class="md-card shadow p-3 mb-2 bg-white rounded" style="height: 193px;">
                       <div class="md-card-content">
                         <span class="font-weight-bold text-muted">ASSET INFO</span>
                         <div class="row align-items-center">
@@ -187,7 +193,7 @@
                         </div>
                     </div>
                    <div class="uk-width-medium-1-4">
-                    <div class="md-card shadow p-3 mb-5 bg-white rounded" style="height: 193px;">
+                    <div class="md-card shadow p-3 mb-2 bg-white rounded" style="height: 193px;">
                         <div class="md-card-content">
                             <span class="font-weight-bold text-muted">NEXT SCHEDULED MAINTENANCE</span>
                            <center> <h1 style="padding-top: 30px" id="RUL">{{ rul }}</h1></center>
@@ -199,7 +205,7 @@
             <!--GAUGE CHART-->
             <div class="uk-grid">
                 <div class="uk-width-small-1-3">
-                    <div class="md-card shadow p-3 mb-5 bg-white rounded" style="height:470px">
+                    <div class="md-card shadow p-3 mb-2 bg-white rounded" style="height:470px">
                         <div class="md-card-content">
                             <span class="font-weight-bold text-muted">ASSET BEHAVIOUR</span>
                             <div id="GaugeChart">
@@ -209,7 +215,7 @@
                 </div>
                 <!--ASSET MAP-->
                 <div class="uk-width-small-2-3">
-                    <div class="md-card shadow p-3 mb-5 bg-white rounded" style="height:470px">
+                    <div class="md-card shadow p-3 mb-2 bg-white rounded" style="height:470px">
                         <div class="md-card-content " style="height: 96%;">
                           <span class="font-weight-bold text-muted mb-1">ASSET LOCATION</span>
                           <div id="map" style="height: 100%;"></div>
@@ -218,7 +224,7 @@
                 </div>
             </div>
                 <!--Line Charts-->
-                <div class="md-card shadow p-3 mb-5 bg-white rounded">
+                <div class="md-card shadow p-3 mb-2 bg-white rounded">
                   <div class="row justify-content-end bg-light align-items-center container-header">
                     <div class="col-sm-auto ">
                         <small class="text-muted">STREAMING</small>
@@ -248,7 +254,7 @@
                     </div>
                 </div>
               </div>
-                <div class="md-card shadow p-3 mb-5 bg-white rounded">
+                <div class="md-card shadow p-3 mb-2 bg-white rounded">
                   <div class="row justify-content-end bg-light align-items-center container-header">
                     <div class="col-sm-auto ">
                         <small class="text-muted">STREAMING</small>
@@ -282,30 +288,30 @@
             <!-- INCIDENTS TABLE-->
             <div class="uk-grid">
                 <div class="uk-width-medium-2-3">
-                    <div class="md-card shadow p-3 mb-5 bg-white rounded" style="height: 400px; ">
+                    <div class="md-card shadow p-3 mb-2 bg-white rounded" style="height: 400px; ">
                         <div class="md-card-content">
-                            <span class="font-weight-bold text-muted">EVENT HISTORY</span>
+                            <span class="font-weight-bold text-muted">ISSUE HISTORY</span>
                              <table class="table" style="margin-top: 20px" id="incident-table">
                                 <thead class="thead-light">
                                     <tr>
                                         <th class="text-muted font-weight-normal">DATE</th>
                                         <th class="text-muted font-weight-normal">SEVERITY</th>
                                         <th class="text-muted font-weight-normal">DESCRIPTION</th>
-                                        <th class="text-muted font-weight-normal uk-text-right">STATUS</th>
+                                        <th class="text-muted font-weight-normal uk-text-right"></th>
                                     </tr>
                                 </thead>
                               <tbody id="incident-table-body">
                                 </tbody>
-                                <tfoot id="incident-table-footer" ><tr><td><a class='text-decoration-none' href="{{ url_for( 'issues', assetID= assetID ) }}"><small>Show all...</small></a></td></tr></tfoot>"
+                                <tfoot id="incident-table-footer" ><tr><td><a class="text-info" href="{{ url_for( 'issues', assetID= assetID ) }}"><small>Show all...</small></a></td></tr></tfoot>"
                             </table>
                         </div>
                     </div>
                 </div>
                 <!--doughnut chart-->
                 <div class="uk-width-medium-1-3">
-                    <div class="md-card shadow p-3 mb-5 bg-white rounded"  style="height:400px">
+                    <div class="md-card shadow p-3 mb-2 bg-white rounded"  style="height:400px">
                         <div class="md-card-content">
-                          <span class="font-weight-bold text-muted">EVENT STATISTICS</span>
+                          <span class="font-weight-bold text-muted">ISSUE STATISTICS</span>
                             <div class="align-middle" style=" margin-top: 60px">
                             <canvas id="DoughnutChart" class="chartjs-render-monitor"></canvas>
                           </div>
@@ -634,7 +640,7 @@
       }
       , series: [ {
           type: 'marker', name: 'Score', shape_label: {
-              text: assetBehaviour({{ prob }}), style: {
+              text: assetBehaviourText({{ prob }}), style: {
                   fontSize: 48
               }
           }
@@ -653,7 +659,7 @@
   );
           });
 
-function assetBehaviour(data){
+function assetBehaviourText(data){
   //BEHAVIOUR VALUE CLASSIFICATIONS IS SUBJECT TO CHANGE
   var text = "<span style=\'font-size: 32px; color: ";
   var text2= "%</span><br><span style=\'font-size: 28px; color: ";
@@ -705,8 +711,23 @@ function assetBehaviour(data){
   var database = firebase.database();
   var database = firebase.database();
 
-
-
+//User authentication
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var user = firebase.auth().currentUser;
+    if(user != null){
+      firestore.collection('engineers').where('email', '==', user.email).get().then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+                setCurrentUser(user.email,doc,doc.data());
+                read();
+              });
+          });
+    }
+  } else {
+    window.location.href = "{{ url_for('login') }}";
+  }
+});
  $(document).ready(function(){
 
 
@@ -773,17 +794,19 @@ function assetBehaviour(data){
     }
   </script>
 
-    <script type="text/javascript" src="../../static/assets/js/assetCharts.js"></script>
- <!--===================FIREBASE============-->
-
-<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script type="text/javascript" src="../../static/assets/js/assetCharts.js"></script>
 <script type="text/javascript" src="../../static/assets/js/issues-actions.js"></script>
 <script type="text/javascript" src="../../static/assets/js/dataStreaming-DateFilteration.js"></script>
 <script type="text/javascript" src="../../static/assets/js/dataStreaming.js"></script>
+  <!-- JQuery -->
+  <!-- <script type="text/javascript" src="../../static/bower_components/MDB-Free_4.10.1/js/jquery-3.4.1.min.js"></script> -->
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="../../static/bower_components/MDB-Free_4.10.1/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="../../static/bower_components/MDB-Free_4.10.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../static/bower_components/parsleyjs/bower_components/bootstrap/js/bootstrap.bundle.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="../../static/bower_components/MDB-Free_4.10.1/js/mdb.min.js"></script>
 </body>
 
 </html>
