@@ -68,6 +68,7 @@
                             <div class="uk-dropdown uk-dropdown-small">
                                 <ul class="uk-nav js-uk-prevent">
                                     <li><a href="{{ url_for('profile') }}">My profile</a></li>
+                                    <li><a onclick="logout()">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -196,7 +197,7 @@
                     <div class="md-card shadow p-3 mb-2 bg-white rounded" style="height: 193px;">
                         <div class="md-card-content">
                             <span class="font-weight-bold text-muted">NEXT SCHEDULED MAINTENANCE</span>
-                           <center> <h1 style="padding-top: 30px" id="RUL">{{ rul }}</h1></center>
+                           <center> <h1 style="padding-top: 30px" id="RUL"></h1></center>
                         </div>
                     </div>
                 </div>
@@ -454,6 +455,32 @@
 
     <script>
 
+    if({{ prob }}<50){
+    document.getElementById("RUL").innerHTML = "< 50 DAYS";
+    } else if({{prob}}<60) {
+     document.getElementById("RUL").innerHTML =  "< 100 DAY";
+    } else if({{prob}}<70) {
+     document.getElementById("RUL").innerHTML =  "< 150 DAY";
+    } else if({{prob}}<=100) {
+     document.getElementById("RUL").innerHTML =  "> 300 DAY";
+    }
+
+    </script>
+
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script>
+ function logout(){
+  firebase.auth().signOut();
+  window.location.href = "{{ url_for('login') }}";
+}
+    </script>
+
+    <script>
+
     function getAssetID(){
       return "{{ assetID }}";
     }
@@ -694,6 +721,7 @@ function assetBehaviourText(data){
     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 
  <script type="text/javascript">
+
     var firebaseConfig = {
     apiKey: "AIzaSyAal-QcuayT4d32G-6YJLw8m7Um5b1BPrg",
     authDomain: "raspberrypi-6b521.firebaseapp.com",
@@ -750,7 +778,7 @@ firebase.auth().onAuthStateChanged(function(user) {
  <script>
 
     var locations = [
-      ['Bondi Beach', 24.7419037,46.6415725,15],
+      ['Bondi Beach', 24.7232006,46.636566,19.6],
     ];
 
 
@@ -763,8 +791,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 //
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 13,
-      center: new google.maps.LatLng(24.7419037, 46.6415725),
+      zoom: 15,
+      center: new google.maps.LatLng(24.7232006,46.636566),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
