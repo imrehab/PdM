@@ -63,7 +63,7 @@ def LatestReading(id):
 def updateAssetLists(id,abnormality):
     try:
         asset = db.collection(u'Models').document(u'IPOWERFAN').collection(u'Assets').document(id)
-        asset.update({ u'abnormality': abnormality , u'Issues.timestamp': firestore.SERVER_TIMESTAMP  })
+        asset.update({ u'abnormality': abnormality , u'issue.timestamp': firestore.SERVER_TIMESTAMP,u'issue.issueID':int(round(time.time()*1000))  })
         return ''
 
     except google.cloud.exceptions.NotFound:
